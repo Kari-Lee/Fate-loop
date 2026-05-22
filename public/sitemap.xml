@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://fateloop.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://fateloop.app/quiz</loc><priority>0.9</priority></url>
+  <url><loc>https://fateloop.app/elements</loc><priority>0.9</priority></url>
+  <url><loc>https://fateloop.app/zodiac</loc><priority>0.9</priority></url>
+  <url><loc>https://fateloop.app/diagnose</loc><priority>0.8</priority></url>
+  <url><loc>https://fateloop.app/translate</loc><priority>0.8</priority></url>
+  <url><loc>https://fateloop.app/tarot</loc><priority>0.7</priority></url>
+  <url><loc>https://fateloop.app/check</loc><priority>0.7</priority></url>
+  <url><loc>https://fateloop.app/predict</loc><priority>0.7</priority></url>
+  <url><loc>https://fateloop.app/qian</loc><priority>0.6</priority></url>
+  <url><loc>https://fateloop.app/bazi</loc><priority>0.6</priority></url>
+  <url><loc>https://fateloop.app/fortune</loc><priority>0.6</priority></url>
+</urlset>
