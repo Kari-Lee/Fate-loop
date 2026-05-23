@@ -2,41 +2,26 @@
 
 > AI × Chinese Mysticism — Decode Every Word
 
-AI-powered relationship analysis meets ancient Chinese wisdom.
+Ancient Chinese wisdom meets modern design. Explore the Five Elements, Chinese Zodiac, Tarot, and more.
 
 ## Features
 
-### AI Analysis
-- 🧪 **Attachment Style Quiz** — 24 questions, brutally honest
-- 🩺 **Chat Diagnosis** — AI reads both sides
-- 🔮 **Decode Subtext** — What they really mean
-- 💊 **Send or Not** — Stop the impulse
-- 🔭 **Predict** — Where this is going
-
-### Chinese Mysticism
-- 🌿 **Five Elements** — Wood · Fire · Earth · Metal · Water love match
-- 🐉 **Zodiac Match** — 12 animals, toxic or soulmate?
-- 🌙 **Tarot** — Three-card love reading
-- 🏮 **Oracle Sticks** — Ancient fortune sticks
-- 💫 **Bazi Match** — Birthday compatibility
+- 🌿 **Five Elements Love Match** — Wood · Fire · Earth · Metal · Water
+- 🐉 **Chinese Zodiac Match** — 12 animals, toxic or soulmate?
+- 🌙 **Tarot Reading** — Three-card love spread
+- 🏮 **Oracle Sticks** — Ancient temple fortune sticks
+- 💫 **Bazi Match** — Birthday destiny pairing
+- ✨ **Daily Fortune** — Today's love energy
 
 ## Tech Stack
 
-React 19 · Vite 8 · Tailwind CSS v4 · Vercel · Claude API
+React 19 · Vite 8 · Tailwind CSS v4 · Vercel
 
 ## Development
 
 ```bash
 npm install
 npm run dev
-```
-
-## Deploy
-
-```
-AI_PROVIDER=claude
-ANTHROPIC_API_KEY=sk-ant-...
-AI_MODEL=claude-sonnet-4-20250514
 ```
 
 ## License

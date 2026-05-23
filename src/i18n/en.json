@@ -1,72 +1,15 @@
 {
-  "brand": "YIDU",
-  "brandSub": "已读",
-  "tagline": "It's not that they don't love you — you're both just wired wrong",
   "back": "← Back",
-  "home": {
-    "startHere": "Start Here",
-    "quizTitle": "Attachment Style Quiz",
-    "quizDesc": "24 questions · 3 min · brutally honest",
-    "diagnose": "Chat Diagnosis",
-    "diagnoseDesc": "AI analyzes both sides",
-    "translate": "Decode Subtext",
-    "translateDesc": "What they really mean",
-    "check": "Send or Not",
-    "checkDesc": "Stop the impulse",
-    "predict": "Predict",
-    "predictDesc": "Where this is going",
-    "tarot": "Tarot",
-    "tarotDesc": "Draw three cards",
-    "mystical": "Mystical",
-    "qian": "Love Oracle",
-    "bazi": "Zodiac Match",
-    "fortune": "Daily Fortune",
-    "dailyQuote": "Daily Quote",
-    "styles": "Attachment Styles"
-  },
-  "quiz": {
-    "prev": "< Previous",
-    "yourProfile": "🔍 Your Profile",
-    "scores": "Dimension Scores",
-    "advice": "💡 A Word for You",
-    "retest": "Retake ↻",
-    "continue": "Get Diagnosed 🩺"
-  },
-  "input": {
-    "uploadHint": "Upload chat screenshots (multiple OK)",
-    "uploadDone": " screenshots selected · tap to add more",
-    "or": "—— or ——",
-    "pastePlaceholder": "Paste chat logs...",
-    "translatePlaceholder": "What they said (one message per line)...",
-    "checkPlaceholder": "The message you want to send...",
-    "partnerType": "Their Attachment Type",
-    "context": "What's your relationship?",
-    "contextHint": "e.g. talking for 3 months / coworker / they always leave me on read",
-    "contextPlaceholder": "The person currently torturing me...",
-    "goBack": "Back"
-  },
-  "actions": {
-    "diagnose": "Diagnose 🩺",
-    "translate": "Decode 🔮",
-    "check": "Check 💊",
-    "predict": "Predict 🔭",
-    "retry": "Try Again ↻"
-  },
-  "share": {
-    "button": "📱 Screenshot & Share",
-    "hint": "Send the screenshot to them and watch their reaction",
-    "copied": "Link copied — go share it!"
-  },
   "tarot": {
     "title": "Tarot Reading",
     "desc": "Trust your intuition and pick three cards",
     "positions": "Past · Present · Future",
-    "start": "Draw Cards ✨",
+    "start": "Draw Cards ✦",
     "pickHint": "Pick three cards by intuition",
     "pick1": "First card · The Past",
     "pick2": "Second card · The Present",
     "pick3": "Third card · The Future",
-    "pickDone": "✨ Selection complete",
+    "pickDone": "✦ Selection complete",
     "tapReveal": "Tap to reveal",
     "upright": "Upright",
     "reversed": "Reversed",
@@ -78,9 +21,9 @@
     "reshuffle": "Draw Again ↻"
   },
   "qian": {
-    "title": "Love Oracle",
+    "title": "Oracle Sticks",
     "desc": "Focus your thoughts, let fate guide you",
-    "shake": "Shake ✨",
+    "shake": "Shake ✦",
     "shaking": "The oracle is choosing for you…",
     "plain": "🔮 In Plain Words",
     "guide": "💡 Guidance",
@@ -89,7 +32,7 @@
     "reshake": "Shake Again ↻"
   },
   "bazi": {
-    "title": "Zodiac Compatibility",
+    "title": "Bazi Compatibility",
     "desc": "Enter both birthdays to check your match",
     "solar": "Solar",
     "lunar": "Lunar",
@@ -105,7 +48,7 @@
     "retry": "Try Again ↻"
   },
   "fortune": {
-    "title": "Today's Love Fortune",
+    "title": "Daily Love Fortune",
     "desc": "Enter your birthday to check today's energy",
     "solar": "Solar",
     "lunar": "Lunar",
@@ -114,26 +57,9 @@
     "luckyColor": "Lucky Color",
     "retry": "Check Again ↻"
   },
-  "result": {
-    "interaction": "🔗 Dynamic",
-    "confidence": "Confidence",
-    "signals": "Red Flags Detected",
-    "forYou": "💡 For You",
-    "forThem": "🎯 Dealing with Them",
-    "mostLikely": "Most likely: ",
-    "verdict": "Verdict",
-    "willTrigger": "This triggers",
-    "theyWill": "They will",
-    "alternative": "✨ Better Version",
-    "stage": "Current Stage",
-    "timeline": "🔮 Timeline",
-    "turningPoint": "⚠️ Turning Point",
-    "best": "Best case",
-    "worst": "Worst case",
-    "todoTitle": "💡 One Thing to Do Right Now"
-  },
-  "lang": {
-    "zh": "中文",
-    "en": "EN"
+  "share": {
+    "button": "📱 Screenshot & Share",
+    "hint": "Send it to them and watch their reaction",
+    "copied": "Link copied — go share it!"
   }
 }
