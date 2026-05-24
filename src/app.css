@@ -1,14 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #000000;
-  --color-card: #0A0A0A;
-  --color-accent: #999;
-  --color-ink: #FFFFFF;
-  --color-sub: #666;
-  --color-muted: #333;
-  --color-line: #1A1A1A;
-
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'DM Sans', system-ui, sans-serif;
 }
@@ -16,24 +8,20 @@
 @layer base {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    background: #000;
-    color: #FFF;
+    background: #FAFAFA;
+    color: #1A1A1A;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     font-family: var(--font-sans);
   }
   textarea:focus, input:focus { outline: none; }
-  textarea::placeholder, input::placeholder { color: #333; }
-  ::selection { background: rgba(255,255,255,.1); }
+  textarea::placeholder, input::placeholder { color: #C0C0C0; }
+  ::selection { background: rgba(0,0,0,.06); }
 }
 
 @keyframes fu {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
-}
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
 }
 @keyframes bounce {
   0%, 100% { transform: translateY(0); opacity: .3; }
@@ -41,25 +29,18 @@
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  50% { transform: translateY(-6px); }
 }
 
 .animate-fu { animation: fu .5s cubic-bezier(.16,1,.3,1) both; }
 .animate-fu-fast { animation: fu .3s ease both; }
 .animate-float { animation: float 4s ease infinite; }
-.animate-shimmer { background-size: 200% 100%; animation: shimmer 1.5s infinite; }
-.animate-fadeIn { animation: fadeIn .6s ease both; }
 
-/* Card hover — mesh3d style: subtle scale + border glow */
 .card-hover {
-  transition: transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease;
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .4s ease, border-color .3s ease;
 }
 .card-hover:hover {
-  transform: translateY(-4px);
-  border-color: #2A2A2A;
-  box-shadow: 0 16px 48px rgba(0,0,0,.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.06);
+  border-color: #DDD;
 }

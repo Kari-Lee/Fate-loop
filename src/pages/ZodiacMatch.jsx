@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ZODIAC, TOXIC_COMBOS, HARMONY_COMBOS, getZodiacIndex } from "../data/wuxing";
 
 const S = {
-  page: { background: "#000", minHeight: "100vh", margin: "-16px -20px", padding: "0 20px 60px", color: "#FFF" },
+  page: { background: "#FAFAFA", minHeight: "auto", margin: "0 -24px", padding: "0 20px 60px", color: "#1A1A1A" },
 };
 
 export default function ZodiacMatch() {
@@ -34,15 +34,15 @@ export default function ZodiacMatch() {
         return (
           <div key={i} onClick={() => !isExcluded && onSelect(i)}
             style={{
-              background: isSelected ? "#99920" : "#0A0A0A",
+              background: isSelected ? "#99920" : "#FFF",
               border: isSelected ? "2px solid #999" : "2px solid #1A1A1A",
               borderRadius: 16, padding: "18px 8px", textAlign: "center",
               cursor: isExcluded ? "default" : "pointer", opacity: isExcluded ? 0.3 : 1,
               transition: "all .2s",
             }}>
             <div style={{ fontSize: 32, marginBottom: 6 }}>{z.emoji}</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: isSelected ? "#999" : "#888" }}>{z.en}</div>
-            <div style={{ fontSize: 9, color: "#444", marginTop: 4 }}>{z.years}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: isSelected ? "#999" : "#666" }}>{z.en}</div>
+            <div style={{ fontSize: 9, color: "#BBB", marginTop: 4 }}>{z.years}</div>
           </div>
         );
       })}
@@ -67,7 +67,7 @@ export default function ZodiacMatch() {
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 52 }}>{youZ.emoji}</div>
             <div style={{ fontSize: 14, fontWeight: 700, color: "#999", marginTop: 8 }}>{youZ.en}</div>
-            <div style={{ fontSize: 10, color: "#444" }}>You</div>
+            <div style={{ fontSize: 10, color: "#BBB" }}>You</div>
           </div>
           <div style={{ fontSize: 28, color: isToxic ? "#C75B3A" : isHarmony ? "#6B9B7A" : "#999" }}>
             {isToxic ? "⚡" : isHarmony ? "✦" : "·"}
@@ -75,7 +75,7 @@ export default function ZodiacMatch() {
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 52 }}>{themZ.emoji}</div>
             <div style={{ fontSize: 14, fontWeight: 700, color: "#999", marginTop: 8 }}>{themZ.en}</div>
-            <div style={{ fontSize: 10, color: "#444" }}>Them</div>
+            <div style={{ fontSize: 10, color: "#BBB" }}>Them</div>
           </div>
         </div>
 
@@ -85,7 +85,7 @@ export default function ZodiacMatch() {
             <div style={{
               textAlign: "center", padding: "32px 24px", borderRadius: 20,
               background: isToxic ? "linear-gradient(180deg, #1A0D0D, #0A0A0A)" : "linear-gradient(180deg, #0D1A12, #0A0A0A)",
-              border: `1px solid ${isToxic ? "#3A1E1E" : "#1E3A22"}`,
+              border: `1px solid ${isToxic ? "#F0E0E0" : "#E0F0E8"}`,
               marginBottom: 16,
             }}>
               <div style={{ fontSize: 48, marginBottom: 8 }}>{isToxic ? result.toxic.level : "💚"}</div>
@@ -101,35 +101,35 @@ export default function ZodiacMatch() {
             {/* Advice */}
             <div style={{
               padding: "24px", borderRadius: 16,
-              background: "#0A0A0A", border: "1px solid #1A1A1A",
+              background: "#FFF", border: "1px solid #EFEFEF",
               borderLeft: `3px solid ${isToxic ? "#C75B3A" : "#6B9B7A"}40`,
             }}>
-              <div style={{ fontSize: 10, letterSpacing: 3, color: "#666", textTransform: "uppercase", marginBottom: 10 }}>
+              <div style={{ fontSize: 10, letterSpacing: 3, color: "#999", textTransform: "uppercase", marginBottom: 10 }}>
                 {isToxic ? "Survival guide" : "Why it works"}
               </div>
-              <div style={{ fontSize: 13, lineHeight: 1.9, color: "#888" }}>{combo.advice || combo.desc}</div>
+              <div style={{ fontSize: 13, lineHeight: 1.9, color: "#666" }}>{combo.advice || combo.desc}</div>
             </div>
           </div>
         ) : (
           <div style={{
             textAlign: "center", padding: "32px 24px", borderRadius: 20,
-            background: "#0A0A0A", border: "1px solid #1A1A1A",
+            background: "#FFF", border: "1px solid #EFEFEF",
           }}>
             <div style={{ fontSize: 48, marginBottom: 8 }}>🤝</div>
             <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: 4, color: "#999", textTransform: "uppercase", marginBottom: 16 }}>NEUTRAL GROUND</div>
-            <div style={{ fontSize: 14, lineHeight: 2, color: "#888" }}>
+            <div style={{ fontSize: 14, lineHeight: 2, color: "#666" }}>
               No ancient cosmic beef between {youZ.en} and {themZ.en}. You're not destined soulmates, but you're not destined enemies either. Your story is yours to write — which honestly might be better than any predetermined fate.
             </div>
           </div>
         )}
 
         <div style={{ textAlign: "center", margin: "28px 0 16px" }}>
-          <div style={{ fontSize: 11, color: "#333", letterSpacing: 2 }}>Screenshot & share your result</div>
+          <div style={{ fontSize: 11, color: "#CCC", letterSpacing: 2 }}>Screenshot & share your result</div>
         </div>
 
         <button onClick={reset} style={{
-          width: "100%", padding: 16, borderRadius: 14, border: "1px solid #1A1A1A",
-          background: "#0A0A0A", color: "#666", fontSize: 14, cursor: "pointer", marginTop: 8,
+          width: "100%", padding: 16, borderRadius: 14, border: "1px solid #EFEFEF",
+          background: "#FFF", color: "#999", fontSize: 14, cursor: "pointer", marginTop: 8,
         }}>Try Another Pair ↻</button>
       </div>
     );
@@ -140,14 +140,14 @@ export default function ZodiacMatch() {
       <div style={{ textAlign: "center", padding: "48px 0 12px" }}>
         <div style={{ fontSize: 72, fontWeight: 100, letterSpacing: 20, color: "#FFF12", fontFamily: "'Noto Serif SC', serif" }}>生肖</div>
         <div style={{ fontSize: 11, letterSpacing: 8, textTransform: "uppercase", color: "#999", marginTop: 4 }}>Chinese Zodiac Match</div>
-        <p style={{ fontSize: 13, color: "#555", marginTop: 16, lineHeight: 1.8, maxWidth: 340, margin: "16px auto 0" }}>
+        <p style={{ fontSize: 13, color: "#999", marginTop: 16, lineHeight: 1.8, maxWidth: 340, margin: "16px auto 0" }}>
           The Chinese zodiac has 12 animals in an ancient cycle. Some pairs are cosmically bonded. Others? Cosmically cursed.
         </p>
       </div>
 
       <div style={{
-        padding: "28px 20px", borderRadius: 20, background: "#0A0A0A",
-        border: "1px solid #1A1A1A", marginTop: 28,
+        padding: "28px 20px", borderRadius: 20, background: "#FFF",
+        border: "1px solid #EFEFEF", marginTop: 28,
       }}>
         <div style={{
           fontSize: 11, letterSpacing: 4, textTransform: "uppercase", marginBottom: 16,
@@ -157,10 +157,10 @@ export default function ZodiacMatch() {
         </div>
 
         {step === "them" && (
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, padding: "10px 14px", borderRadius: 12, background: "#000" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, padding: "10px 14px", borderRadius: 12, background: "#FAFAFA" }}>
             <span style={{ fontSize: 24 }}>{ZODIAC[you].emoji}</span>
-            <span style={{ fontSize: 13, color: "#888" }}>You: <strong style={{ color: "#999" }}>{ZODIAC[you].en}</strong></span>
-            <span onClick={() => { setYou(null); setStep("you"); }} style={{ marginLeft: "auto", fontSize: 12, color: "#444", cursor: "pointer" }}>change</span>
+            <span style={{ fontSize: 13, color: "#666" }}>You: <strong style={{ color: "#999" }}>{ZODIAC[you].en}</strong></span>
+            <span onClick={() => { setYou(null); setStep("you"); }} style={{ marginLeft: "auto", fontSize: 12, color: "#BBB", cursor: "pointer" }}>change</span>
           </div>
         )}
 
@@ -170,15 +170,15 @@ export default function ZodiacMatch() {
       {/* Toxic combos teaser */}
       <div style={{
         marginTop: 20, padding: "24px", borderRadius: 20,
-        background: "#0A0A0A", border: "1px solid #1A1A1A",
+        background: "#FFF", border: "1px solid #EFEFEF",
       }}>
         <div style={{ fontSize: 11, letterSpacing: 3, color: "#C75B3A", textTransform: "uppercase", marginBottom: 16 }}>☠️ The 6 most toxic combos</div>
         {TOXIC_COMBOS.map((c, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: i < 5 ? "1px solid #1A1A1E" : "none" }}>
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0", borderBottom: i < 5 ? "1px solid #EFEFEF" : "none" }}>
             <span style={{ fontSize: 18, width: 40, textAlign: "center" }}>{ZODIAC[c.a].emoji}</span>
-            <span style={{ fontSize: 14, color: "#444" }}>×</span>
+            <span style={{ fontSize: 14, color: "#BBB" }}>×</span>
             <span style={{ fontSize: 18, width: 40, textAlign: "center" }}>{ZODIAC[c.b].emoji}</span>
-            <span style={{ fontSize: 12, color: "#666", flex: 1 }}>{ZODIAC[c.a].en} × {ZODIAC[c.b].en}</span>
+            <span style={{ fontSize: 12, color: "#999", flex: 1 }}>{ZODIAC[c.a].en} × {ZODIAC[c.b].en}</span>
             <span style={{ fontSize: 10, color: "#C75B3A", fontWeight: 700 }}>{c.level}</span>
           </div>
         ))}

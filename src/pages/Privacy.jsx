@@ -1,32 +1,17 @@
 export default function Privacy() {
   return (
-    <div className="animate-fu">
-      <div className="rounded-3xl p-7" style={{ background: "#0A0A0A", border: "1px solid #1A1A1A" }}>
-        <h2 className="font-serif text-[24px] font-bold mb-6" style={{ color: "#FFF" }}>Privacy Policy</h2>
-        <div className="text-[14px] space-y-4" style={{ color: "#999", lineHeight: 2 }}>
-          <p><strong style={{ color: "#FFF" }}>Last updated: June 2025</strong></p>
-          <p>FateLoop respects and protects your privacy. This policy explains how we collect, use, and safeguard your information.</p>
-
-          <h3 className="font-serif text-[16px] font-bold pt-2" style={{ color: "#FFF" }}>What We Collect</h3>
-          <p><strong>Content you provide</strong>: Birthday information (for compatibility and fortune features), question context (for divination readings). This data is only transmitted to AI providers during analysis — we do not store your personal information.</p>
-          <p><strong>Automatically collected</strong>: We use Vercel Analytics for anonymous page view statistics (no cookies, no personal identification).</p>
-
-          <h3 className="font-serif text-[16px] font-bold pt-2" style={{ color: "#FFF" }}>How We Use Data</h3>
-          <p>Text you submit for divination readings is used solely to generate the current reading. It is sent to third-party AI services (Google Gemini) and discarded after processing. Our servers do not retain your personal content.</p>
-
-          <h3 className="font-serif text-[16px] font-bold pt-2" style={{ color: "#FFF" }}>Third-Party Services</h3>
-          <p><strong>AI readings</strong>: Google Gemini API for generating personalized interpretations</p>
-          <p><strong>Hosting</strong>: Vercel (deployment and serverless functions)</p>
-          <p><strong>Analytics</strong>: Vercel Analytics (anonymous, cookie-free)</p>
-
-          <h3 className="font-serif text-[16px] font-bold pt-2" style={{ color: "#FFF" }}>Data Security</h3>
-          <p>All data transmission uses HTTPS encryption. We do not sell, trade, or transfer your information to third parties for marketing purposes.</p>
-
-          <h3 className="font-serif text-[16px] font-bold pt-2" style={{ color: "#FFF" }}>Your Rights</h3>
-          <p>Since we do not store personal data, there is no data to request deletion of. For privacy questions, please contact us via GitHub Issues.</p>
-
-          <h3 className="font-serif text-[16px] font-bold pt-2" style={{ color: "#FFF" }}>Disclaimer</h3>
-          <p>All readings and analysis provided by FateLoop are for entertainment purposes only and do not constitute professional advice of any kind. These tools draw on traditional Chinese cosmological systems and should be enjoyed as cultural exploration.</p>
+    <div className="animate-fu" style={{ padding: "40px 0" }}>
+      <div style={{ background: "#FFF", borderRadius: 16, padding: "40px 32px", border: "1px solid #EFEFEF" }}>
+        <h2 className="font-serif" style={{ fontSize: 28, fontWeight: 400, color: "#1A1A1A", marginBottom: 32 }}>Privacy Policy</h2>
+        <div style={{ fontSize: 14, color: "#666", lineHeight: 2 }}>
+          <p style={{ marginBottom: 16 }}><strong style={{ color: "#1A1A1A" }}>Last updated: June 2025</strong></p>
+          <p style={{ marginBottom: 16 }}>FateLoop respects and protects your privacy. This policy explains how we collect, use, and safeguard your information.</p>
+          <h3 style={{ fontSize: 15, fontWeight: 600, color: "#1A1A1A", marginTop: 24, marginBottom: 8 }}>What We Collect</h3>
+          <p style={{ marginBottom: 16 }}>Birthday information for compatibility features, question context for divination readings. We do not store your personal information. Anonymous analytics via Vercel (no cookies).</p>
+          <h3 style={{ fontSize: 15, fontWeight: 600, color: "#1A1A1A", marginTop: 24, marginBottom: 8 }}>How We Use Data</h3>
+          <p style={{ marginBottom: 16 }}>Text submitted for readings is sent to Google Gemini API for generating interpretations and discarded after processing.</p>
+          <h3 style={{ fontSize: 15, fontWeight: 600, color: "#1A1A1A", marginTop: 24, marginBottom: 8 }}>Disclaimer</h3>
+          <p>All readings are for entertainment purposes only. These tools draw on traditional Chinese cosmological systems and should be enjoyed as cultural exploration.</p>
         </div>
       </div>
     </div>
