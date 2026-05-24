@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Elements from "./pages/Elements";
 import ZodiacMatch from "./pages/ZodiacMatch";
 import MeiHua from "./pages/MeiHua";
+import Master from "./pages/Master";
 import Tarot from "./pages/Tarot";
 import Qian from "./pages/Qian";
 import Bazi from "./pages/Bazi";
@@ -17,6 +18,7 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="master" element={<Master />} />
           <Route path="elements" element={<Elements />} />
           <Route path="zodiac" element={<ZodiacMatch />} />
           <Route path="meihua" element={<MeiHua />} />

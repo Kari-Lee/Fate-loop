@@ -15,7 +15,13 @@ export default async function handler(req, res) {
     const body = req.body;
     const messages = [];
     if (body.system) messages.push({ role: "system", content: body.system });
-    messages.push({ role: "user", content: body.message });
+
+    // Support multi-turn conversation
+    if (body.messages && Array.isArray(body.messages)) {
+      messages.push(...body.messages);
+    } else if (body.message) {
+      messages.push({ role: "user", content: body.message });
+    }
 
     const response = await fetch(baseUrl + "/chat/completions", {
       method: "POST",

@@ -36,24 +36,26 @@ export default function Home() {
 
   return (
     <div className="animate-fu">
-      {/* Hero - Five Elements */}
-      <Card path="/elements" icon="🌿" title="Five Elements Love Match" desc="Wood · Fire · Earth · Metal · Water" gradient="linear-gradient(160deg, #0D1A12, #111114)" big />
-
-      <div style={{ height: 14 }} />
-
-      {/* Zodiac - secondary hero */}
-      <div onClick={() => navigate("/zodiac")} className="cursor-pointer relative overflow-hidden mb-4"
-        style={{ background: "linear-gradient(160deg, #1A0F0A, #111114)", borderRadius: 24, padding: "32px 28px", border: `1px solid ${line}` }}
-        onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; }}>
+      {/* Hero - The Master */}
+      <div onClick={() => navigate("/master")} className="cursor-pointer relative overflow-hidden mb-4"
+        style={{ background: "linear-gradient(160deg, #15101E 0%, #0D0A12 40%, #111114 100%)", borderRadius: 28, padding: "44px 28px", border: `1px solid #2A2230` }}
+        onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(160,128,80,.08)"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+        <div className="absolute top-0 left-0 w-full h-1" style={{ background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-[10px] font-bold tracking-[5px] uppercase mb-3" style={{ color: "#C75B3A" }}>Compatibility</div>
-            <div className="font-serif text-[22px] font-bold mb-1" style={{ color: ink }}>Chinese Zodiac Match</div>
-            <div className="text-[12px]" style={{ color: "#555" }}>12 animals · toxic or soulmate?</div>
+            <div className="text-[10px] font-bold tracking-[6px] uppercase mb-4" style={{ color: gold }}>✦ Live Reading</div>
+            <div className="font-serif text-[30px] font-bold mb-2" style={{ color: ink, lineHeight: 1.2 }}>Consult<br/>The Master</div>
+            <div className="text-[12px] mt-3" style={{ color: "#666", lineHeight: 1.7 }}>AI fortune teller trained in BaZi, Five Elements, and 3,000 years of Chinese wisdom. Ask anything.</div>
           </div>
-          <div className="text-[48px] animate-float shrink-0 ml-4">🐉</div>
+          <div className="text-[60px] animate-float shrink-0 ml-4" style={{ filter: "drop-shadow(0 0 20px rgba(160,128,80,.2))" }}>🌙</div>
         </div>
+      </div>
+
+      {/* Five Elements & Zodiac */}
+      <div className="grid grid-cols-2 gap-3 mb-3">
+        <Card path="/elements" icon="🌿" title="Five Elements" desc="Love match by birth element" gradient="linear-gradient(160deg, #0D1A12, #111114)" />
+        <Card path="/zodiac" icon="🐉" title="Zodiac Match" desc="Toxic or soulmate?" gradient="linear-gradient(160deg, #1A0F0A, #111114)" />
       </div>
 
       {/* Daily wisdom */}
