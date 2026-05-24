@@ -45,7 +45,7 @@ export default function Bazi() {
           <div key={i} className="flex-1 text-center" style={{ ...sec, marginTop: 0 }}>
             <div className="text-[11px] mb-1.5" style={{ color: C.muted }}>{p.label}</div>
             <div className="font-serif text-[20px] font-bold" style={{ color: C.ink }}>{p.gz}</div>
-            <div className="text-[12px] mt-1" style={{ color: C.sub }}>{p.w}命 · {p.sx}年</div>
+            <div className="text-[12px] mt-1" style={{ color: C.sub }}>{p.w} element · Year of {p.sx}</div>
           </div>
         ))}
         <div className="flex items-center"><span className="text-[24px]" style={{ color: C.gold }}>❤️</span></div>

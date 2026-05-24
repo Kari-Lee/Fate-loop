@@ -1,19 +1,53 @@
-/* ═══ DAILY FORTUNE (今日运势) ═══ */
-const FORTUNE_KW=["暗涌","破冰","回温","试探","拉扯","甜蜜","冷战","和解","心动","犹豫","错过","重逢","告白","放下","执念","自由","疗愈","觉醒"];
-const FORTUNE_YI=["主动表白","约Ta出去","发那条消息","认真聊一次","牵手","说软话","承认错误","送小礼物","回忆甜蜜时刻","夸Ta"];
-const FORTUNE_JI=["翻旧账","冷战","已读不回","说反话","跟前任联系","在朋友圈阴阳怪气","酒后发消息","查Ta手机","提分手试探","跟别人暧昧气Ta"];
-const LUCKY_COLORS=["珊瑚粉——让你看起来更温柔","雾霾蓝——冷静但不冷漠","奶油白——给人安全感","薄荷绿——清新感满分","焦糖色——温暖且治愈","薰衣草紫——神秘又吸引人","蜜桃橙——活力四射甜甜的","烟灰色——高级又有距离感"];
-const FORTUNE_MSG=["今天适合勇敢一点，最坏的结果不过是回到原点","有些话今天不说，明天就更说不出口了","今天的你散发着让人想靠近的气场","注意控制情绪，冲动是魔鬼","今天适合倾听，少说多听反而能收获更多","桃花运不错，出门记得打扮","今天的你需要独处充电，别勉强自己社交","有人在想你，但你可能猜不到是谁","旧的不去新的不来，放下才能拥有","直觉很准，如果感觉不对就是不对"];
+var FORTUNE_KW = [
+  ["Spark","Intuition","Risk"],["Patience","Growth","Depth"],["Passion","Chaos","Renewal"],
+  ["Balance","Comfort","Trust"],["Adventure","Surprise","Change"],["Mystery","Longing","Clarity"],
+  ["Warmth","Security","Devotion"],["Freedom","Truth","Courage"],["Connection","Harmony","Peace"],
+  ["Tension","Release","Transform"],["Hope","Light","Beginning"],["Reflection","Wisdom","Resolve"]
+];
+var FORTUNE_YI = [
+  "Initiate contact first","Have the honest conversation","Trust your gut over your head",
+  "Plan something spontaneous","Revisit an old memory together","Write down what you feel",
+  "Create space for vulnerability","Surprise them with something small","Listen more than you speak",
+  "Set a boundary you've been avoiding","Say yes to something new","Let yourself be happy without analyzing it"
+];
+var FORTUNE_JI = [
+  "Overthink their response time","Compare your relationship to others","Bring up old arguments",
+  "Make decisions based on fear","Seek validation from social media","Test their loyalty","Force a serious talk when tired",
+  "Assume the worst interpretation","Ignore your own needs","Rush a decision that needs time",
+  "Pretend you're fine when you're not","Ghost instead of communicating"
+];
+var LUCKY_COLORS = [
+  "Rose Pink — heart opening energy","Midnight Blue — deep intuition","Amber Gold — confidence and warmth",
+  "Sage Green — growth and healing","Lavender — spiritual clarity","Coral — passion reignited",
+  "Pearl White — new beginnings","Ocean Teal — emotional depth","Sunset Orange — creative expression",
+  "Silver — reflection and wisdom","Ruby Red — bold love","Forest Green — grounded connection"
+];
+var FORTUNE_MSG = [
+  "Today the universe leans in your favor. Whatever you've been hesitant about — consider this your green light.",
+  "Emotional clarity is unusually high today. Trust what you feel, even if it contradicts what you think.",
+  "A small gesture will have an outsized impact today. Don't underestimate the power of showing up.",
+  "Today is for receiving, not chasing. Let things come to you. The energy you put out yesterday is returning.",
+  "Your emotional armor is thinner today — and that's a good thing. Let someone see the unpolished version of you.",
+  "Mixed signals are actually clear signals. If it feels confusing, that IS the message. Act accordingly.",
+  "Today's energy favors bold honesty over careful diplomacy. Say what you mean. Mean what you say.",
+  "The past is trying to teach you something today. Listen to the lesson, but don't move back in.",
+  "Someone is thinking about you right now. Whether you reach out is a choice that changes two timelines.",
+  "Stillness is powerful today. Don't fill every silence. Some of the most important things happen in the pause.",
+  "Your heart already knows the answer. Your head is just running interference. Trust the first instinct.",
+  "Today is a turning point you won't recognize until later. Pay attention to the small moments."
+];
 
-export function calcFortune(month,day){
-  var today=new Date();var ty=today.getFullYear(),tm=today.getMonth()+1,td=today.getDate();
-  var seed=(ty*10000+tm*100+td)*31+(month*100+day)*17;
-  var s=function(n){return((seed*n+7919)%10007)};
-  var stars=s(1)%5+1;
-  var kw1=FORTUNE_KW[s(2)%FORTUNE_KW.length],kw2=FORTUNE_KW[s(3)%FORTUNE_KW.length];
-  var yi=FORTUNE_YI[s(4)%FORTUNE_YI.length];
-  var ji=FORTUNE_JI[s(5)%FORTUNE_JI.length];
-  var color=LUCKY_COLORS[s(6)%LUCKY_COLORS.length];
-  var msg=FORTUNE_MSG[s(7)%FORTUNE_MSG.length];
-  return{stars:stars,kw:[kw1,kw2],yi:yi,ji:ji,color:color,msg:msg};
+export function calcFortune(m, d) {
+  var today = new Date();
+  var seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  var personal = (m * 31 + d + seed) % 12;
+  var stars = (personal % 5) + 1;
+  return {
+    stars,
+    kw: FORTUNE_KW[personal],
+    yi: FORTUNE_YI[personal],
+    ji: FORTUNE_JI[personal],
+    color: LUCKY_COLORS[personal],
+    msg: FORTUNE_MSG[personal],
+  };
 }

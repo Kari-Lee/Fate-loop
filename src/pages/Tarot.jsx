@@ -24,7 +24,7 @@ export default function Tarot() {
     setPicked(np);
     if (np.length === 3) {
       const labels = [t("tarot.pick1").split(" · ")[1], t("tarot.pick2").split(" · ")[1], t("tarot.pick3").split(" · ")[1]];
-      const descs = ["影响你现在的根源", "你当前的状态与能量", "即将到来的趋势"];
+      const descs = ["What shaped your present", "Your current state", "What's approaching"];
       setCards(np.map((pi, i) => ({ ...pool[pi], pos: labels[i], posDesc: descs[i] })));
       setTarotStep("reveal");
     }
@@ -63,7 +63,7 @@ export default function Tarot() {
               <div className="rounded-2xl py-7 px-3 text-center flex flex-col items-center justify-center min-h-[120px]"
                 style={{ background: isPicked ? `linear-gradient(160deg,${C.warm},#F0E6F6)` : "linear-gradient(160deg,#2D2A32,#4A3F5C)", border: isPicked ? `2px solid ${C.gold}` : "2px solid rgba(196,155,106,.2)", boxShadow: isPicked ? "0 4px 16px rgba(196,155,106,.15)" : "0 4px 20px rgba(45,42,50,.12)" }}>
                 {!isPicked && <><div className="text-[32px] mb-1.5 opacity-50">🌙</div><div className="text-[10px] tracking-[1px]" style={{ color: C.sub }}>{i + 1}</div></>}
-                {isPicked && <><div className="text-[10px] font-bold tracking-[2px]" style={{ color: C.gold }}>{labels[pickOrder]}</div><div className="text-[24px] my-1.5">✦</div><div className="text-[10px]" style={{ color: C.sub }}>已选择</div></>}
+                {isPicked && <><div className="text-[10px] font-bold tracking-[2px]" style={{ color: C.gold }}>{labels[pickOrder]}</div><div className="text-[24px] my-1.5">✦</div><div className="text-[10px]" style={{ color: C.sub }}>Selected</div></>}
               </div>
             </div>
           );
