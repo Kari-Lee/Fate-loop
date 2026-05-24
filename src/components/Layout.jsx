@@ -14,33 +14,46 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "#0A0A0C" }}>
-      <div className="pt-12 pb-4 px-5 max-w-[500px] lg:max-w-[720px] mx-auto">
-        <div className="flex items-start justify-between">
-          <div onClick={() => navigate("/")} className="cursor-pointer text-center flex-1">
-            <div className="text-[9px] font-bold tracking-[6px] mb-3" style={{ color: "#A08050" }}>命运循环</div>
-            <h1 className="font-serif leading-none" style={{ fontSize: 38, fontWeight: 700, color: "#E8E4DC", letterSpacing: 4 }}>FateLoop</h1>
-            <div className="mx-auto my-3" style={{ width: 24, height: 1, background: "#A08050" }} />
-            <p className="text-[11px] tracking-[3px] italic font-serif" style={{ color: "#555" }}>decode every word</p>
+    <div style={{ background: "#000", minHeight: "100vh" }}>
+      {/* Header — mesh3d style: minimal, clean, sticky */}
+      <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(0,0,0,.8)", backdropFilter: "blur(12px)", borderBottom: "1px solid #111" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div onClick={() => navigate("/")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ fontSize: 18, fontWeight: 700, color: "#FFF", letterSpacing: 1, fontFamily: "'DM Sans', sans-serif" }}>FateLoop</span>
           </div>
-          <button onClick={toggleLang} className="text-[11px] font-bold px-2.5 py-1 rounded-lg cursor-pointer shrink-0 mt-1"
-            style={{ color: "#A08050", border: "1px solid #1E1E22", background: "#111114" }}>
-            {i18n.language === "zh" ? "EN" : "中文"}
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+            {!isHome && (
+              <span onClick={() => navigate("/")} style={{ fontSize: 13, color: "#666", cursor: "pointer", transition: "color .2s" }}
+                onMouseEnter={(e) => e.target.style.color = "#FFF"}
+                onMouseLeave={(e) => e.target.style.color = "#666"}>
+                Home
+              </span>
+            )}
+            <span onClick={toggleLang} style={{ fontSize: 12, color: "#444", cursor: "pointer", padding: "4px 10px", borderRadius: 6, border: "1px solid #1A1A1A", transition: "all .2s" }}
+              onMouseEnter={(e) => { e.target.style.borderColor = "#333"; e.target.style.color = "#888"; }}
+              onMouseLeave={(e) => { e.target.style.borderColor = "#1A1A1A"; e.target.style.color = "#444"; }}>
+              {i18n.language === "zh" ? "EN" : "中文"}
+            </span>
+          </div>
         </div>
-        {!isHome && (
-          <div className="mt-5">
-            <span onClick={() => navigate("/")} className="text-[12px] font-semibold cursor-pointer" style={{ color: "#A08050" }}>← Back</span>
-          </div>
-        )}
-      </div>
-      <div className="px-5 max-w-[500px] lg:max-w-[720px] mx-auto pb-20">
+      </header>
+
+      {/* Content */}
+      <main style={{ maxWidth: 720, margin: "0 auto", padding: "0 24px" }}>
         <Outlet />
-      </div>
-      <div className="text-center pt-10 pb-8 px-5">
-        <div className="text-[10px] tracking-[4px]" style={{ color: "#222" }}>FATELOOP</div>
-        <span onClick={() => navigate("/privacy")} className="text-[10px] cursor-pointer" style={{ color: "#222" }}>Privacy</span>
-      </div>
+      </main>
+
+      {/* Footer — minimal */}
+      <footer style={{ maxWidth: 720, margin: "0 auto", padding: "60px 24px 32px", borderTop: "1px solid #111", marginTop: 60 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: 12, color: "#333" }}>© 2026 FateLoop</span>
+          <span onClick={() => navigate("/privacy")} style={{ fontSize: 12, color: "#333", cursor: "pointer", transition: "color .2s" }}
+            onMouseEnter={(e) => e.target.style.color = "#666"}
+            onMouseLeave={(e) => e.target.style.color = "#333"}>
+            Privacy
+          </span>
+        </div>
+      </footer>
     </div>
   );
 }

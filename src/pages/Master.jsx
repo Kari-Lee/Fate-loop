@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 
-const gold = "#A08050";
-const card = "#111114";
-const line = "#1E1E22";
-const ink = "#E8E4DC";
+const gold = "#999";
+const card = "#0A0A0A";
+const line = "#1A1A1A";
+const ink = "#FFF";
 
 const SYSTEM = `You are a master of Chinese metaphysics (中华术数). You have spent 40 years studying BaZi (八字), Zi Wei Dou Shu (紫微斗数), Mei Hua Yi Shu (梅花易数), Qi Men Dun Jia (奇门遁甲), and the Five Elements (五行).
 
@@ -117,7 +117,7 @@ export default function Master() {
   };
 
   return (
-    <div style={{ margin: "-16px -20px", minHeight: "100vh", display: "flex", flexDirection: "column", background: "#0A0A0C" }}>
+    <div style={{ margin: "-16px -20px", minHeight: "100vh", display: "flex", flexDirection: "column", background: "#000" }}>
       {/* Header */}
       <div className="text-center" style={{ padding: "24px 20px 16px", borderBottom: `1px solid ${line}` }}>
         <div className="text-[9px] font-bold tracking-[6px] uppercase" style={{ color: gold }}>FateLoop</div>
@@ -168,7 +168,7 @@ export default function Master() {
       </div>
 
       {/* Input */}
-      <div style={{ padding: "12px 16px 28px", borderTop: `1px solid ${line}`, background: "#0A0A0C" }}>
+      <div style={{ padding: "12px 16px 28px", borderTop: `1px solid ${line}`, background: "#000" }}>
         <div style={{ display: "flex", gap: 10, maxWidth: 500, margin: "0 auto" }}>
           <div style={{ position: "relative", flex: 1 }}>
             <textarea
@@ -188,8 +188,8 @@ export default function Master() {
           <button onClick={send} disabled={!input.trim() || loading}
             style={{
               width: 48, height: 48, borderRadius: 14, border: "none", cursor: input.trim() && !loading ? "pointer" : "default",
-              background: input.trim() && !loading ? `linear-gradient(135deg, ${gold}, #C4A06A)` : "#1E1E22",
-              color: input.trim() && !loading ? "#0A0A0C" : "#444",
+              background: input.trim() && !loading ? `linear-gradient(135deg, ${gold}, #C4A06A)` : "#1A1A1A",
+              color: input.trim() && !loading ? "#000" : "#444",
               fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
             }}>
             ↑

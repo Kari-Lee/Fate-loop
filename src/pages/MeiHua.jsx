@@ -2,10 +2,10 @@ import { useState, useRef } from "react";
 import { TRIGRAMS, castMeiHua, castByTime } from "../data/meihua";
 import { callAI } from "../lib/api";
 
-const gold = "#A08050";
-const card = "#111114";
-const line = "#1E1E22";
-const ink = "#E8E4DC";
+const gold = "#999";
+const card = "#0A0A0A";
+const line = "#1A1A1A";
+const ink = "#FFF";
 
 const TOPICS = [
   { id: "crush", icon: "💘", label: "Someone I like", prompt: "a crush or new attraction" },
@@ -143,7 +143,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
       <div className="text-[13px] mx-auto mb-8" style={{ color: "#555", lineHeight: 2, maxWidth: 320 }}>
         An 800-year-old divination system created by Shao Yong during the Song Dynasty. The universe speaks through numbers and moments.
       </div>
-      <button onClick={() => setStep(1)} style={{ background: `linear-gradient(135deg, ${gold}, #C4A06A)`, color: "#0A0A0C", border: "none", padding: "16px 48px", borderRadius: 16, fontSize: 15, fontWeight: 700, cursor: "pointer", letterSpacing: 2 }}>
+      <button onClick={() => setStep(1)} style={{ background: `linear-gradient(135deg, ${gold}, #C4A06A)`, color: "#000", border: "none", padding: "16px 48px", borderRadius: 16, fontSize: 15, fontWeight: 700, cursor: "pointer", letterSpacing: 2 }}>
         Begin Your Reading ✦
       </button>
     </div>
@@ -194,7 +194,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
       </div>
       <div className="flex gap-3 mt-4">
         <button onClick={() => setStep(1)} style={{ flex: 1, padding: 14, borderRadius: 14, background: card, color: "#666", border: `1px solid ${line}`, fontSize: 14, cursor: "pointer" }}>Back</button>
-        <button onClick={() => setStep(3)} style={{ flex: 2, padding: 14, borderRadius: 14, background: `linear-gradient(135deg, ${gold}, #C4A06A)`, color: "#0A0A0C", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+        <button onClick={() => setStep(3)} style={{ flex: 2, padding: 14, borderRadius: 14, background: `linear-gradient(135deg, ${gold}, #C4A06A)`, color: "#000", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
           {detail.trim() ? "Continue ✦" : "Skip — Let Fate Decide ✦"}
         </button>
       </div>
@@ -222,12 +222,12 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
           ].map((f) => (
             <input key={f.key} type="tel" inputMode="numeric" placeholder={f.ph} maxLength={3}
               value={nums[f.key]} onChange={(e) => setNums({ ...nums, [f.key]: e.target.value })}
-              style={{ flex: 1, background: "#0A0A0C", border: `1px solid ${line}`, borderRadius: 12, padding: "14px", color: ink, fontSize: 20, textAlign: "center", fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, minWidth: 0 }}
+              style={{ flex: 1, background: "#000", border: `1px solid ${line}`, borderRadius: 12, padding: "14px", color: ink, fontSize: 20, textAlign: "center", fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, minWidth: 0 }}
             />
           ))}
         </div>
         <button onClick={castWithNumbers} disabled={!nums.a || !nums.b || !nums.c}
-          style={{ width: "100%", padding: 14, borderRadius: 14, border: "none", fontSize: 14, fontWeight: 700, cursor: nums.a && nums.b && nums.c ? "pointer" : "default", background: nums.a && nums.b && nums.c ? `linear-gradient(135deg, ${gold}, #C4A06A)` : "#1E1E22", color: nums.a && nums.b && nums.c ? "#0A0A0C" : "#444" }}>
+          style={{ width: "100%", padding: 14, borderRadius: 14, border: "none", fontSize: 14, fontWeight: 700, cursor: nums.a && nums.b && nums.c ? "pointer" : "default", background: nums.a && nums.b && nums.c ? `linear-gradient(135deg, ${gold}, #C4A06A)` : "#1E1E22", color: nums.a && nums.b && nums.c ? "#000" : "#444" }}>
           Cast with Numbers
         </button>
       </div>
@@ -277,7 +277,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
   if (step === 6 && hex && reading) return (
     <div className="animate-fu">
       {/* Hexagram display */}
-      <div className="text-center mb-5" style={{ background: "linear-gradient(180deg, #111114, #0A0A0C)", borderRadius: 24, padding: "36px 24px", border: `1px solid ${line}` }}>
+      <div className="text-center mb-5" style={{ background: "linear-gradient(180deg, #111114, #000)", borderRadius: 24, padding: "36px 24px", border: `1px solid ${line}` }}>
         <div className="text-[10px] tracking-[4px] uppercase mb-5" style={{ color: gold }}>Your Hexagram</div>
         <div className="flex justify-center gap-10 mb-6">
           <div className="text-center">
@@ -317,7 +317,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
           <div className="text-[14px]" style={{ color: "#999", lineHeight: 2 }}>{reading.shift}</div>
         </div>
 
-        <div className="mb-5 p-4 rounded-2xl" style={{ background: "#0A0A0C", borderLeft: `3px solid ${gold}40` }}>
+        <div className="mb-5 p-4 rounded-2xl" style={{ background: "#000", borderLeft: `3px solid ${gold}40` }}>
           <div className="text-[10px] font-bold tracking-[3px] uppercase mb-2" style={{ color: gold }}>Core Truth</div>
           <div className="font-serif text-[15px]" style={{ color: ink, lineHeight: 2 }}>{reading.core}</div>
         </div>
@@ -328,7 +328,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
         </div>
 
         <div className="flex gap-3 mb-5">
-          <div className="flex-1 p-3.5 rounded-xl" style={{ background: "#0A0A0C" }}>
+          <div className="flex-1 p-3.5 rounded-xl" style={{ background: "#000" }}>
             <div className="text-[9px] font-bold tracking-[2px] uppercase mb-1" style={{ color: "#555" }}>Timing</div>
             <div className="text-[12px]" style={{ color: "#888", lineHeight: 1.6 }}>{reading.timing}</div>
           </div>

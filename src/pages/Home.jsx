@@ -1,101 +1,126 @@
 import { useNavigate } from "react-router-dom";
 import { getDailyQuote } from "../data/quotes";
 
-const gold = "#A08050";
-const card = "#111114";
-const line = "#1E1E22";
-const ink = "#E8E4DC";
-
 export default function Home() {
   const navigate = useNavigate();
   const daily = getDailyQuote();
 
-  const Card = ({ path, icon, title, desc, gradient, big }) => (
-    <div onClick={() => navigate(path)} className="cursor-pointer transition-all"
-      style={{ background: gradient || card, borderRadius: big ? 24 : 20, padding: big ? "36px 28px" : "28px 18px", border: `1px solid ${line}`, textAlign: big ? "left" : "center" }}
-      onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.borderColor = "#2A2A30"; }}
-      onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.borderColor = line; }}>
-      {big ? (
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-[10px] font-bold tracking-[5px] uppercase mb-3" style={{ color: gold }}>Core Reading</div>
-            <div className="font-serif text-[26px] font-bold mb-2" style={{ color: ink, lineHeight: 1.3 }}>{title}</div>
-            <div className="text-[12px]" style={{ color: "#555" }}>{desc}</div>
-          </div>
-          <div className="text-[52px] animate-float shrink-0 ml-4">{icon}</div>
-        </div>
-      ) : (
-        <>
-          <div className="text-[36px] mb-3">{icon}</div>
-          <div className="text-[14px] font-bold mb-1" style={{ color: ink }}>{title}</div>
-          <div className="text-[10px]" style={{ color: "#555" }}>{desc}</div>
-        </>
-      )}
-    </div>
-  );
-
   return (
     <div className="animate-fu">
-      {/* Hero - The Master */}
-      <div onClick={() => navigate("/master")} className="cursor-pointer relative overflow-hidden mb-4"
-        style={{ background: "linear-gradient(160deg, #15101E 0%, #0D0A12 40%, #111114 100%)", borderRadius: 28, padding: "44px 28px", border: `1px solid #2A2230` }}
-        onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(160,128,80,.08)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-        <div className="absolute top-0 left-0 w-full h-1" style={{ background: `linear-gradient(90deg, transparent, ${gold}, transparent)` }} />
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-[10px] font-bold tracking-[6px] uppercase mb-4" style={{ color: gold }}>✦ Live Reading</div>
-            <div className="font-serif text-[30px] font-bold mb-2" style={{ color: ink, lineHeight: 1.2 }}>Consult<br/>The Master</div>
-            <div className="text-[12px] mt-3" style={{ color: "#666", lineHeight: 1.7 }}>AI fortune teller trained in BaZi, Five Elements, and 3,000 years of Chinese wisdom. Ask anything.</div>
+      {/* Hero */}
+      <section style={{ padding: "80px 0 60px", textAlign: "center" }}>
+        <div style={{ fontSize: 11, letterSpacing: 6, textTransform: "uppercase", color: "#444", marginBottom: 24 }}>Chinese Mysticism × AI</div>
+        <h1 className="font-serif" style={{ fontSize: 44, fontWeight: 400, color: "#FFF", lineHeight: 1.2, marginBottom: 20 }}>
+          Decode every word.<br />Reveal every fate.
+        </h1>
+        <p style={{ fontSize: 14, color: "#555", lineHeight: 1.8, maxWidth: 420, margin: "0 auto 36px" }}>
+          Ancient Chinese wisdom meets modern AI. Consult the Master, cast hexagrams, read the Five Elements, and discover what the universe has written for you.
+        </p>
+        <button onClick={() => navigate("/master")}
+          className="card-hover"
+          style={{ background: "#FFF", color: "#000", border: "none", padding: "14px 40px", borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: "pointer", letterSpacing: 1 }}>
+          Consult the Master
+        </button>
+      </section>
+
+      {/* The Master — featured card */}
+      <section style={{ marginBottom: 48 }}>
+        <div onClick={() => navigate("/master")}
+          className="card-hover"
+          style={{ background: "#0A0A0A", borderRadius: 16, padding: "40px 32px", border: "1px solid #1A1A1A", cursor: "pointer", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, #333, transparent)" }} />
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div>
+              <div style={{ fontSize: 10, letterSpacing: 5, textTransform: "uppercase", color: "#555", marginBottom: 16 }}>✦ Live AI Reading</div>
+              <div className="font-serif" style={{ fontSize: 28, color: "#FFF", marginBottom: 8, fontWeight: 400 }}>The Master</div>
+              <div style={{ fontSize: 13, color: "#444", lineHeight: 1.7 }}>Ask anything. Birth chart, love, career, wealth — the chart speaks.</div>
+            </div>
+            <div className="animate-float" style={{ fontSize: 48, marginLeft: 24, flexShrink: 0, opacity: .7 }}>🌙</div>
           </div>
-          <div className="text-[60px] animate-float shrink-0 ml-4" style={{ filter: "drop-shadow(0 0 20px rgba(160,128,80,.2))" }}>🌙</div>
         </div>
-      </div>
+      </section>
 
-      {/* Five Elements & Zodiac */}
-      <div className="grid grid-cols-2 gap-3 mb-3">
-        <Card path="/elements" icon="🌿" title="Five Elements" desc="Love match by birth element" gradient="linear-gradient(160deg, #0D1A12, #111114)" />
-        <Card path="/zodiac" icon="🐉" title="Zodiac Match" desc="Toxic or soulmate?" gradient="linear-gradient(160deg, #1A0F0A, #111114)" />
-      </div>
-
-      {/* Daily wisdom */}
-      <div className="mb-4" style={{ background: card, borderRadius: 20, padding: "24px 28px", border: `1px solid ${line}` }}>
-        <div className="font-serif text-[14px] italic" style={{ color: "#777", lineHeight: 2 }}>{"\u201C"}{daily}{"\u201D"}</div>
-        <div className="text-[9px] font-bold tracking-[4px] uppercase mt-3" style={{ color: gold }}>Daily Wisdom</div>
-      </div>
-
-      {/* Divination grid */}
-      <div className="grid grid-cols-2 gap-3 mb-3">
-        <Card path="/meihua" icon="🌸" title="Plum Blossom" desc="I Ching hexagram oracle" gradient="linear-gradient(160deg, #1A1510, #111114)" />
-        <Card path="/tarot" icon="🃏" title="Tarot" desc="Three-card love reading" gradient="linear-gradient(160deg, #15101E, #111114)" />
-      </div>
-      <div className="grid grid-cols-3 gap-2.5 mb-6">
-        <Card path="/qian" icon="🏮" title="Oracle" desc="Temple sticks" />
-        <Card path="/bazi" icon="💫" title="Bazi" desc="Destiny pairing" />
-        <Card path="/fortune" icon="✨" title="Fortune" desc="Today's energy" />
-      </div>
-
-      {/* Five Elements explainer */}
-      <div style={{ background: card, borderRadius: 20, padding: "28px", border: `1px solid ${line}` }}>
-        <div className="text-[10px] font-bold tracking-[4px] uppercase mb-4" style={{ color: gold }}>The Five Elements</div>
-        <div className="text-[13px] mb-4" style={{ color: "#555", lineHeight: 2 }}>
-          An ancient Chinese system that maps the universe into five forces locked in an eternal cycle of creation and destruction.
-        </div>
-        <div className="flex justify-between">
+      {/* Featured tools — 2 column */}
+      <section style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 10, letterSpacing: 5, textTransform: "uppercase", color: "#444", marginBottom: 20 }}>Featured</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           {[
-            { emoji: "🌿", name: "Wood", color: "#4A7C59" },
-            { emoji: "🔥", name: "Fire", color: "#C75B3A" },
-            { emoji: "🏔", name: "Earth", color: "#A08050" },
-            { emoji: "⚔️", name: "Metal", color: "#8A8A8A" },
-            { emoji: "🌊", name: "Water", color: "#4A6FA5" },
-          ].map((el) => (
-            <div key={el.name} className="text-center">
-              <div className="text-[24px] mb-1">{el.emoji}</div>
-              <div className="text-[10px] font-bold" style={{ color: el.color }}>{el.name}</div>
+            { path: "/elements", icon: "🌿", title: "Five Elements", desc: "Love match by birth element" },
+            { path: "/zodiac", icon: "🐉", title: "Zodiac Match", desc: "12 animals — toxic or soulmate?" },
+          ].map((item) => (
+            <div key={item.path} onClick={() => navigate(item.path)}
+              className="card-hover"
+              style={{ background: "#0A0A0A", borderRadius: 14, padding: "28px 22px", border: "1px solid #1A1A1A", cursor: "pointer" }}>
+              <div style={{ fontSize: 32, marginBottom: 16 }}>{item.icon}</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: "#FFF", marginBottom: 6 }}>{item.title}</div>
+              <div style={{ fontSize: 12, color: "#444", lineHeight: 1.6 }}>{item.desc}</div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
+
+      {/* Divination tools — grid */}
+      <section style={{ marginBottom: 48 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          {[
+            { path: "/meihua", icon: "🌸", title: "Plum Blossom", desc: "I Ching hexagram oracle" },
+            { path: "/tarot", icon: "🃏", title: "Tarot", desc: "Three-card love reading" },
+          ].map((item) => (
+            <div key={item.path} onClick={() => navigate(item.path)}
+              className="card-hover"
+              style={{ background: "#0A0A0A", borderRadius: 14, padding: "28px 22px", border: "1px solid #1A1A1A", cursor: "pointer" }}>
+              <div style={{ fontSize: 32, marginBottom: 16 }}>{item.icon}</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: "#FFF", marginBottom: 6 }}>{item.title}</div>
+              <div style={{ fontSize: 12, color: "#444", lineHeight: 1.6 }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* More tools — 3 column */}
+      <section style={{ marginBottom: 48 }}>
+        <div style={{ fontSize: 10, letterSpacing: 5, textTransform: "uppercase", color: "#444", marginBottom: 20 }}>More</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+          {[
+            { path: "/qian", icon: "🏮", title: "Oracle" },
+            { path: "/bazi", icon: "💫", title: "Bazi" },
+            { path: "/fortune", icon: "✨", title: "Fortune" },
+          ].map((item) => (
+            <div key={item.path} onClick={() => navigate(item.path)}
+              className="card-hover"
+              style={{ background: "#0A0A0A", borderRadius: 14, padding: "24px 16px", border: "1px solid #1A1A1A", cursor: "pointer", textAlign: "center" }}>
+              <div style={{ fontSize: 28, marginBottom: 10 }}>{item.icon}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#FFF" }}>{item.title}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Daily wisdom — editorial quote block */}
+      <section style={{ marginBottom: 48, padding: "32px 0", borderTop: "1px solid #111", borderBottom: "1px solid #111" }}>
+        <div className="font-serif" style={{ fontSize: 16, color: "#555", lineHeight: 2, fontStyle: "italic", textAlign: "center", maxWidth: 480, margin: "0 auto" }}>
+          "{daily}"
+        </div>
+        <div style={{ fontSize: 10, letterSpacing: 5, textTransform: "uppercase", color: "#333", textAlign: "center", marginTop: 20 }}>Daily Wisdom</div>
+      </section>
+
+      {/* Five Elements strip — decorative */}
+      <section style={{ marginBottom: 20, textAlign: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 32 }}>
+          {[
+            { emoji: "🌿", name: "Wood", color: "#3D6B4A" },
+            { emoji: "🔥", name: "Fire", color: "#8B3A2A" },
+            { emoji: "🏔", name: "Earth", color: "#7A6540" },
+            { emoji: "⚔️", name: "Metal", color: "#6A6A6A" },
+            { emoji: "🌊", name: "Water", color: "#3A5A85" },
+          ].map((el) => (
+            <div key={el.name}>
+              <div style={{ fontSize: 20, marginBottom: 6, opacity: .6 }}>{el.emoji}</div>
+              <div style={{ fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: "#333" }}>{el.name}</div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

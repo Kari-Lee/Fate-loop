@@ -3,17 +3,17 @@ import { useTranslation } from "react-i18next";
 import { ELEMENTS, SHENG, SHENG_DESC, KE, KE_DESC, SAME_DESC, getElement, getZodiacIndex, ZODIAC } from "../data/wuxing";
 
 const S = {
-  page: { background: "#0A0A0C", minHeight: "100vh", margin: "-16px -20px", padding: "0 20px 60px", color: "#E8E4DC" },
+  page: { background: "#000", minHeight: "100vh", margin: "-16px -20px", padding: "0 20px 60px", color: "#FFF" },
   hero: { textAlign: "center", padding: "60px 0 40px" },
-  zhTitle: { fontSize: 72, fontWeight: 100, letterSpacing: 20, color: "#E8E4DC20", fontFamily: "'Noto Serif SC', serif", display: "block" },
-  enTitle: { fontSize: 11, letterSpacing: 8, textTransform: "uppercase", color: "#A08050", display: "block", marginTop: 8 },
+  zhTitle: { fontSize: 72, fontWeight: 100, letterSpacing: 20, color: "#FFF20", fontFamily: "'Noto Serif SC', serif", display: "block" },
+  enTitle: { fontSize: 11, letterSpacing: 8, textTransform: "uppercase", color: "#999", display: "block", marginTop: 8 },
   subtitle: { fontSize: 13, color: "#666", marginTop: 16, lineHeight: 1.8, maxWidth: 360, margin: "16px auto 0" },
-  card: { background: "#111114", borderRadius: 24, padding: "32px 24px", border: "1px solid #1E1E22" },
-  label: { fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: "#A08050", marginBottom: 12, display: "block" },
+  card: { background: "#0A0A0A", borderRadius: 24, padding: "32px 24px", border: "1px solid #1A1A1A" },
+  label: { fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: "#999", marginBottom: 12, display: "block" },
   inputRow: { display: "flex", gap: 8, marginBottom: 12 },
-  input: { flex: 1, background: "#0A0A0C", border: "1px solid #222", borderRadius: 12, padding: "14px 16px", color: "#E8E4DC", fontSize: 16, textAlign: "center", minWidth: 0 },
+  input: { flex: 1, background: "#000", border: "1px solid #222", borderRadius: 12, padding: "14px 16px", color: "#FFF", fontSize: 16, textAlign: "center", minWidth: 0 },
   btn: { width: "100%", padding: "18px", borderRadius: 16, border: "none", fontSize: 15, fontWeight: 700, cursor: "pointer", marginTop: 20, letterSpacing: 2, transition: "all .3s" },
-  section: { marginTop: 20, padding: "28px 24px", borderRadius: 20, border: "1px solid #1E1E22" },
+  section: { marginTop: 20, padding: "28px 24px", borderRadius: 20, border: "1px solid #1A1A1A" },
 };
 
 export default function Elements() {
@@ -81,7 +81,7 @@ export default function Elements() {
     return (
       <div style={S.page}>
         <div style={{ textAlign: "center", padding: "48px 0 32px" }}>
-          <span style={{ fontSize: 10, letterSpacing: 6, color: "#A08050", textTransform: "uppercase" }}>Five Elements Reading</span>
+          <span style={{ fontSize: 10, letterSpacing: 6, color: "#999", textTransform: "uppercase" }}>Five Elements Reading</span>
         </div>
 
         {/* Element cards */}
@@ -110,8 +110,8 @@ export default function Elements() {
 
         {/* Individual elements */}
         {[{ el: el1, label: "Your element" }, { el: el2, label: "Their element" }].map((p, i) => (
-          <div key={i} style={{ ...S.section, background: "#111114" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16, paddingBottom: 16, borderBottom: "1px solid #1E1E22" }}>
+          <div key={i} style={{ ...S.section, background: "#0A0A0A" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16, paddingBottom: 16, borderBottom: "1px solid #1A1A1A" }}>
               <span style={{ fontSize: 28 }}>{p.el.emoji}</span>
               <div>
                 <div style={{ fontSize: 11, letterSpacing: 3, color: "#666", textTransform: "uppercase" }}>{p.label}</div>
@@ -124,7 +124,7 @@ export default function Elements() {
               ))}
             </div>
             <div style={{ fontSize: 14, lineHeight: 2, color: "#999", marginBottom: 16 }}>{p.el.loveStyle}</div>
-            <div style={{ padding: "16px 18px", borderRadius: 14, background: "#0A0A0C", borderLeft: `3px solid ${p.el.color}40` }}>
+            <div style={{ padding: "16px 18px", borderRadius: 14, background: "#000", borderLeft: `3px solid ${p.el.color}40` }}>
               <div style={{ fontSize: 10, letterSpacing: 3, color: "#666", textTransform: "uppercase", marginBottom: 6 }}>Shadow side</div>
               <div style={{ fontSize: 13, lineHeight: 1.8, color: "#777" }}>{p.el.shadow}</div>
             </div>
@@ -136,7 +136,7 @@ export default function Elements() {
           <div style={{ fontSize: 11, color: "#444", letterSpacing: 2 }}>Screenshot & share your reading</div>
         </div>
 
-        <button onClick={() => setResult(null)} style={{ ...S.btn, background: "#1E1E22", color: "#666" }}>New Reading ↻</button>
+        <button onClick={() => setResult(null)} style={{ ...S.btn, background: "#1A1A1A", color: "#666" }}>New Reading ↻</button>
       </div>
     );
   }
@@ -162,14 +162,14 @@ export default function Elements() {
       <div style={S.card}>
         <DateInput label="Your birthday" d={d1} setD={setD1} />
         <DateInput label="Their birthday" d={d2} setD={setD2} />
-        <button onClick={calculate} disabled={!ready} style={{ ...S.btn, background: ready ? "linear-gradient(135deg, #A08050, #C4A06A)" : "#1E1E22", color: ready ? "#0A0A0C" : "#444" }}>
+        <button onClick={calculate} disabled={!ready} style={{ ...S.btn, background: ready ? "linear-gradient(135deg, #999, #C4A06A)" : "#1A1A1A", color: ready ? "#000" : "#444" }}>
           Reveal Your Elements ✦
         </button>
       </div>
 
       {/* Cycle explanation */}
-      <div style={{ ...S.section, background: "#111114" }}>
-        <div style={{ fontSize: 11, letterSpacing: 3, color: "#A08050", textTransform: "uppercase", marginBottom: 16 }}>How it works</div>
+      <div style={{ ...S.section, background: "#0A0A0A" }}>
+        <div style={{ fontSize: 11, letterSpacing: 3, color: "#999", textTransform: "uppercase", marginBottom: 16 }}>How it works</div>
         <div style={{ fontSize: 13, lineHeight: 2, color: "#666" }}>
           In Chinese cosmology, everything is made of five elements locked in an eternal cycle. Some elements <span style={{ color: "#6B9B7A" }}>nourish</span> each other — Wood feeds Fire, Fire creates Earth. Others <span style={{ color: "#C75B3A" }}>clash</span> — Water extinguishes Fire, Metal chops Wood. Your relationship lives somewhere in this cycle.
         </div>
