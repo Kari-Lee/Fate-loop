@@ -1,34 +1,25 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import Elements from "./pages/Elements";
-import ZodiacMatch from "./pages/ZodiacMatch";
-import MeiHua from "./pages/MeiHua";
-import Master from "./pages/Master";
-import Tarot from "./pages/Tarot";
-import Qian from "./pages/Qian";
-import Bazi from "./pages/Bazi";
-import Fortune from "./pages/Fortune";
-import Privacy from "./pages/Privacy";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+function TestHome() {
+  return (
+    <div style={{ background: "#050505", color: "#FFF", minHeight: "100vh", padding: 40, fontFamily: "sans-serif" }}>
+      <h1 style={{ fontSize: 32, marginBottom: 20 }}>FateLoop Works!</h1>
+      <p style={{ color: "#888", marginBottom: 20 }}>If you can see this, React is running correctly.</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <Link to="/master" style={{ color: "#C92A2A" }}>→ The Master</Link>
+        <Link to="/elements" style={{ color: "#C92A2A" }}>→ Five Elements</Link>
+        <Link to="/tarot" style={{ color: "#C92A2A" }}>→ Tarot</Link>
+      </div>
+    </div>
+  );
+}
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="master" element={<Master />} />
-          <Route path="elements" element={<Elements />} />
-          <Route path="zodiac" element={<ZodiacMatch />} />
-          <Route path="meihua" element={<MeiHua />} />
-          <Route path="tarot" element={<Tarot />} />
-          <Route path="qian" element={<Qian />} />
-          <Route path="bazi" element={<Bazi />} />
-          <Route path="fortune" element={<Fortune />} />
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
+        <Route path="/" element={<TestHome />} />
+        <Route path="*" element={<TestHome />} />
       </Routes>
     </BrowserRouter>
   );
