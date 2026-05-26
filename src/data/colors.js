@@ -1,22 +1,9 @@
 export const C = {
-  bg: "#FAFAFA",
-  card: "#FFF",
-  wine: "#1A1A1A",
-  gold: "#999",
-  plum: "#888",
-  sage: "#5A8A6A",
-  rose: "#B85A4A",
-  ink: "#1A1A1A",
-  sub: "#999",
-  muted: "#CCC",
-  line: "#EFEFEF",
-  warm: "#F5F5F5",
+  bg: "#050505", card: "rgba(255,255,255,.02)", wine: "#FFF", gold: "#B8964A", plum: "#666",
+  sage: "#5A8A6A", rose: "#C92A2A", ink: "#FFF", sub: "#555", muted: "#333",
+  line: "rgba(255,255,255,.03)", warm: "#0A0A0A",
 };
-
 export const sec = {
-  marginTop: 16,
-  padding: "24px",
-  background: "#FFF",
-  borderRadius: 14,
-  border: "1px solid #EFEFEF",
+  marginTop: 16, padding: "24px", background: "rgba(255,255,255,.02)",
+  borderRadius: 16, border: "1px solid rgba(255,255,255,.03)",
 };

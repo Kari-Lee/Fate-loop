@@ -1,179 +1,219 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { ELEMENTS, SHENG, SHENG_DESC, KE, KE_DESC, SAME_DESC, getElement, getZodiacIndex, ZODIAC } from "../data/wuxing";
 
-const S = {
-  page: { background: "#FAFAFA", minHeight: "auto", margin: "0 -24px", padding: "0 20px 60px", color: "#1A1A1A" },
-  hero: { textAlign: "center", padding: "60px 0 40px" },
-  zhTitle: { fontSize: 72, fontWeight: 100, letterSpacing: 20, color: "#00000010", fontFamily: "'Noto Serif SC', serif", display: "block" },
-  enTitle: { fontSize: 11, letterSpacing: 8, textTransform: "uppercase", color: "#999", display: "block", marginTop: 8 },
-  subtitle: { fontSize: 13, color: "#999", marginTop: 16, lineHeight: 1.8, maxWidth: 360, margin: "16px auto 0" },
-  card: { background: "#FFF", borderRadius: 24, padding: "32px 24px", border: "1px solid #EFEFEF" },
-  label: { fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: "#999", marginBottom: 12, display: "block" },
-  inputRow: { display: "flex", gap: 8, marginBottom: 12 },
-  input: { flex: 1, background: "#F5F5F5", border: "1px solid #EFEFEF", borderRadius: 12, padding: "14px 16px", color: "#1A1A1A", fontSize: 16, textAlign: "center", minWidth: 0 },
-  btn: { width: "100%", padding: "18px", borderRadius: 16, border: "none", fontSize: 15, fontWeight: 700, cursor: "pointer", marginTop: 20, letterSpacing: 2, transition: "all .3s" },
-  section: { marginTop: 20, padding: "28px 24px", borderRadius: 20, border: "1px solid #EFEFEF" },
-};
+const red = "#C92A2A";
+const gold = "#B8964A";
+
+const REL_TYPES = [
+  { id: "crush", label: "Crush", icon: "💘" },
+  { id: "dating", label: "Dating", icon: "💕" },
+  { id: "partner", label: "Partner", icon: "💍" },
+  { id: "friends", label: "Friends", icon: "🤝" },
+];
+
+function Star({ size = 20, color = red, filled = true, opacity = 1 }) {
+  return <svg width={size} height={size} viewBox="0 0 100 100" fill="none" style={{ opacity }}><path d="M50 0 C52 38 62 48 100 50 C62 52 52 62 50 100 C48 62 38 52 0 50 C38 48 48 38 50 0Z" fill={filled ? color : "none"} stroke={filled ? "none" : color} strokeWidth="1.5"/></svg>;
+}
+
+function glass(isH) {
+  return {
+    background: isH ? "rgba(255,255,255,.05)" : "rgba(255,255,255,.02)",
+    border: `1px solid rgba(255,255,255,${isH ? ".08" : ".03"})`,
+    borderRadius: 16, cursor: "pointer",
+    transition: "all .5s cubic-bezier(.16,1,.3,1)",
+    transform: isH ? "translateY(-3px)" : "none",
+  };
+}
 
 export default function Elements() {
-  const [d1, setD1] = useState({ y: "", m: "", d: "" });
-  const [d2, setD2] = useState({ y: "", m: "", d: "" });
+  const navigate = useNavigate();
+  const [relType, setRelType] = useState(null);
+  const [d1, setD1] = useState({ y: "", m: "", d: "", h: "" });
+  const [d2, setD2] = useState({ y: "", m: "", d: "", h: "" });
   const [result, setResult] = useState(null);
-
-  const ready = d1.y?.length === 4 && d1.m && d1.d && d2.y?.length === 4 && d2.m && d2.d;
+  const [step, setStep] = useState(0); // 0=reltype, 1=input, 2=result
 
   const calculate = () => {
-    if (!ready) return;
+    if (!d1.y || !d1.m || !d1.d || !d2.y || !d2.m || !d2.d) return;
     const e1 = getElement(+d1.y, +d1.m, +d1.d);
     const e2 = getElement(+d2.y, +d2.m, +d2.d);
     const z1 = getZodiacIndex(+d1.y);
     const z2 = getZodiacIndex(+d2.y);
-
-    let relationship = "neutral";
-    let relDesc = null;
     const zh1 = e1.zh, zh2 = e2.zh;
 
-    if (zh1 === zh2) {
-      relationship = "same";
-      relDesc = { en: `Both ${ELEMENTS[zh1].en}`, desc: SAME_DESC[zh1] };
-    } else if (SHENG[zh1] === zh2) {
-      relationship = "you_feed_them";
-      relDesc = SHENG_DESC[`${zh1}→${zh2}`];
-    } else if (SHENG[zh2] === zh1) {
-      relationship = "they_feed_you";
-      relDesc = SHENG_DESC[`${zh2}→${zh1}`];
-    } else if (KE[zh1] === zh2) {
-      relationship = "you_overcome_them";
-      relDesc = KE_DESC[`${zh1}→${zh2}`];
-    } else if (KE[zh2] === zh1) {
-      relationship = "they_overcome_you";
-      relDesc = KE_DESC[`${zh2}→${zh1}`];
-    }
+    let relationship = "neutral", relDesc = null;
+    if (zh1 === zh2) { relationship = "same"; relDesc = { en: `Both ${ELEMENTS[zh1].en}`, desc: SAME_DESC[zh1] }; }
+    else if (SHENG[zh1] === zh2) { relationship = "you_feed"; relDesc = SHENG_DESC[`${zh1}→${zh2}`]; }
+    else if (SHENG[zh2] === zh1) { relationship = "they_feed"; relDesc = SHENG_DESC[`${zh2}→${zh1}`]; }
+    else if (KE[zh1] === zh2) { relationship = "you_overcome"; relDesc = KE_DESC[`${zh1}→${zh2}`]; }
+    else if (KE[zh2] === zh1) { relationship = "they_overcome"; relDesc = KE_DESC[`${zh2}→${zh1}`]; }
 
-    // Score
     let score = 60;
     if (relationship === "same") score = 70;
     if (relationship.includes("feed")) score = 85;
     if (relationship.includes("overcome")) score = 35;
+    score += Math.floor(Math.random() * 8) - 4; // slight variance
+    score = Math.max(15, Math.min(96, score));
 
-    setResult({ e1, e2, z1, z2, relationship, relDesc, score });
+    const isGood = score >= 60;
+    const verdicts = isGood
+      ? ["Your elements dance together.", "The cycle flows in your favor.", "Ancient harmony detected."]
+      : ["Your elements create friction.", "The cycle demands work.", "Growth through tension."];
+    const verdict = verdicts[Math.floor(Math.random() * verdicts.length)];
+
+    const shareLine = isGood
+      ? `${ELEMENTS[zh1].en} + ${ELEMENTS[zh2].en} = ${score}% compatible. The universe approves.`
+      : `${ELEMENTS[zh1].en} + ${ELEMENTS[zh2].en} = ${score}% compatible. The universe has notes.`;
+
+    setResult({ e1, e2, z1, z2, relationship, relDesc, score, isGood, verdict, shareLine, noHour: !d1.h && !d2.h });
+    setStep(2);
   };
 
-  const DateInput = ({ label, d, setD }) => (
-    <div style={{ marginBottom: 20 }}>
-      <span style={S.label}>{label}</span>
-      <div style={S.inputRow}>
-        <input style={S.input} type="tel" inputMode="numeric" placeholder="Year" maxLength={4} value={d.y} onChange={(e) => setD({ ...d, y: e.target.value })} />
-        <input style={{ ...S.input, flex: 0.6 }} type="tel" inputMode="numeric" placeholder="Mo" maxLength={2} value={d.m} onChange={(e) => setD({ ...d, m: e.target.value })} />
-        <input style={{ ...S.input, flex: 0.6 }} type="tel" inputMode="numeric" placeholder="Day" maxLength={2} value={d.d} onChange={(e) => setD({ ...d, d: e.target.value })} />
+  const share = () => {
+    if (navigator.share) {
+      navigator.share({ title: "FateLoop — Five Elements", text: result.shareLine, url: "https://fateloop.app/elements" }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(result.shareLine + "\n\nfateloop.app/elements").then(() => alert("Copied!"));
+    }
+  };
+
+  const reset = () => { setStep(0); setRelType(null); setD1({ y: "", m: "", d: "", h: "" }); setD2({ y: "", m: "", d: "", h: "" }); setResult(null); };
+
+  const inputStyle = { background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 12, padding: "14px 16px", color: "#FFF", fontSize: 16, textAlign: "center", minWidth: 0, outline: "none", transition: "border-color .3s", width: "100%" };
+
+  // Step 0: Relationship type
+  if (step === 0) return (
+    <div className="animate-fu" style={{ padding: "48px 0" }}>
+      <div style={{ textAlign: "center", marginBottom: 40 }}>
+        <Star size={12} color={gold} filled opacity={.3}/>
+        <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, color: "#FFF", fontWeight: 400, marginTop: 16, marginBottom: 8 }}>Five Elements</div>
+        <div style={{ fontSize: 12, color: "#555", lineHeight: 1.8 }}>What kind of connection are you exploring?</div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 360, margin: "0 auto" }}>
+        {REL_TYPES.map((rt) => (
+          <div key={rt.id} onClick={() => { setRelType(rt); setStep(1); }}
+            style={{ background: "rgba(255,255,255,.02)", border: "1px solid rgba(255,255,255,.04)", borderRadius: 16, padding: "28px 20px", textAlign: "center", cursor: "pointer", transition: "all .4s cubic-bezier(.16,1,.3,1)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,.05)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.08)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,.02)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.04)"; e.currentTarget.style.transform = "none"; }}>
+            <div style={{ fontSize: 28, marginBottom: 10 }}>{rt.icon}</div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#CCC" }}>{rt.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
 
-  if (result) {
+  // Step 1: Input dates
+  if (step === 1) return (
+    <div className="animate-fu" style={{ padding: "40px 0" }}>
+      <div style={{ textAlign: "center", marginBottom: 36 }}>
+        <div style={{ fontSize: 9, letterSpacing: 5, textTransform: "uppercase", color: gold, marginBottom: 8, opacity: .7 }}>{relType.icon} {relType.label}</div>
+        <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, color: "#FFF", fontWeight: 400 }}>Enter birth dates</div>
+      </div>
+
+      {[{ label: "Your birthday", d: d1, setD: setD1 }, { label: "Their birthday", d: d2, setD: setD2 }].map((p, pi) => (
+        <div key={pi} style={{ background: "rgba(255,255,255,.015)", border: "1px solid rgba(255,255,255,.03)", borderRadius: 18, padding: "24px 20px", marginBottom: 16 }}>
+          <div style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#555", marginBottom: 14, fontWeight: 500 }}>{p.label}</div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <input style={{ ...inputStyle, flex: 2 }} type="tel" inputMode="numeric" placeholder="Year" maxLength={4} value={p.d.y} onChange={(e) => p.setD({ ...p.d, y: e.target.value })}/>
+            <input style={{ ...inputStyle, flex: 1 }} type="tel" inputMode="numeric" placeholder="Mo" maxLength={2} value={p.d.m} onChange={(e) => p.setD({ ...p.d, m: e.target.value })}/>
+            <input style={{ ...inputStyle, flex: 1 }} type="tel" inputMode="numeric" placeholder="Day" maxLength={2} value={p.d.d} onChange={(e) => p.setD({ ...p.d, d: e.target.value })}/>
+          </div>
+          <div style={{ marginTop: 10 }}>
+            <input style={{ ...inputStyle, fontSize: 13 }} type="tel" inputMode="numeric" placeholder="Hour of birth (optional — skip if unknown)" maxLength={2} value={p.d.h} onChange={(e) => p.setD({ ...p.d, h: e.target.value })}/>
+          </div>
+        </div>
+      ))}
+
+      <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+        <button onClick={() => setStep(0)} style={{ flex: 1, padding: "14px", borderRadius: 14, background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.05)", color: "#666", fontSize: 13, cursor: "pointer" }}>Back</button>
+        <button onClick={calculate} disabled={!d1.y || !d1.m || !d1.d || !d2.y || !d2.m || !d2.d}
+          style={{ flex: 2, padding: "14px", borderRadius: 14, border: "none", fontSize: 13, fontWeight: 600, cursor: d1.y && d1.m && d1.d && d2.y && d2.m && d2.d ? "pointer" : "default", letterSpacing: 1, textTransform: "uppercase", background: d1.y && d1.m && d1.d && d2.y && d2.m && d2.d ? red : "rgba(255,255,255,.05)", color: d1.y && d1.m && d1.d && d2.y && d2.m && d2.d ? "#FFF" : "#333", transition: "all .3s" }}>
+          Reveal Elements
+        </button>
+      </div>
+    </div>
+  );
+
+  // Step 2: Result
+  if (step === 2 && result) {
     const el1 = ELEMENTS[result.e1.zh];
     const el2 = ELEMENTS[result.e2.zh];
     const z1 = ZODIAC[result.z1];
     const z2 = ZODIAC[result.z2];
-    const isHarmony = result.relationship.includes("feed") || result.relationship === "same";
 
     return (
-      <div style={S.page}>
-        <div style={{ textAlign: "center", padding: "48px 0 32px" }}>
-          <span style={{ fontSize: 10, letterSpacing: 6, color: "#999", textTransform: "uppercase" }}>Five Elements Reading</span>
+      <div className="animate-fu" style={{ padding: "40px 0" }}>
+        {result.noHour && (
+          <div style={{ textAlign: "center", marginBottom: 20, padding: "10px 16px", background: "rgba(255,255,255,.02)", borderRadius: 10, border: "1px solid rgba(255,255,255,.03)" }}>
+            <div style={{ fontSize: 11, color: "#444", letterSpacing: .5 }}>Simplified reading without birth hour</div>
+          </div>
+        )}
+
+        {/* Compatibility score — big, clear */}
+        <div style={{ textAlign: "center", padding: "40px 24px", background: "rgba(255,255,255,.02)", borderRadius: 22, border: "1px solid rgba(255,255,255,.03)", marginBottom: 20, position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${result.isGood ? "#5A8A6A" : red}30, transparent)` }}/>
+          <div style={{ fontSize: 9, letterSpacing: 5, textTransform: "uppercase", color: "#555", marginBottom: 16 }}>{relType.icon} {relType.label} compatibility</div>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 72, fontWeight: 300, color: result.isGood ? "#5A8A6A" : red, lineHeight: 1 }}>{result.score}<span style={{ fontSize: 24, opacity: .5 }}>%</span></div>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, color: "#888", fontStyle: "italic", marginTop: 12 }}>{result.verdict}</div>
         </div>
 
-        {/* Element cards */}
+        {/* Element cards side by side */}
         <div style={{ display: "flex", gap: 12, marginBottom: 20 }}>
-          {[{ el: el1, label: "You", zodiac: z1 }, { el: el2, label: "Them", zodiac: z2 }].map((p, i) => (
-            <div key={i} style={{ flex: 1, background: p.el.bg, borderRadius: 20, padding: "28px 18px", textAlign: "center", border: `1px solid ${p.el.color}20` }}>
-              <div style={{ fontSize: 10, letterSpacing: 4, color: "#999", textTransform: "uppercase", marginBottom: 12 }}>{p.label}</div>
-              <div style={{ fontSize: 48, marginBottom: 8 }}>{p.el.emoji}</div>
-              <div style={{ fontSize: 36, fontWeight: 100, color: p.el.color + "30", fontFamily: "'Noto Serif SC', serif" }}>{p.el.symbol}</div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: p.el.color, marginTop: 4, fontFamily: "'Playfair Display', serif" }}>{p.el.en}</div>
-              <div style={{ fontSize: 11, color: "#999", marginTop: 8 }}>{p.zodiac.emoji} {p.zodiac.en}</div>
+          {[{ el: el1, label: "You", z: z1 }, { el: el2, label: "Them", z: z2 }].map((p, i) => (
+            <div key={i} style={{ flex: 1, background: "rgba(255,255,255,.02)", borderRadius: 16, padding: "24px 16px", textAlign: "center", border: "1px solid rgba(255,255,255,.03)" }}>
+              <div style={{ fontSize: 10, letterSpacing: 3, color: "#555", textTransform: "uppercase", marginBottom: 10 }}>{p.label}</div>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, color: p.el.color, fontWeight: 400, marginBottom: 4 }}>{p.el.en}</div>
+              <div style={{ fontSize: 11, color: "#444" }}>{p.z.emoji} {p.z.en}</div>
             </div>
           ))}
         </div>
 
-        {/* Relationship */}
-        <div style={{ ...S.section, background: isHarmony ? "#0D1A12" : "#1A0D0D", borderColor: isHarmony ? "#1E3A22" : "#3A1E1E", textAlign: "center" }}>
-          <div style={{ fontSize: 36, marginBottom: 8 }}>{isHarmony ? "✦" : "⚡"}</div>
-          <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: 3, color: isHarmony ? "#6B9B7A" : "#C75B3A", textTransform: "uppercase", marginBottom: 12 }}>
-            {result.relDesc?.en || "Neutral Pairing"}
+        {/* 3 human-readable insights */}
+        <div style={{ background: "rgba(255,255,255,.02)", borderRadius: 18, padding: "28px 24px", border: "1px solid rgba(255,255,255,.03)", marginBottom: 20 }}>
+          <div style={{ fontSize: 9, letterSpacing: 4, textTransform: "uppercase", color: gold, marginBottom: 18, fontWeight: 500, opacity: .6 }}>
+            {result.relationship.includes("feed") ? "Who nurtures whom" : result.relationship.includes("overcome") ? "Where you clash" : "Your dynamic"}
           </div>
-          <div style={{ fontSize: 14, lineHeight: 2, color: "#999" }}>
-            {result.relDesc?.desc || "Your elements don't directly interact — which means you have space to define your own dynamic. No cosmic advantage, no cosmic baggage."}
-          </div>
+          <div style={{ fontSize: 14, color: "#888", lineHeight: 2, marginBottom: 16 }}>{result.relDesc?.desc || "Your elements don't directly interact — your story is yours to write."}</div>
+          <div style={{ fontSize: 14, color: "#666", lineHeight: 2, marginBottom: 16 }}>{el1.loveStyle}</div>
+          <div style={{ fontSize: 14, color: "#666", lineHeight: 2 }}>{el2.shadow}</div>
         </div>
 
-        {/* Individual elements */}
-        {[{ el: el1, label: "Your element" }, { el: el2, label: "Their element" }].map((p, i) => (
-          <div key={i} style={{ ...S.section, background: "#FFF" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16, paddingBottom: 16, borderBottom: "1px solid #1A1A1A" }}>
-              <span style={{ fontSize: 28 }}>{p.el.emoji}</span>
-              <div>
-                <div style={{ fontSize: 11, letterSpacing: 3, color: "#999", textTransform: "uppercase" }}>{p.label}</div>
-                <div style={{ fontSize: 20, fontWeight: 800, color: p.el.color, fontFamily: "'Playfair Display', serif" }}>{p.el.en}</div>
-              </div>
-            </div>
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
-              {p.el.traits.map((t, j) => (
-                <span key={j} style={{ fontSize: 11, padding: "6px 12px", borderRadius: 20, background: p.el.color + "15", color: p.el.color, border: `1px solid ${p.el.color}20` }}>{t}</span>
-              ))}
-            </div>
-            <div style={{ fontSize: 14, lineHeight: 2, color: "#999", marginBottom: 16 }}>{p.el.loveStyle}</div>
-            <div style={{ padding: "16px 18px", borderRadius: 14, background: "#FFF", borderLeft: `3px solid ${p.el.color}40` }}>
-              <div style={{ fontSize: 10, letterSpacing: 3, color: "#999", textTransform: "uppercase", marginBottom: 6 }}>Shadow side</div>
-              <div style={{ fontSize: 13, lineHeight: 1.8, color: "#999" }}>{p.el.shadow}</div>
-            </div>
-          </div>
-        ))}
-
-        {/* Share prompt */}
-        <div style={{ textAlign: "center", margin: "32px 0 20px" }}>
-          <div style={{ fontSize: 11, color: "#BBB", letterSpacing: 2 }}>Screenshot & share your reading</div>
+        {/* Shareable quote card */}
+        <div style={{ background: `linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.01))`, borderRadius: 16, padding: "28px 24px", border: "1px solid rgba(255,255,255,.04)", textAlign: "center", marginBottom: 24 }}>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: "#777", fontStyle: "italic", lineHeight: 1.8, marginBottom: 16 }}>"{result.shareLine}"</div>
+          <button onClick={share} style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)", borderRadius: 99, padding: "10px 28px", fontSize: 11, color: "#888", cursor: "pointer", letterSpacing: 1, transition: "all .3s" }}
+            onMouseEnter={(e) => { e.target.style.color = "#FFF"; e.target.style.borderColor = "rgba(255,255,255,.15)"; }}
+            onMouseLeave={(e) => { e.target.style.color = "#888"; e.target.style.borderColor = "rgba(255,255,255,.08)"; }}>
+            Share Result ↗
+          </button>
         </div>
 
-        <button onClick={() => setResult(null)} style={{ ...S.btn, background: "#1A1A1A", color: "#999" }}>New Reading ↻</button>
+        {/* CTAs — continue exploring */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+          <button onClick={() => navigate("/master")} style={{ padding: "16px 12px", borderRadius: 14, background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.05)", color: "#888", fontSize: 12, cursor: "pointer", transition: "all .3s", letterSpacing: .5 }}
+            onMouseEnter={(e) => { e.target.style.borderColor = `${gold}30`; e.target.style.color = "#CCC"; }}
+            onMouseLeave={(e) => { e.target.style.borderColor = "rgba(255,255,255,.05)"; e.target.style.color = "#888"; }}>
+            🌙 Ask the Master
+          </button>
+          <button onClick={() => navigate("/tarot")} style={{ padding: "16px 12px", borderRadius: 14, background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.05)", color: "#888", fontSize: 12, cursor: "pointer", transition: "all .3s", letterSpacing: .5 }}
+            onMouseEnter={(e) => { e.target.style.borderColor = `${red}30`; e.target.style.color = "#CCC"; }}
+            onMouseLeave={(e) => { e.target.style.borderColor = "rgba(255,255,255,.05)"; e.target.style.color = "#888"; }}>
+            🃏 Draw 3 Tarot Cards
+          </button>
+        </div>
+
+        <button onClick={reset} style={{ width: "100%", padding: "14px", borderRadius: 14, background: "transparent", border: "1px solid rgba(255,255,255,.04)", color: "#444", fontSize: 12, cursor: "pointer", letterSpacing: 1 }}>
+          New Reading ↻
+        </button>
+
+        <div style={{ textAlign: "center", marginTop: 20 }}>
+          <div style={{ fontSize: 9, color: "#222", letterSpacing: 1 }}>For entertainment only.</div>
+        </div>
       </div>
     );
   }
 
-  return (
-    <div style={S.page}>
-      <div style={S.hero}>
-        <span style={S.zhTitle}>五行</span>
-        <span style={S.enTitle}>Five Elements Love Match</span>
-        <p style={S.subtitle}>An ancient Chinese system that maps the universe into five forces — Wood, Fire, Earth, Metal, Water. Your birth date reveals which element shapes your love style.</p>
-      </div>
-
-      {/* Element preview */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 36 }}>
-        {Object.values(ELEMENTS).map((el) => (
-          <div key={el.en} style={{ textAlign: "center" }}>
-            <div style={{ width: 44, height: 44, borderRadius: 12, background: el.gradient, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, margin: "0 auto 6px" }}>{el.emoji}</div>
-            <div style={{ fontSize: 9, letterSpacing: 1, color: "#999" }}>{el.en}</div>
-          </div>
-        ))}
-      </div>
-
-      <div style={S.card}>
-        <DateInput label="Your birthday" d={d1} setD={setD1} />
-        <DateInput label="Their birthday" d={d2} setD={setD2} />
-        <button onClick={calculate} disabled={!ready} style={{ ...S.btn, background: ready ? "linear-gradient(135deg, #999, #C4A06A)" : "#1A1A1A", color: ready ? "#000" : "#444" }}>
-          Reveal Your Elements ✦
-        </button>
-      </div>
-
-      {/* Cycle explanation */}
-      <div style={{ ...S.section, background: "#FFF" }}>
-        <div style={{ fontSize: 11, letterSpacing: 3, color: "#999", textTransform: "uppercase", marginBottom: 16 }}>How it works</div>
-        <div style={{ fontSize: 13, lineHeight: 2, color: "#999" }}>
-          In Chinese cosmology, everything is made of five elements locked in an eternal cycle. Some elements <span style={{ color: "#6B9B7A" }}>nourish</span> each other — Wood feeds Fire, Fire creates Earth. Others <span style={{ color: "#C75B3A" }}>clash</span> — Water extinguishes Fire, Metal chops Wood. Your relationship lives somewhere in this cycle.
-        </div>
-      </div>
-    </div>
-  );
+  return null;
 }
