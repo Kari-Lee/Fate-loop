@@ -161,17 +161,15 @@ export default function Home() {
 
       {/* Oracle Sticks — standalone since it's unique UX */}
       <section style={{ marginBottom: 48 }}>
-        {(() => { const isH = hovered === "qian"; return (
-          <div onMouseEnter={() => setHovered("qian")} onMouseLeave={() => setHovered(null)} onClick={() => navigate("/qian")}
-            style={{ ...dg(isH, ic.oracle), padding: "28px 32px", display: "flex", alignItems: "center", gap: 20, position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", top: 0, left: 0, height: 1, background: `linear-gradient(90deg, transparent, ${ic.oracle}30, transparent)`, width: isH ? "100%" : "0%", transition: "width .5s cubic-bezier(.16,1,.3,1)" }}/>
-            <div style={{ fontSize: 28, transition: "transform .4s cubic-bezier(.16,1,.3,1)", transform: isH ? "scale(1.15)" : "scale(1)" }}>🏮</div>
+        <div onMouseEnter={() => setHovered("qian")} onMouseLeave={() => setHovered(null)} onClick={() => navigate("/qian")}
+            style={{ ...dg(hovered === "qian", ic.oracle), padding: "28px 32px", display: "flex", alignItems: "center", gap: 20, position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, left: 0, height: 1, background: `linear-gradient(90deg, transparent, ${ic.oracle}30, transparent)`, width: hovered === "qian" ? "100%" : "0%", transition: "width .5s cubic-bezier(.16,1,.3,1)" }}/>
+            <div style={{ fontSize: 28, transition: "transform .4s cubic-bezier(.16,1,.3,1)", transform: hovered === "qian" ? "scale(1.15)" : "scale(1)" }}>🏮</div>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: isH ? "#DDD" : "#999", transition: "color .4s" }}>Oracle Sticks</div>
-              <div style={{ fontSize: 11, color: isH ? "#555" : "#333", transition: "color .4s" }}>Ancient temple fortune — shake and reveal</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: hovered === "qian" ? "#DDD" : "#999", transition: "color .4s" }}>Oracle Sticks</div>
+              <div style={{ fontSize: 11, color: hovered === "qian" ? "#555" : "#333", transition: "color .4s" }}>Ancient temple fortune — shake and reveal</div>
             </div>
           </div>
-        );})()}
       </section>
 
       {/* Compliance — fixed visible */}
