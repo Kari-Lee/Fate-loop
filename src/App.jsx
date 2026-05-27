@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SplashScreen from "./components/SplashScreen";
 import Layout from "./components/Layout";
@@ -17,24 +17,9 @@ import NotFound from "./pages/NotFound";
 export default function App() {
   const [splashDone, setSplashDone] = useState(false);
 
-  useEffect(() => {
-    try {
-      if (sessionStorage.getItem("fl_splash_seen") === "1") {
-        setSplashDone(true);
-      }
-    } catch (e) {
-      setSplashDone(true);
-    }
-  }, []);
-
-  const handleSplashDone = () => {
-    try { sessionStorage.setItem("fl_splash_seen", "1"); } catch (e) {}
-    setSplashDone(true);
-  };
-
   return (
     <>
-      {!splashDone && <SplashScreen onDone={handleSplashDone} />}
+      {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
