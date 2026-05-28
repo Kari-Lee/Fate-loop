@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { track } from "../lib/analytics";
 
 const SYSTEM = `You are a master of Chinese metaphysics. You have spent 40 years studying BaZi, Zi Wei Dou Shu, Mei Hua Yi Shu, Qi Men Dun Jia, and the Five Elements.
 

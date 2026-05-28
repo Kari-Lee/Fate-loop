@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDailyQuote } from "../data/quotes";
+import { track } from "../lib/analytics";
 
 // ═══ V4 PALETTE — moonlit gold + ivory ═══
 const gold = "#D4B07A";
@@ -215,7 +216,7 @@ export default function Home() {
 
         {/* CTA glass pill */}
         <button
-          onClick={() => navigate("/master")}
+          onClick={() => { track("enter_reading_clicked"); navigate("/master"); }}
           className="fl-glass-strong"
           style={{
             padding: "15px 42px",
@@ -282,7 +283,7 @@ export default function Home() {
         <div className="v4-library-grid">
           {libraryCards.map((item) => (
             <div key={item.id}
-              onClick={() => navigate(item.route)}
+              onClick={() => { track("card_clicked", { card: item.id }); navigate(item.route); }}
               className={`fl-glass v4-card-hover ${item.featured ? "fl-glass-strong" : ""}`}
               style={{
                 padding: "22px 16px",
