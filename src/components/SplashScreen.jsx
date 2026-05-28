@@ -1,255 +1,187 @@
 import { useState, useEffect } from "react";
 
-const bg = "#0A0608";
-const red = "#A6182B";
-const gold = "#C9A961";
-const goldLight = "#E5CC8C";
-const textMute = "#7A6A55";
-
-function MandalaRing({ size = 400, opacity: op = 0.55, strokeBoost = 1.5 }) {
-  const lineAngles = [0,15,30,45,60,75,90,105,120,135,150,165,180,195,210,225,240,255,270,285,300,315,330,345];
-  const petalAngles = [0,30,60,90,120,150,180,210,240,270,300,330];
-  const diamondAngles = [0,45,90,135,180,225,270,315];
-
-  return (
-    <svg width={size} height={size} viewBox="0 0 400 400" fill="none" style={{ opacity: op }}>
-      <circle cx="200" cy="200" r="190" stroke={gold} strokeWidth={0.5 * strokeBoost}/>
-      <circle cx="200" cy="200" r="170" stroke={gold} strokeWidth={0.3 * strokeBoost}/>
-      <circle cx="200" cy="200" r="140" stroke={gold} strokeWidth={0.6 * strokeBoost}/>
-      <circle cx="200" cy="200" r="100" stroke={gold} strokeWidth={0.3 * strokeBoost}/>
-      <circle cx="200" cy="200" r="60" stroke={gold} strokeWidth={0.5 * strokeBoost}/>
-      {lineAngles.map((a, i) => {
-        const r1 = 140, r2 = 190;
-        const rad = (a * Math.PI) / 180;
-        return (
-          <line key={`l${i}`}
-            x1={200 + r1 * Math.cos(rad)} y1={200 + r1 * Math.sin(rad)}
-            x2={200 + r2 * Math.cos(rad)} y2={200 + r2 * Math.sin(rad)}
-            stroke={gold} strokeWidth={0.3 * strokeBoost}/>
-        );
-      })}
-      {petalAngles.map((a, i) => {
-        const r = 155;
-        const rad = (a * Math.PI) / 180;
-        const x = 200 + r * Math.cos(rad);
-        const y = 200 + r * Math.sin(rad);
-        return (
-          <path key={`p${i}`}
-            d={`M${x} ${y-6} C${x+3} ${y-2} ${x+3} ${y+2} ${x} ${y+6} C${x-3} ${y+2} ${x-3} ${y-2} ${x} ${y-6}`}
-            stroke={gold} strokeWidth={0.6 * strokeBoost} fill="none"/>
-        );
-      })}
-      {diamondAngles.map((a, i) => {
-        const r = 120;
-        const rad = (a * Math.PI) / 180;
-        const x = 200 + r * Math.cos(rad);
-        const y = 200 + r * Math.sin(rad);
-        return (
-          <path key={`d${i}`}
-            d={`M${x} ${y-8} C${x+5} ${y} ${x} ${y+8} ${x-5} ${y} Z`}
-            stroke={gold} strokeWidth={0.45 * strokeBoost} fill="none"/>
-        );
-      })}
-    </svg>
-  );
-}
-
-function Star({ size = 16, color = gold, filled = true, opacity: op = 0.9 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 100 100" fill="none" style={{ opacity: op }}>
-      <path d="M50 0 C52 38 62 48 100 50 C62 52 52 62 50 100 C48 62 38 52 0 50 C38 48 48 38 50 0Z"
-        fill={filled ? color : "none"} stroke={filled ? "none" : color} strokeWidth="1.5"/>
-    </svg>
-  );
-}
-
 export default function SplashScreen({ onDone }) {
   const [step, setStep] = useState(0);
-  const [dim, setDim] = useState({
-    w: typeof window !== "undefined" ? window.innerWidth : 1200,
-    h: typeof window !== "undefined" ? window.innerHeight : 800,
-  });
+  const [w, setW] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
 
   useEffect(() => {
-    const onResize = () => setDim({ w: window.innerWidth, h: window.innerHeight });
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const r = () => setW(window.innerWidth);
+    window.addEventListener("resize", r);
+    return () => window.removeEventListener("resize", r);
   }, []);
 
-  // Animation timeline
   useEffect(() => {
-    const t1 = setTimeout(() => setStep(1), 800);   // logo
-    const t2 = setTimeout(() => setStep(2), 1700);  // tagline
-    const t3 = setTimeout(() => setStep(3), 3400);  // fade
-    const t4 = setTimeout(() => onDone(), 4200);
+    const t1 = setTimeout(() => setStep(1), 500);
+    const t2 = setTimeout(() => setStep(2), 1500);
+    const t3 = setTimeout(() => setStep(3), 2400);
+    const t4 = setTimeout(() => onDone(), 3000);
     return () => [t1, t2, t3, t4].forEach(clearTimeout);
   }, [onDone]);
 
-  const handleSkip = () => {
+  const skip = () => {
     setStep(3);
-    setTimeout(() => onDone(), 800);
+    setTimeout(() => onDone(), 600);
   };
 
-  // Responsive mandala size — smaller on mobile
-  const isMobile = dim.w < 640;
-  const mandalaSize = isMobile ? Math.min(dim.w * 0.85, 340) : 420;
-  const logoFontSize = isMobile ? 32 : 42;
+  const isMobile = w < 640;
+  const orbSize = isMobile ? Math.min(w * 0.75, 300) : 360;
+
+  const bgStyle = "radial-gradient(ellipse 80% 60% at 20% 20%, rgba(120, 90, 180, 0.35) 0%, transparent 50%), radial-gradient(ellipse 70% 50% at 80% 30%, rgba(180, 120, 90, 0.25) 0%, transparent 55%), radial-gradient(ellipse 90% 70% at 50% 90%, rgba(60, 80, 140, 0.4) 0%, transparent 60%), linear-gradient(180deg, #0A0612 0%, #050A18 50%, #07050F 100%)";
+
+  const dotAnim = (i) => "splash_dot 1.4s ease-in-out " + (i * 0.2) + "s infinite";
 
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 99999,
-      background: `radial-gradient(ellipse at 50% 45%, ${bg} 0%, #000 100%)`,
+      background: bgStyle,
       display: "flex", flexDirection: "column",
       alignItems: "center", justifyContent: "center",
       opacity: step >= 3 ? 0 : 1,
-      transform: step >= 3 ? "scale(1.05)" : "scale(1)",
-      transition: "opacity .8s ease, transform .8s ease",
+      transition: "opacity .6s ease",
       overflow: "hidden",
       pointerEvents: step >= 3 ? "none" : "auto",
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap');
-        @keyframes splash_spinIntro { from{transform:rotate(0deg)} to{transform:rotate(720deg)} }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+        @keyframes splash_spin { from{transform:rotate(0deg)} to{transform:rotate(720deg)} }
         @keyframes splash_spinReverse { from{transform:rotate(360deg)} to{transform:rotate(0deg)} }
         @keyframes splash_spinSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-        @keyframes splash_pulseRing { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.05);opacity:.6} }
-        @keyframes splash_emberFloat {
-          0%{transform:translateY(0) translateX(0);opacity:0}
-          20%{opacity:.8}
-          80%{opacity:.4}
-          100%{transform:translateY(-200px) translateX(20px);opacity:0}
-        }
-        @keyframes splash_introFade { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
-        @keyframes splash_shimmerText { 0%{background-position:-200% center} 100%{background-position:200% center} }
-        @keyframes splash_dot { 0%,80%,100%{opacity:.25;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
+        @keyframes splash_pulse { 0%,100%{transform:scale(1);opacity:.4} 50%{transform:scale(1.08);opacity:.7} }
+        @keyframes splash_shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+        @keyframes splash_dot { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
       `}</style>
 
-      {/* Red ambient glow */}
       <div style={{
         position: "absolute", top: "50%", left: "50%",
-        width: 600, height: 600, marginLeft: -300, marginTop: -300,
+        width: orbSize * 1.8, height: orbSize * 1.8,
+        marginLeft: -(orbSize * 0.9), marginTop: -(orbSize * 0.9),
         borderRadius: "50%",
-        background: `radial-gradient(circle, ${red}28 0%, ${red}08 40%, transparent 70%)`,
-        filter: "blur(40px)",
-        animation: "splash_pulseRing 4s ease-in-out infinite",
+        background: "radial-gradient(circle, rgba(212,176,122,0.18) 0%, rgba(120,90,180,0.1) 40%, transparent 70%)",
+        filter: "blur(30px)",
+        animation: "splash_pulse 3s ease-in-out infinite",
       }}/>
 
-      {/* Ember particles */}
-      {[...Array(12)].map((_, i) => (
-        <div key={i} style={{
-          position: "absolute",
-          bottom: -20, left: `${10 + i * 7}%`,
-          width: 2, height: 2, borderRadius: "50%",
-          background: i % 3 === 0 ? red : gold,
-          boxShadow: `0 0 6px ${i % 3 === 0 ? red : gold}`,
-          animation: `splash_emberFloat ${6 + (i % 4)}s ease-out ${i * 0.4}s infinite`,
-        }}/>
-      ))}
-
-      {/* Triple mandala */}
       <div style={{
-        position: "relative", width: mandalaSize, height: mandalaSize,
+        position: "relative", width: orbSize, height: orbSize,
         display: "flex", alignItems: "center", justifyContent: "center",
-        animation: "splash_introFade 1s cubic-bezier(.16,1,.3,1)",
       }}>
         <div style={{
           position: "absolute", inset: 0,
-          animation: "splash_spinIntro 6s cubic-bezier(.45,0,.55,1) forwards",
-          filter: `drop-shadow(0 0 20px ${gold}40)`,
+          animation: "splash_spin 3s cubic-bezier(.45,0,.55,1) forwards",
         }}>
-          <MandalaRing size={mandalaSize} opacity={0.55} strokeBoost={1.5}/>
-        </div>
-        <div style={{
-          position: "absolute", inset: mandalaSize * 0.1,
-          animation: "splash_spinReverse 12s linear infinite",
-        }}>
-          <MandalaRing size={mandalaSize * 0.8} opacity={0.35} strokeBoost={1.2}/>
-        </div>
-        <div style={{
-          position: "absolute", inset: mandalaSize * 0.2,
-          animation: "splash_spinSlow 18s linear infinite",
-        }}>
-          <MandalaRing size={mandalaSize * 0.58} opacity={0.4} strokeBoost={1.3}/>
+          <svg viewBox="0 0 280 280" width={orbSize} height={orbSize} fill="none">
+            <defs>
+              <radialGradient id="orbGradS">
+                <stop offset="0%" stopColor="rgba(212,176,122,0.25)"/>
+                <stop offset="60%" stopColor="rgba(120,90,180,0.15)"/>
+                <stop offset="100%" stopColor="rgba(60,80,140,0.05)"/>
+              </radialGradient>
+            </defs>
+            <circle cx="140" cy="140" r="100" fill="url(#orbGradS)" opacity="0.6"/>
+            <circle cx="140" cy="140" r="120" stroke="rgba(212,176,122,0.55)" strokeWidth="0.6" fill="none"/>
+            <circle cx="140" cy="140" r="105" stroke="rgba(245,241,232,0.25)" strokeWidth="0.4" fill="none"/>
+            <circle cx="140" cy="140" r="80" stroke="rgba(212,176,122,0.45)" strokeWidth="0.6" fill="none" strokeDasharray="2 4"/>
+            <g stroke="rgba(212,176,122,0.7)" strokeWidth="0.6">
+              {[0,30,60,90,120,150,180,210,240,270,300,330].map((a,i) => {
+                const rad = (a-90) * Math.PI/180;
+                return <line key={i} x1={140 + 115 * Math.cos(rad)} y1={140 + 115 * Math.sin(rad)} x2={140 + 125 * Math.cos(rad)} y2={140 + 125 * Math.sin(rad)}/>;
+              })}
+            </g>
+          </svg>
         </div>
 
-        {/* Center logo */}
+        <div style={{
+          position: "absolute", inset: orbSize * 0.12,
+          animation: "splash_spinReverse 8s linear infinite",
+        }}>
+          <svg viewBox="0 0 280 280" width={orbSize * 0.76} height={orbSize * 0.76} fill="none">
+            <circle cx="140" cy="140" r="100" stroke="rgba(245,241,232,0.2)" strokeWidth="0.3" fill="none"/>
+            <circle cx="140" cy="140" r="80" stroke="rgba(212,176,122,0.3)" strokeWidth="0.4" fill="none"/>
+            {[0,45,90,135,180,225,270,315].map((a,i) => {
+              const rad = (a-90) * Math.PI/180;
+              return <circle key={i} cx={140 + 90 * Math.cos(rad)} cy={140 + 90 * Math.sin(rad)} r="2" fill="rgba(212,176,122,0.8)"/>;
+            })}
+          </svg>
+        </div>
+
+        <div style={{
+          position: "absolute", inset: orbSize * 0.25,
+          animation: "splash_spinSlow 12s linear infinite",
+        }}>
+          <svg viewBox="0 0 280 280" width={orbSize * 0.5} height={orbSize * 0.5} fill="none">
+            <circle cx="140" cy="140" r="60" stroke="rgba(212,176,122,0.4)" strokeWidth="0.5" fill="none"/>
+            {[0,60,120,180,240,300].map((a,i) => {
+              const rad = (a-90) * Math.PI/180;
+              return <circle key={i} cx={140 + 60 * Math.cos(rad)} cy={140 + 60 * Math.sin(rad)} r="1.5" fill="rgba(245,241,232,0.7)"/>;
+            })}
+          </svg>
+        </div>
+
         <div style={{
           position: "relative", zIndex: 10, textAlign: "center",
           opacity: step >= 1 ? 1 : 0,
-          transform: step >= 1 ? "scale(1)" : "scale(0.7)",
-          transition: "all 1s cubic-bezier(.16,1,.3,1)",
+          transform: step >= 1 ? "scale(1)" : "scale(0.6)",
+          transition: "all .8s cubic-bezier(.16,1,.3,1)",
         }}>
           <div style={{
-            position: "absolute", inset: -30,
-            background: `radial-gradient(circle, ${red}60 0%, transparent 70%)`,
-            filter: "blur(20px)",
+            position: "absolute", inset: -20,
+            background: "radial-gradient(circle, rgba(212,176,122,0.4) 0%, transparent 70%)",
+            filter: "blur(15px)",
           }}/>
           <div style={{ position: "relative" }}>
-            <Star size={16} color={gold} filled opacity={0.9}/>
-          </div>
-          <div style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: logoFontSize, fontWeight: 400, letterSpacing: 2, marginTop: 10,
-            background: `linear-gradient(120deg, ${gold} 0%, ${goldLight} 25%, ${gold} 50%, ${goldLight} 75%, ${gold} 100%)`,
-            backgroundSize: "200% auto",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            animation: "splash_shimmerText 4s linear infinite",
-          }}>
-            FateLoop
-          </div>
-          <div style={{
-            width: 40, height: 1,
-            background: `linear-gradient(90deg, transparent, ${gold}, transparent)`,
-            margin: "8px auto",
-          }}/>
-          <div style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: 11, color: gold,
-            letterSpacing: 4, fontStyle: "italic", opacity: 0.8,
-          }}>
-            命 · 轮
+            <svg width="12" height="12" viewBox="0 0 100 100" style={{ display: "block", margin: "0 auto" }}>
+              <path d="M50 0 C52 38 62 48 100 50 C62 52 52 62 50 100 C48 62 38 52 0 50 C38 48 48 38 50 0Z" fill="rgba(245,241,232,0.95)"/>
+            </svg>
+            <div style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: isMobile ? 28 : 34, fontWeight: 400, letterSpacing: 2.5, marginTop: 8,
+              background: "linear-gradient(120deg, #E8C99A 0%, #F5E5C0 25%, #D4B07A 50%, #F5E5C0 75%, #E8C99A 100%)",
+              backgroundSize: "200% auto",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "splash_shimmer 3s linear infinite",
+            }}>
+              FateLoop
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Tagline */}
       <div style={{
-        marginTop: 60, textAlign: "center",
+        marginTop: 48, textAlign: "center",
         opacity: step >= 2 ? 1 : 0,
-        transform: step >= 2 ? "translateY(0)" : "translateY(20px)",
-        transition: "all 1s cubic-bezier(.16,1,.3,1)",
+        transform: step >= 2 ? "translateY(0)" : "translateY(12px)",
+        transition: "all .8s cubic-bezier(.16,1,.3,1)",
         padding: "0 24px",
       }}>
         <div style={{
-          fontSize: 9, color: gold,
-          letterSpacing: isMobile ? 8 : 14,
-          textTransform: "uppercase", opacity: 0.7, fontWeight: 500,
+          fontSize: 9, color: "rgba(212,176,122,0.7)",
+          letterSpacing: isMobile ? 6 : 10,
+          textTransform: "uppercase", fontWeight: 500,
         }}>
           Reading Your Fate
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 20 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 16 }}>
           {[0, 1, 2].map((i) => (
             <div key={i} style={{
-              width: 4, height: 4, borderRadius: "50%",
-              background: gold,
-              animation: `splash_dot 1.4s ease-in-out ${i * 0.2}s infinite`,
+              width: 3, height: 3, borderRadius: "50%",
+              background: "#D4B07A",
+              animation: dotAnim(i),
             }}/>
           ))}
         </div>
       </div>
 
-      {/* Skip */}
-      <div onClick={handleSkip} style={{
+      <div onClick={skip} style={{
         position: "absolute",
-        bottom: isMobile ? 24 : 40,
-        right: isMobile ? 24 : 40,
-        fontSize: 10, color: textMute, letterSpacing: 3,
+        bottom: isMobile ? 24 : 32,
+        right: isMobile ? 24 : 32,
+        fontSize: 10, color: "rgba(245,241,232,0.4)", letterSpacing: 3,
         cursor: "pointer", textTransform: "uppercase",
-        opacity: step >= 1 ? 0.5 : 0,
-        transition: "opacity .8s ease",
+        opacity: step >= 1 ? 1 : 0,
+        transition: "opacity .6s ease",
       }}>
-        Skip ›
+        Skip
       </div>
     </div>
   );
