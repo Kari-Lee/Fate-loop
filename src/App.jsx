@@ -15,6 +15,7 @@ import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
+  // Splash plays EVERY refresh — no sessionStorage check
   const [splashDone, setSplashDone] = useState(false);
 
   return (
