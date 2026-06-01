@@ -52,6 +52,9 @@ const OPENER = {
   content: "Welcome.\n\nI've been expecting someone today — the energy of this hour suggested a visitor.\n\nTell me, what brings you here? I can read your birth chart and lay out the full map — wealth, love, career, the hidden patterns that shape your life. If you know the year, month, day, and hour of your birth, I can go very deep.\n\nOr if there's something specific keeping you up at night — a person, a decision, a question — tell me, and I'll cast a reading for this exact moment.\n\nWhat would you like to know?"
 };
 
+const gold = "#D4B07A";
+const ivory = "#F5F1E8";
+
 export default function Master() {
   const [messages, setMessages] = useState([OPENER]);
   const [input, setInput] = useState("");
@@ -64,6 +67,7 @@ export default function Master() {
   const send = async () => {
     const text = input.trim();
     if (!text || loading) return;
+    track("master_message_sent");
     const userMsg = { role: "user", content: text };
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
@@ -86,66 +90,68 @@ export default function Master() {
   };
 
   return (
-    <div style={{ margin: "0 -32px", minHeight: "calc(100vh - 120px)", display: "flex", flexDirection: "column" }}>
-      <div style={{ textAlign: "center", padding: "32px 32px 24px", borderBottom: "1px solid rgba(0,0,0,.04)" }}>
-        <div style={{ fontSize: 9, letterSpacing: 6, textTransform: "uppercase", color: "#B5AFA0", marginBottom: 8, fontWeight: 500 }}>✦ Live Reading</div>
-        <div className="font-serif" style={{ fontSize: 24, color: "#1A1A1A", fontWeight: 400 }}>The Master</div>
+    <div style={{ minHeight: "calc(100vh - 160px)", display: "flex", flexDirection: "column", maxWidth: 720, margin: "0 auto", width: "100%" }}>
+      <style>{`
+        @keyframes mst_fade { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes mst_dot { 0%,80%,100%{opacity:.25} 40%{opacity:1} }
+        .mst-msg { animation: mst_fade .6s ease both; }
+        .mst-input::placeholder { color: rgba(245,241,232,0.35); font-style: italic; }
+        .mst-input:focus { border-color: rgba(212,176,122,0.45) !important; }
+      `}</style>
+
+      <div style={{ textAlign: "center", padding: "20px 0 28px" }}>
+        <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>✦ The Master Speaks</div>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
+          <div style={{ width: 34, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
+          <div className="fl-serif" style={{ fontSize: 26, color: ivory, fontWeight: 400, letterSpacing: 1 }}>The Master</div>
+          <div style={{ width: 34, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
+        </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: "auto", padding: "24px 32px 0" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "8px 4px 0" }}>
         {messages.map((msg, i) => (
-          <div key={i} style={{ marginBottom: 20, display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
-            {msg.role === "assistant" && (
-              <div style={{ width: 30, height: 30, borderRadius: 99, background: "rgba(255,255,255,.6)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,.7)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, marginRight: 10, marginTop: 4, flexShrink: 0 }}>
-                <svg width="14" height="14" viewBox="0 0 40 40" fill="none" stroke="#8B7355" strokeWidth="1.5" strokeLinecap="round"><circle cx="20" cy="20" r="10"/><circle cx="20" cy="16" r="1.5" fill="#8B7355" stroke="none"/><line x1="20" y1="19" x2="20" y2="25"/></svg>
+          msg.role === "assistant" ? (
+            <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(212,176,122,0.4)" }}>
+              <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>The Master</div>
+              <div className="fl-serif" style={{ fontSize: 17, lineHeight: 1.8, color: "rgba(245,241,232,0.92)", fontStyle: "italic", whiteSpace: "pre-wrap", letterSpacing: 0.3 }}>
+                {msg.content}
               </div>
-            )}
-            <div style={{
-              maxWidth: msg.role === "user" ? "78%" : "84%",
-              padding: "14px 18px",
-              borderRadius: msg.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
-              background: msg.role === "user" ? "#1A1A1A" : "rgba(255,255,255,.6)",
-              backdropFilter: msg.role === "assistant" ? "blur(16px)" : "none",
-              border: msg.role === "user" ? "none" : "1px solid rgba(255,255,255,.7)",
-              fontSize: 14, lineHeight: 1.9,
-              color: msg.role === "user" ? "#F0EDE8" : "#555",
-              whiteSpace: "pre-wrap",
-              fontFamily: msg.role === "assistant" ? "'Cormorant Garamond', serif" : "inherit",
-              letterSpacing: msg.role === "assistant" ? .3 : 0,
-            }}>
-              {msg.content}
             </div>
-          </div>
+          ) : (
+            <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingRight: 20, borderRight: "1px solid rgba(245,241,232,0.22)", textAlign: "right" }}>
+              <div className="fl-label" style={{ marginBottom: 10 }}>You</div>
+              <div style={{ fontSize: 15, lineHeight: 1.7, color: "rgba(245,241,232,0.82)", whiteSpace: "pre-wrap" }}>
+                {msg.content}
+              </div>
+            </div>
+          )
         ))}
         {loading && (
-          <div style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 30, height: 30, borderRadius: 99, background: "rgba(255,255,255,.6)", border: "1px solid rgba(255,255,255,.7)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, flexShrink: 0 }}>
-              <svg width="14" height="14" viewBox="0 0 40 40" fill="none" stroke="#8B7355" strokeWidth="1.5"><circle cx="20" cy="20" r="10"/></svg>
-            </div>
-            <div style={{ padding: "14px 18px", borderRadius: "18px 18px 18px 4px", background: "rgba(255,255,255,.6)", border: "1px solid rgba(255,255,255,.7)" }}>
-              <div style={{ display: "flex", gap: 5 }}>
-                {[0,1,2].map((j) => <div key={j} style={{ width: 6, height: 6, borderRadius: "50%", background: "#C0B89A", animation: `bounce .9s ease ${j*.15}s infinite` }}/>)}
-              </div>
+          <div className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(212,176,122,0.4)" }}>
+            <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>The Master</div>
+            <div style={{ display: "flex", gap: 6, alignItems: "center", height: 24 }}>
+              {[0,1,2].map((j) => <div key={j} style={{ width: 5, height: 5, borderRadius: "50%", background: gold, animation: `mst_dot 1.4s ease ${j*0.2}s infinite` }}/>)}
             </div>
           </div>
         )}
         <div ref={bottomRef} />
       </div>
 
-      <div style={{ padding: "12px 24px 24px", borderTop: "1px solid rgba(0,0,0,.04)", background: "rgba(240,237,232,.5)", backdropFilter: "blur(12px)" }}>
-        <div style={{ display: "flex", gap: 10, maxWidth: 540, margin: "0 auto" }}>
+      <div style={{ paddingTop: 18, marginTop: 8, borderTop: "0.5px solid rgba(212,176,122,0.25)" }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "flex-end" }}>
           <textarea ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-            placeholder="Speak to the Master..." rows={1}
-            style={{ flex: 1, background: "rgba(255,255,255,.6)", border: "1px solid rgba(255,255,255,.7)", borderRadius: 14, padding: "12px 16px", color: "#1A1A1A", fontSize: 14, resize: "none", outline: "none", lineHeight: 1.6, backdropFilter: "blur(12px)" }}
+            placeholder="Ask the Master…" rows={1}
+            className="mst-input"
+            style={{ flex: 1, background: "rgba(255,255,255,0.04)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)", border: "0.5px solid rgba(255,255,255,0.14)", borderRadius: 16, padding: "13px 18px", color: ivory, fontSize: 15, resize: "none", outline: "none", lineHeight: 1.6, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}
           />
           <button onClick={send} disabled={!input.trim() || loading}
-            style={{ width: 44, height: 44, borderRadius: 12, border: "none", cursor: input.trim() && !loading ? "pointer" : "default", background: input.trim() && !loading ? "#1A1A1A" : "rgba(255,255,255,.4)", color: input.trim() && !loading ? "#F0EDE8" : "#CCC", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all .2s" }}>
+            style={{ width: 46, height: 46, borderRadius: "50%", border: "0.5px solid rgba(212,176,122,0.4)", cursor: input.trim() && !loading ? "pointer" : "default", background: input.trim() && !loading ? "rgba(212,176,122,0.16)" : "rgba(255,255,255,0.04)", color: input.trim() && !loading ? gold : "rgba(245,241,232,0.3)", fontSize: 17, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all .3s", backdropFilter: "blur(40px)" }}>
             ↑
           </button>
         </div>
-        <div style={{ textAlign: "center", marginTop: 8 }}>
-          <span onClick={() => { setMessages([OPENER]); setInput(""); }} style={{ fontSize: 11, color: "#CCC", cursor: "pointer" }}>New session ↻</span>
+        <div style={{ textAlign: "center", marginTop: 14 }}>
+          <span onClick={() => { setMessages([OPENER]); setInput(""); }} className="fl-label" style={{ cursor: "pointer" }}>New session ↻</span>
         </div>
       </div>
     </div>

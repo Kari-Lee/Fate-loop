@@ -1,5 +1,37 @@
 {
   "back": "← Back",
+  "nav": {
+    "home": "Home",
+    "issue": "Issue Nº 02",
+    "library": "The Library",
+    "dailyWisdom": "Daily Wisdom",
+    "compliance": "For entertainment only. Not medical, financial, or professional advice."
+  },
+  "home": {
+    "heroLine1": "The veil is thin",
+    "heroLine2": "tonight.",
+    "heroSub": "A master is reading the energy of this hour.",
+    "heroSub2": "Step inside.",
+    "cta": "Enter Reading",
+    "freeHint": "Free · 3 questions today",
+    "cardMasterTitle": "The Master",
+    "cardMasterDesc": "Live · AI",
+    "cardTarotTitle": "Tarot",
+    "cardTarotDesc": "3-card spread",
+    "cardMeihuaTitle": "I Ching",
+    "cardMeihuaDesc": "Hexagram",
+    "cardBaziTitle": "Bazi",
+    "cardBaziDesc": "Compatibility",
+    "cardZodiacTitle": "Zodiac",
+    "cardZodiacDesc": "12 animals",
+    "cardElementsTitle": "Five Elements",
+    "cardElementsDesc": "Wu Xing",
+    "cardQianTitle": "Oracle",
+    "cardQianDesc": "Temple sticks",
+    "cardFortuneTitle": "Today's Energy",
+    "cardFortuneDesc": "Daily reading",
+    "featured": "★ Featured"
+  },
   "tarot": {
     "title": "Tarot Reading",
     "desc": "Trust your intuition and pick three cards",
