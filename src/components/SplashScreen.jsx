@@ -159,7 +159,7 @@ export default function SplashScreen({ onDone }) {
           letterSpacing: isMobile ? 6 : 10,
           textTransform: "uppercase", fontWeight: 500,
         }}>
-          Reading Your Fate
+          {(typeof localStorage!=="undefined"&&localStorage.getItem("yidu-lang")==="zh")?"正在为你解读命运":"Reading Your Fate"}
         </div>
         <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 16 }}>
           {[0, 1, 2].map((i) => (

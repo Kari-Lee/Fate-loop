@@ -1,62 +1,39 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { track } from "../lib/analytics";
 
 const SYSTEM = `You are a master of Chinese metaphysics. You have spent 40 years studying BaZi, Zi Wei Dou Shu, Mei Hua Yi Shu, Qi Men Dun Jia, and the Five Elements.
 
+CRITICAL LANGUAGE RULE: Always reply in the SAME language the user writes in. If they write in Chinese, respond entirely in Chinese. If English, respond in English.
+
 YOUR PERSONA:
-- You speak in English with an unhurried, wise, slightly mysterious tone
-- You occasionally use Chinese terms with translation for atmosphere
+- You speak with an unhurried, wise, slightly mysterious tone
+- You occasionally use Chinese metaphysical terms with translation for atmosphere
 - You are warm but direct. You don't sugarcoat. You deliver truth with compassion.
 - You feel like a real person sitting across from someone, not an AI
 - You use vivid metaphors from nature and Chinese cosmology
 - You never say "I'm an AI" or break character
 
 YOUR CONVERSATION FLOW:
-1. OPENING: Greet them warmly. Ask what brings them to you today. Offer naturally:
-   - Full birth chart reading (wealth, love, career)
-   - A specific question they need answered
-   - Compatibility between two people
-   Keep it conversational, not a numbered list.
-
-2. GATHERING INFO: Ask for what you need. Always specific:
-   - For birth chart: year, month, day, hour if they know it
-   - For a specific question: what's on their mind + a number 1-100
-   - For compatibility: both birth dates
-   Ask ONE thing at a time.
-
-3. THE READING: Deliver naturally in conversation. Cover:
-   - Their elemental nature
-   - Specific insights about what they asked
-   - Current energetic period
-   - One thing to do, one thing to avoid
-   - A timing prediction
-   Use rich, specific language with real predictions.
-
-4. FOLLOW-UP — CRITICAL: After EVERY reading on a topic, you MUST proactively guide them to the next topic. Tease what you see in another area:
-   - After career: "I notice something in your Peach Blossom position — your love life has an interesting turn coming. Want me to look?"
-   - After love: "Your wealth palace shows a conflict between two elements. Shall I read it?"
-   - After wealth: "Your health palace is sending signals. Should I open that up?"
-   Always end with a SPECIFIC, INTRIGUING teaser. Never generic "anything else?"
-
+1. OPENING: Greet them warmly. Ask what brings them to you today. Offer naturally: full birth chart reading (wealth, love, career), a specific question, or compatibility between two people. Keep it conversational, not a numbered list.
+2. GATHERING INFO: Ask for what you need, one thing at a time. For birth chart: year, month, day, hour. For a specific question: what's on their mind + a number 1-100. For compatibility: both birth dates.
+3. THE READING: Deliver naturally. Cover their elemental nature, specific insights, current energetic period, one thing to do, one to avoid, and a timing prediction. Be specific.
+4. FOLLOW-UP — CRITICAL: After EVERY reading, proactively guide them to the next topic with a SPECIFIC, INTRIGUING teaser. Never generic "anything else?"
 5. DEEP CONTINUATION: After multiple topics, offer the big picture or yearly forecast.
 
 RULES:
 - NEVER end without guiding them to continue.
 - Reveal layer by layer.
 - 3-6 short paragraphs max per response.
-- Make specific predictions. Vague is boring.
-- Track which topics you've covered. Only suggest uncovered ones.`;
-
-const OPENER = {
-  role: "assistant",
-  content: "Welcome.\n\nI've been expecting someone today — the energy of this hour suggested a visitor.\n\nTell me, what brings you here? I can read your birth chart and lay out the full map — wealth, love, career, the hidden patterns that shape your life. If you know the year, month, day, and hour of your birth, I can go very deep.\n\nOr if there's something specific keeping you up at night — a person, a decision, a question — tell me, and I'll cast a reading for this exact moment.\n\nWhat would you like to know?"
-};
+- Make specific predictions. Vague is boring.`;
 
 const gold = "#D4B07A";
 const ivory = "#F5F1E8";
 
 export default function Master() {
-  const [messages, setMessages] = useState([OPENER]);
+  const { t } = useTranslation();
+  const opener = { role: "assistant", content: t("master.opener") };
+  const [messages, setMessages] = useState([opener]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
@@ -81,9 +58,9 @@ export default function Master() {
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error);
-      setMessages([...newMessages, { role: "assistant", content: d.text || "The energies are unclear. Ask me again." }]);
+      setMessages([...newMessages, { role: "assistant", content: d.text || t("master.errUnclear") }]);
     } catch (e) {
-      setMessages([...newMessages, { role: "assistant", content: "The connection wavers... try again in a moment." }]);
+      setMessages([...newMessages, { role: "assistant", content: t("master.errConnection") }]);
     }
     setLoading(false);
     setTimeout(() => inputRef.current?.focus(), 100);
@@ -100,10 +77,10 @@ export default function Master() {
       `}</style>
 
       <div style={{ textAlign: "center", padding: "20px 0 28px" }}>
-        <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>✦ The Master Speaks</div>
+        <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>{t("master.speaks")}</div>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
           <div style={{ width: 34, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
-          <div className="fl-serif" style={{ fontSize: 26, color: ivory, fontWeight: 400, letterSpacing: 1 }}>The Master</div>
+          <div className="fl-serif" style={{ fontSize: 26, color: ivory, fontWeight: 400, letterSpacing: 1 }}>{t("master.title")}</div>
           <div style={{ width: 34, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
         </div>
       </div>
@@ -112,14 +89,14 @@ export default function Master() {
         {messages.map((msg, i) => (
           msg.role === "assistant" ? (
             <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(212,176,122,0.4)" }}>
-              <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>The Master</div>
+              <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>{t("master.roleMaster")}</div>
               <div className="fl-serif" style={{ fontSize: 17, lineHeight: 1.8, color: "rgba(245,241,232,0.92)", fontStyle: "italic", whiteSpace: "pre-wrap", letterSpacing: 0.3 }}>
                 {msg.content}
               </div>
             </div>
           ) : (
             <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingRight: 20, borderRight: "1px solid rgba(245,241,232,0.22)", textAlign: "right" }}>
-              <div className="fl-label" style={{ marginBottom: 10 }}>You</div>
+              <div className="fl-label" style={{ marginBottom: 10 }}>{t("master.roleYou")}</div>
               <div style={{ fontSize: 15, lineHeight: 1.7, color: "rgba(245,241,232,0.82)", whiteSpace: "pre-wrap" }}>
                 {msg.content}
               </div>
@@ -128,7 +105,7 @@ export default function Master() {
         ))}
         {loading && (
           <div className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(212,176,122,0.4)" }}>
-            <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>The Master</div>
+            <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>{t("master.roleMaster")}</div>
             <div style={{ display: "flex", gap: 6, alignItems: "center", height: 24 }}>
               {[0,1,2].map((j) => <div key={j} style={{ width: 5, height: 5, borderRadius: "50%", background: gold, animation: `mst_dot 1.4s ease ${j*0.2}s infinite` }}/>)}
             </div>
@@ -141,7 +118,7 @@ export default function Master() {
         <div style={{ display: "flex", gap: 12, alignItems: "flex-end" }}>
           <textarea ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-            placeholder="Ask the Master…" rows={1}
+            placeholder={t("master.placeholder")} rows={1}
             className="mst-input"
             style={{ flex: 1, background: "rgba(255,255,255,0.04)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)", border: "0.5px solid rgba(255,255,255,0.14)", borderRadius: 16, padding: "13px 18px", color: ivory, fontSize: 15, resize: "none", outline: "none", lineHeight: 1.6, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}
           />
@@ -151,7 +128,7 @@ export default function Master() {
           </button>
         </div>
         <div style={{ textAlign: "center", marginTop: 14 }}>
-          <span onClick={() => { setMessages([OPENER]); setInput(""); }} className="fl-label" style={{ cursor: "pointer" }}>New session ↻</span>
+          <span onClick={() => { setMessages([{ role: "assistant", content: t("master.opener") }]); setInput(""); }} className="fl-label" style={{ cursor: "pointer" }}>{t("master.newSession")}</span>
         </div>
       </div>
     </div>
