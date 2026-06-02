@@ -95,5 +95,51 @@
     "luckyColor": "幸运色",
     "submit": "查看运势",
     "retry": "重新解读"
+  },
+  "elements": {
+    "title": "五行配对",
+    "relPrompt": "你想看哪一种关系?",
+    "relCrush": "暗恋",
+    "relDating": "约会中",
+    "relPartner": "伴侣",
+    "relFriends": "朋友",
+    "enterDates": "输入双方生日",
+    "yourBday": "你的生日",
+    "theirBday": "对方的生日",
+    "phYear": "年",
+    "phMonth": "月",
+    "phDay": "日",
+    "phHour": "时辰(可选,不知道可跳过)",
+    "back": "返回",
+    "reveal": "揭示五行",
+    "noHourNote": "未填时辰,显示简化版解读",
+    "compatibilityLabel": "契合度",
+    "you": "你",
+    "them": "对方",
+    "neutralFallback": "你们的五行没有直接互动 - 关系的剧本由你们自己写。",
+    "shareBtn": "分享结果",
+    "ctaMaster": "请教大师",
+    "ctaTarot": "抽三张塔罗",
+    "newReading": "重新测算",
+    "copied": "已复制!",
+    "shareGood": "{{e1}} + {{e2}} = {{score}}% 契合。宇宙点头。",
+    "shareBad": "{{e1}} + {{e2}} = {{score}}% 契合。宇宙留了注解。",
+    "verdict": {
+      "good": [
+        "你们的五行翩翩共舞。",
+        "天时与你们同行。",
+        "古老的和谐显现了。"
+      ],
+      "bad": [
+        "你们的五行起了摩擦。",
+        "这段缘分需要功夫去经营。",
+        "在张力之中各自生长。"
+      ]
+    },
+    "relTitle": {
+      "feed": "谁在滋养谁",
+      "clash": "你们的冲突在哪",
+      "dynamic": "你们的相处之道"
+    }
   }
 }

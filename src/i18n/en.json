@@ -95,5 +95,51 @@
     "luckyColor": "Lucky Color",
     "submit": "Reveal Today",
     "retry": "Read Again"
+  },
+  "elements": {
+    "title": "Five Elements",
+    "relPrompt": "What kind of connection are you exploring?",
+    "relCrush": "Crush",
+    "relDating": "Dating",
+    "relPartner": "Partner",
+    "relFriends": "Friends",
+    "enterDates": "Enter birth dates",
+    "yourBday": "Your birthday",
+    "theirBday": "Their birthday",
+    "phYear": "Year",
+    "phMonth": "Mo",
+    "phDay": "Day",
+    "phHour": "Hour of birth (optional)",
+    "back": "Back",
+    "reveal": "Reveal Elements",
+    "noHourNote": "Simplified reading without birth hour",
+    "compatibilityLabel": "compatibility",
+    "you": "You",
+    "them": "Them",
+    "neutralFallback": "Your elements don't directly interact - your story is yours to write.",
+    "shareBtn": "Share Result",
+    "ctaMaster": "Ask the Master",
+    "ctaTarot": "Draw 3 Tarot Cards",
+    "newReading": "New Reading",
+    "copied": "Copied!",
+    "shareGood": "{{e1}} + {{e2}} = {{score}}% compatible. The universe approves.",
+    "shareBad": "{{e1}} + {{e2}} = {{score}}% compatible. The universe has notes.",
+    "verdict": {
+      "good": [
+        "Your elements dance together.",
+        "The cycle flows in your favor.",
+        "Ancient harmony detected."
+      ],
+      "bad": [
+        "Your elements create friction.",
+        "The cycle demands work.",
+        "Growth through tension."
+      ]
+    },
+    "relTitle": {
+      "feed": "Who nurtures whom",
+      "clash": "Where you clash",
+      "dynamic": "Your dynamic"
+    }
   }
 }
