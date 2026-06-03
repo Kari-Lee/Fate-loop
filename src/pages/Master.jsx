@@ -66,6 +66,27 @@ function typewrite(text, setter, delay, onDone) {
   tick();
 }
 
+// 带重试的 fetch:失败后等 backoff 毫秒再试,共 3 次。覆盖限流/网络抖动/冷启动
+async function fetchWithRetry(url, options, maxAttempts = 3) {
+  let lastErr;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const r = await fetch(url, options);
+      if (r.ok) return r;
+      // 5xx 才重试,4xx 直接返回(永远不会成功)
+      if (r.status < 500) return r;
+      lastErr = new Error("HTTP " + r.status);
+    } catch (e) {
+      lastErr = e;
+    }
+    if (attempt < maxAttempts) {
+      const backoff = 1200 * attempt; // 1.2s, 2.4s
+      await new Promise((res) => setTimeout(res, backoff));
+    }
+  }
+  throw lastErr || new Error("fetch failed after retries");
+}
+
 export default function Master() {
   const { t } = useTranslation();
   const opener = { role: "assistant", content: t("master.opener") };
@@ -99,7 +120,7 @@ export default function Master() {
     // ---- Phase 1: 思考独白 ----
     setPhase("thinking");
     try {
-      const tr = await fetch("/api/chat", {
+      const tr = await fetchWithRetry("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -123,7 +144,7 @@ export default function Master() {
     // ---- Phase 2: 正式回答 ----
     setPhase("answering");
     try {
-      const r = await fetch("/api/chat", {
+      const r = await fetchWithRetry("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ system: SYSTEM, messages: newMessages.map((m) => ({ role: m.role, content: m.content })) }),
