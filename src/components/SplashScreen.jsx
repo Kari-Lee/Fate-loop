@@ -181,7 +181,7 @@ export default function SplashScreen({ onDone }) {
         opacity: step >= 1 ? 1 : 0,
         transition: "opacity .6s ease",
       }}>
-        Skip
+        {(typeof localStorage!=="undefined"&&localStorage.getItem("yidu-lang")==="zh")?"跳过":"Skip"}
       </div>
     </div>
   );

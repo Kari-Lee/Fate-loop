@@ -161,7 +161,7 @@ export default function Layout() {
         <div style={{ display: "inline-flex", alignItems: "center", gap: 16 }}>
           <div style={{ width: 30, height: "0.5px", background: "rgba(212,176,122,0.35)" }}/>
           <span className="fl-label" onClick={() => navigate("/privacy")} style={{ cursor: "pointer" }}>
-            Made in alignment · Privacy
+            {i18n.language==="zh"?"顺天而作 · 隐私":"Made in alignment · Privacy"}
           </span>
           <div style={{ width: 30, height: "0.5px", background: "rgba(212,176,122,0.35)" }}/>
         </div>
