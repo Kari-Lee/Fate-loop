@@ -113,7 +113,7 @@ export default function Home() {
 
   let daily = "Three thousand years of wisdom and you still texted them back.";
   try {
-    const q = getDailyQuote();
+    const q = getDailyQuote(i18n.language);
     if (q && typeof q === "string") daily = q;
   } catch (e) {}
 
