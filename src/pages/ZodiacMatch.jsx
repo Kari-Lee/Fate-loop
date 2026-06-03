@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ZODIAC, TOXIC_COMBOS, HARMONY_COMBOS, getZodiacIndex } from "../data/wuxing";
+import { ZODIAC, TOXIC_COMBOS, HARMONY_COMBOS, getZodiacIndex, L } from "../data/wuxing";
 
 const C = {
   gold: "#B8964A",
@@ -14,7 +14,9 @@ const C = {
 };
 
 export default function ZodiacMatch() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
+  const zn = (z) => lang === "zh" ? z.zh : z.en;
   const [you, setYou] = useState(null);
   const [them, setThem] = useState(null);
   const [result, setResult] = useState(null);
@@ -50,7 +52,7 @@ export default function ZodiacMatch() {
               transition: "all .2s",
             }}>
             <div style={{ fontSize: 32, marginBottom: 6 }}>{z.emoji}</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: isSelected ? C.gold : C.sub }}>{z.en}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: isSelected ? C.gold : C.sub }}>{zn(z)}</div>
             <div style={{ fontSize: 9, color: C.muted, marginTop: 4 }}>{z.years}</div>
           </div>
         );
@@ -74,7 +76,7 @@ export default function ZodiacMatch() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20, padding: "12px 0 32px" }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 52 }}>{youZ.emoji}</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: C.ink, marginTop: 8 }}>{youZ.en}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: C.ink, marginTop: 8 }}>{zn(youZ)}</div>
             <div style={{ fontSize: 10, color: C.muted }}>{t("zodiac.you")}</div>
           </div>
           <div style={{ fontSize: 28, color: isToxic ? C.rose : isHarmony ? C.sage : C.muted }}>
@@ -82,7 +84,7 @@ export default function ZodiacMatch() {
           </div>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 52 }}>{themZ.emoji}</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: C.ink, marginTop: 8 }}>{themZ.en}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: C.ink, marginTop: 8 }}>{zn(themZ)}</div>
             <div style={{ fontSize: 10, color: C.muted }}>{t("zodiac.them")}</div>
           </div>
         </div>
@@ -100,9 +102,9 @@ export default function ZodiacMatch() {
                 fontSize: 12, fontWeight: 900, letterSpacing: 4, textTransform: "uppercase",
                 color: isToxic ? C.rose : C.sage, marginBottom: 16,
               }}>
-                {combo.label}
+                {L(combo.label, lang)}
               </div>
-              <div style={{ fontSize: 15, lineHeight: 2, color: C.sub }}>{combo.desc}</div>
+              <div style={{ fontSize: 15, lineHeight: 2, color: C.sub }}>{L(combo.desc, lang)}</div>
             </div>
 
             <div style={{
@@ -113,7 +115,7 @@ export default function ZodiacMatch() {
               <div style={{ fontSize: 10, letterSpacing: 3, color: C.gold, textTransform: "uppercase", marginBottom: 10 }}>
                 {isToxic ? t("zodiac.survival") : t("zodiac.whyWorks")}
               </div>
-              <div style={{ fontSize: 13, lineHeight: 1.9, color: C.sub }}>{combo.advice || combo.desc}</div>
+              <div style={{ fontSize: 13, lineHeight: 1.9, color: C.sub }}>{L(combo.advice, lang) || L(combo.desc, lang)}</div>
             </div>
           </div>
         ) : (
@@ -124,7 +126,7 @@ export default function ZodiacMatch() {
             <div style={{ fontSize: 48, marginBottom: 8 }}>🤝</div>
             <div style={{ fontSize: 12, fontWeight: 900, letterSpacing: 4, color: C.gold, textTransform: "uppercase", marginBottom: 16 }}>{t("zodiac.neutral")}</div>
             <div style={{ fontSize: 14, lineHeight: 2, color: C.sub }}>
-              {t("zodiac.neutralDesc", { you: youZ.en, them: themZ.en })}
+              {t("zodiac.neutralDesc", { you: zn(youZ), them: zn(themZ) })}
             </div>
           </div>
         )}
@@ -165,7 +167,7 @@ export default function ZodiacMatch() {
         {step === "them" && (
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, padding: "10px 14px", borderRadius: 12, background: "rgba(255,255,255,.02)" }}>
             <span style={{ fontSize: 24 }}>{ZODIAC[you].emoji}</span>
-            <span style={{ fontSize: 13, color: C.sub }}>{t("zodiac.you")}: <strong style={{ color: C.gold }}>{ZODIAC[you].en}</strong></span>
+            <span style={{ fontSize: 13, color: C.sub }}>{t("zodiac.you")}: <strong style={{ color: C.gold }}>{zn(ZODIAC[you])}</strong></span>
             <span onClick={() => { setYou(null); setStep("you"); }} style={{ marginLeft: "auto", fontSize: 12, color: C.muted, cursor: "pointer" }}>{t("zodiac.change")}</span>
           </div>
         )}
@@ -183,7 +185,7 @@ export default function ZodiacMatch() {
             <span style={{ fontSize: 18, width: 40, textAlign: "center" }}>{ZODIAC[c.a].emoji}</span>
             <span style={{ fontSize: 14, color: C.muted }}>×</span>
             <span style={{ fontSize: 18, width: 40, textAlign: "center" }}>{ZODIAC[c.b].emoji}</span>
-            <span style={{ fontSize: 12, color: C.sub, flex: 1 }}>{ZODIAC[c.a].en} × {ZODIAC[c.b].en}</span>
+            <span style={{ fontSize: 12, color: C.sub, flex: 1 }}>{zn(ZODIAC[c.a])} × {zn(ZODIAC[c.b])}</span>
             <span style={{ fontSize: 10, color: C.rose, fontWeight: 700 }}>{c.level}</span>
           </div>
         ))}

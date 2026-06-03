@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { C, sec } from "../data/colors";
-import { ELEMENTS, SHENG, SHENG_DESC, KE, KE_DESC, SAME_DESC, getElement, getZodiacIndex, ZODIAC } from "../data/wuxing";
+import { ELEMENTS, SHENG, SHENG_DESC, KE, KE_DESC, SAME_DESC, getElement, getZodiacIndex, ZODIAC, L } from "../data/wuxing";
 
 export default function Elements() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
   const navigate = useNavigate();
   const [relType, setRelType] = useState(null);
   const [d1, setD1] = useState({ y: "", m: "", d: "", h: "" });
@@ -29,7 +30,7 @@ export default function Elements() {
     const zh1 = e1.zh, zh2 = e2.zh;
 
     let relationship = "neutral", relDesc = null;
-    if (zh1 === zh2) { relationship = "same"; relDesc = { en: `Both ${ELEMENTS[zh1].en}`, desc: SAME_DESC[zh1] }; }
+    if (zh1 === zh2) { relationship = "same"; relDesc = { desc: SAME_DESC[zh1] }; }
     else if (SHENG[zh1] === zh2) { relationship = "you_feed"; relDesc = SHENG_DESC[`${zh1}→${zh2}`]; }
     else if (SHENG[zh2] === zh1) { relationship = "they_feed"; relDesc = SHENG_DESC[`${zh2}→${zh1}`]; }
     else if (KE[zh1] === zh2) { relationship = "you_overcome"; relDesc = KE_DESC[`${zh1}→${zh2}`]; }
@@ -70,7 +71,6 @@ export default function Elements() {
     textAlign: "center", minWidth: 0, outline: "none", transition: "border-color .3s", width: "100%",
   };
 
-  // Step 0: relationship type
   if (step === 0) return (
     <div className="animate-fu" style={{ padding: "48px 0" }}>
       <div style={{ textAlign: "center", marginBottom: 40 }}>
@@ -91,7 +91,6 @@ export default function Elements() {
     </div>
   );
 
-  // Step 1: dates
   if (step === 1) return (
     <div className="animate-fu" style={{ padding: "40px 0" }}>
       <div style={{ textAlign: "center", marginBottom: 36 }}>
@@ -132,7 +131,6 @@ export default function Elements() {
     </div>
   );
 
-  // Step 2: result
   if (step === 2 && result) {
     const el1 = ELEMENTS[result.e1.zh];
     const el2 = ELEMENTS[result.e2.zh];
@@ -153,7 +151,6 @@ export default function Elements() {
           </div>
         )}
 
-        {/* Compatibility score */}
         <div style={{ textAlign: "center", padding: "40px 24px", background: C.card, borderRadius: 22, border: `1px solid ${C.line}`, marginBottom: 20, position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${result.isGood ? C.sage : C.rose}40, transparent)` }} />
           <div style={{ fontSize: 10, letterSpacing: 4, textTransform: "uppercase", color: C.sub, marginBottom: 16 }}>{relType.icon} {relType.label} {t("elements.compatibilityLabel")}</div>
@@ -161,26 +158,23 @@ export default function Elements() {
           <div className="font-serif" style={{ fontSize: 18, color: C.ink + "AA", fontStyle: "italic", marginTop: 12 }}>{result.verdict}</div>
         </div>
 
-        {/* Element cards */}
         <div style={{ display: "flex", gap: 12, marginBottom: 20 }}>
           {[{ el: el1, label: t("elements.you"), z: z1 }, { el: el2, label: t("elements.them"), z: z2 }].map((p, i) => (
             <div key={i} style={{ flex: 1, background: C.card, borderRadius: 16, padding: "24px 16px", textAlign: "center", border: `1px solid ${C.line}` }}>
               <div style={{ fontSize: 10, letterSpacing: 3, color: C.sub, textTransform: "uppercase", marginBottom: 10 }}>{p.label}</div>
-              <div className="font-serif" style={{ fontSize: 28, color: p.el.color, fontWeight: 400, marginBottom: 4 }}>{p.el.en}</div>
-              <div style={{ fontSize: 11, color: C.sub }}>{p.z.emoji} {p.z.en}</div>
+              <div className="font-serif" style={{ fontSize: 28, color: p.el.color, fontWeight: 400, marginBottom: 4 }}>{lang === "zh" ? p.el.symbol : p.el.en}</div>
+              <div style={{ fontSize: 11, color: C.sub }}>{p.z.emoji} {lang === "zh" ? p.z.zh : p.z.en}</div>
             </div>
           ))}
         </div>
 
-        {/* Insights */}
         <div style={{ ...sec, marginTop: 0, marginBottom: 20 }}>
           <div style={{ fontSize: 10, letterSpacing: 4, textTransform: "uppercase", color: C.gold, marginBottom: 18, fontWeight: 500, opacity: .8 }}>{relTitle}</div>
-          <div style={{ fontSize: 14, color: C.ink + "CC", lineHeight: 2, marginBottom: 16 }}>{result.relDesc?.desc || t("elements.neutralFallback")}</div>
-          <div style={{ fontSize: 14, color: C.ink + "AA", lineHeight: 2, marginBottom: 16 }}>{el1.loveStyle}</div>
-          <div style={{ fontSize: 14, color: C.ink + "AA", lineHeight: 2 }}>{el2.shadow}</div>
+          <div style={{ fontSize: 14, color: C.ink + "CC", lineHeight: 2, marginBottom: 16 }}>{L(result.relDesc?.desc, lang) || t("elements.neutralFallback")}</div>
+          <div style={{ fontSize: 14, color: C.ink + "AA", lineHeight: 2, marginBottom: 16 }}>{L(el1.loveStyle, lang)}</div>
+          <div style={{ fontSize: 14, color: C.ink + "AA", lineHeight: 2 }}>{L(el2.shadow, lang)}</div>
         </div>
 
-        {/* Shareable card */}
         <div style={{ background: `linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.01))`, borderRadius: 16, padding: "28px 24px", border: `1px solid ${C.line}`, textAlign: "center", marginBottom: 24 }}>
           <div className="font-serif" style={{ fontSize: 16, color: C.ink + "BB", fontStyle: "italic", lineHeight: 1.8, marginBottom: 16 }}>"{result.shareLine}"</div>
           <button onClick={share} style={{ background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.08)", borderRadius: 99, padding: "10px 28px", fontSize: 11, color: C.ink + "AA", cursor: "pointer", letterSpacing: 1, transition: "all .3s" }}
@@ -190,7 +184,6 @@ export default function Elements() {
           </button>
         </div>
 
-        {/* CTAs */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
           <button onClick={() => navigate("/master")} style={{ padding: "16px 12px", borderRadius: 14, background: C.card, border: `1px solid ${C.line}`, color: C.ink + "AA", fontSize: 12, cursor: "pointer", transition: "all .3s", letterSpacing: .5 }}
             onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${C.gold}50`; e.currentTarget.style.color = C.ink; }}
