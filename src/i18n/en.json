@@ -193,5 +193,22 @@
     "fbAdvice": "Be patient.",
     "fbTiming": "Change comes within one lunar cycle.",
     "fbWisdom": "缘分天注定 — Fate is written in the stars."
+  },
+  "zodiac": {
+    "title": "Chinese Zodiac Match",
+    "kicker": "Chinese Zodiac",
+    "intro": "The Chinese zodiac has 12 animals in an ancient cycle. Some pairs are cosmically bonded. Others? Cosmically cursed.",
+    "pickYou": "① Pick your sign",
+    "pickThem": "② Pick their sign",
+    "you": "You",
+    "them": "Them",
+    "change": "change",
+    "toxicTitle": "☠️ The 6 most toxic combos",
+    "survival": "Survival guide",
+    "whyWorks": "Why it works",
+    "neutral": "NEUTRAL GROUND",
+    "neutralDesc": "No ancient cosmic beef between {{you}} and {{them}}. You're not destined soulmates, but you're not destined enemies either. Your story is yours to write — which honestly might be better than any predetermined fate.",
+    "shareHint": "Screenshot & share your result",
+    "tryAnother": "Try Another Pair ↻"
   }
 }
