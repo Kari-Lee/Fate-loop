@@ -147,7 +147,7 @@ export default function Master() {
       const r = await fetchWithRetry("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ system: SYSTEM, messages: newMessages.map((m) => ({ role: m.role, content: m.content })) }),
+        body: JSON.stringify({ system: SYSTEM, messages: newMessages.filter((m) => m.role !== "thinking").map((m) => ({ role: m.role, content: m.content })) }),
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error);
