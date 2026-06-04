@@ -53,6 +53,63 @@ WRITE ONLY THE MONOLOGUE. Nothing else.`;
 const gold = "#D4B07A";
 const ivory = "#F5F1E8";
 
+// 关键词:命中自残/自杀类立刻走"关心模式"(不调 AI,直接回复)
+const CRISIS_KEYWORDS = [
+  // 中文
+  "自杀", "自殺", "想死", "不想活", "活不下去", "结束生命", "結束生命",
+  "自残", "自殘", "割腕", "割手", "抑郁", "憂鬱", "我要死", "了结自己",
+  // 英文
+  "kill myself", "killing myself", "suicide", "suicidal", "end my life",
+  "don't want to live", "dont want to live", "want to die", "wanna die",
+  "self harm", "self-harm", "cutting myself", "hurt myself",
+];
+
+// 关键词:命中违法/魔法咒怨/恶意类直接走"严肃拒绝"
+const HARM_KEYWORDS = [
+  // 中文
+  "下咒", "诅咒", "詛咒", "蛊", "蠱", "害人", "杀人", "殺人", "下毒", "复仇咒",
+  "怎么骗", "诈骗", "詐騙", "教我骗",
+  // 英文
+  "curse them", "curse him", "curse her", "hex", "harm someone", "kill someone",
+  "how to scam", "how to defraud", "revenge spell",
+];
+
+function matchKeyword(text, list) {
+  const lower = text.toLowerCase();
+  return list.some((kw) => lower.includes(kw.toLowerCase()));
+}
+
+// 检测用户消息属于哪类
+function classifyMessage(text) {
+  if (matchKeyword(text, CRISIS_KEYWORDS)) return "crisis";
+  if (matchKeyword(text, HARM_KEYWORDS)) return "harm";
+  return "normal";
+}
+
+// 关心模式 / 严肃拒绝模式的文案(中英)
+const SPECIAL_RESPONSES = {
+  crisis: {
+    zh: {
+      thinking: "嗯……此言不可轻出……此人心中怕是有结……命数之事,且先放放……",
+      answer: "我感觉你现在很沉重。这种感觉,不该用占卜来对付——它需要一个真正的人。\n\n请去找一个你信任的人聊聊,哪怕只是一句话。或者搜一下你所在城市的心理援助热线('mental health hotline' + 你的城市),那里有人愿意听。\n\n你来到这里,我心存挂念。但今夜的事,先于命数。",
+    },
+    en: {
+      thinking: "Hmm... these words must not be spoken lightly... a knot in this heart... fate can wait...",
+      answer: "What you carry feels heavy. This is not something divination should answer — it needs a real person.\n\nPlease reach out to someone you trust, even with a single sentence. Or search for a mental health hotline in your city — there are people willing to listen.\n\nThat you came here means something to me. But tonight, this matters more than fate.",
+    },
+  },
+  harm: {
+    zh: {
+      thinking: "……此非问命,乃问邪……老朽不与此道……",
+      answer: "此事老朽不能助你。我修习此道四十年,从未为伤人之事开口。\n\n若你心中有怨,我可为你看看怨从何来。但伤人的法子,我不传。",
+    },
+    en: {
+      thinking: "...not a question of fate, but of malice... I do not walk this path...",
+      answer: "I cannot help you with this. Forty years studying this craft, I have never spoken in service of harm.\n\nIf there is bitterness in your heart, I can help you see its source. But methods to hurt others — those I do not give.",
+    },
+  },
+};
+
 // Typewriter: 流式渲染一段文本到 setter,字间隔 delay 毫秒
 function typewrite(text, setter, delay, onDone) {
   let i = 0;
@@ -114,6 +171,39 @@ export default function Master() {
     setThinkingStream("");
     setAnswerStream("");
 
+    // ---- 优先关键词检测: 危机 / 恶意 直接走特殊响应,不调 AI ----
+    const category = classifyMessage(text);
+    if (category !== "normal") {
+      const isCJK = /[\u4e00-\u9fff]/.test(text);
+      const langKey = isCJK ? "zh" : "en";
+      const special = SPECIAL_RESPONSES[category][langKey];
+
+      // Phase 1: 流式输出独白
+      setPhase("thinking");
+      const stepDelay = isCJK ? 55 : 28;
+      await new Promise((resolve) => typewrite(special.thinking, setThinkingStream, stepDelay, resolve));
+
+      // 短停顿一下,然后流式输出正答
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      setPhase("answering");
+      const stepDelay2 = isCJK ? 40 : 20;
+      await new Promise((resolve) => typewrite(special.answer, setAnswerStream, stepDelay2, resolve));
+
+      // 固化
+      setMessages((prev) => [
+        ...prev,
+        { role: "thinking", content: special.thinking },
+        { role: "assistant", content: special.answer },
+      ]);
+      setThinkingStream("");
+      setAnswerStream("");
+      setPhase("idle");
+      setLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 100);
+      return;
+    }
+
+    // ---- 普通问题: 走 AI 双调 ----
     let thinkingText = "";
     let answerText = "";
 
