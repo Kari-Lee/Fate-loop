@@ -42,7 +42,8 @@
     "newSession": "重新开始",
     "errConnection": "与大师的连接暂时中断,请稍候再试。",
     "errUnclear": "大师未听清,请再说一次。",
-    "thinkingLabel": "大师 · 沉思中"
+    "thinkingLabel": "大师 · 沉思中",
+    "stop": "停止"
   },
   "tarot": {
     "title": "塔罗解读",

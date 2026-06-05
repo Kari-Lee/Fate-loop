@@ -42,7 +42,8 @@
     "newSession": "Begin anew",
     "errConnection": "The connection to the Master is briefly lost. Please try again.",
     "errUnclear": "The Master didn't quite hear. Please say it again.",
-    "thinkingLabel": "The Master · contemplating"
+    "thinkingLabel": "The Master · contemplating",
+    "stop": "Stop"
   },
   "tarot": {
     "title": "Tarot Reading",
