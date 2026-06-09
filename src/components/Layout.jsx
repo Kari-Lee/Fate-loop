@@ -142,6 +142,7 @@ export default function Layout() {
           {!isHome && (
             <span onClick={() => navigate("/")} className="fl-label" style={{ cursor: "pointer" }}>Home</span>
           )}
+          <span onClick={() => navigate("/profile")} className="fl-label" style={{ cursor: "pointer" }}>{i18n.language === "zh" ? "命盘" : "Chart"}</span>
           <span onClick={toggleLang} className="fl-label" style={{ cursor: "pointer" }}>
             {i18n.language === "zh" ? "EN" : "中文"}
           </span>

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { profileContext, getProfile } from "../lib/profile";
 import { track } from "../lib/analytics";
 
 const SYSTEM = `You are a master of Chinese metaphysics. You have spent 40 years studying BaZi, Zi Wei Dou Shu, Mei Hua Yi Shu, Qi Men Dun Jia, and the Five Elements.
@@ -98,7 +99,8 @@ async function fetchWithRetry(url, options, maxAttempts = 3) {
 }
 
 export default function Master() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const profileCtx = profileContext(getProfile(), i18n.language);
   const opener = { role: "assistant", content: t("master.opener") };
   const [messages, setMessages] = useState([opener]);
   const [input, setInput] = useState("");
@@ -176,7 +178,7 @@ export default function Master() {
       const tr = await fetchWithRetry("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ system: THINKING_SYSTEM, messages: history }),
+        body: JSON.stringify({ system: THINKING_SYSTEM + profileCtx, messages: history }),
         signal,
       });
       const td = await tr.json();
@@ -200,7 +202,7 @@ export default function Master() {
       const r = await fetchWithRetry("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ system: SYSTEM, messages: history }),
+        body: JSON.stringify({ system: SYSTEM + profileCtx, messages: history }),
         signal,
       });
       const d = await r.json();
