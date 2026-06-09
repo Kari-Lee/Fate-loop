@@ -24,20 +24,11 @@ function CardIcon({ id }) {
   switch (id) {
     case "master":
       return <Ic><circle cx="20" cy="20" r="14"/><circle cx="20" cy="14" r="1.5" fill={gold} stroke="none"/><line x1="20" y1="17" x2="20" y2="26"/></Ic>;
-    case "tarot":
-      return <Ic><rect x="13" y="9" width="14" height="22" rx="2"/><circle cx="20" cy="20" r="3"/></Ic>;
     case "iching":
     case "meihua":
       return <Ic><line x1="13" y1="14" x2="27" y2="14"/><line x1="13" y1="18" x2="18" y2="18"/><line x1="22" y1="18" x2="27" y2="18"/><line x1="13" y1="22" x2="27" y2="22"/><line x1="13" y1="26" x2="27" y2="26"/></Ic>;
     case "bazi":
       return <Ic><rect x="11" y="11" width="7" height="7"/><rect x="22" y="11" width="7" height="7"/><rect x="11" y="22" width="7" height="7"/><rect x="22" y="22" width="7" height="7"/></Ic>;
-    case "zodiac":
-      return <Ic><circle cx="20" cy="20" r="14" opacity=".2"/><circle cx="20" cy="20" r="10"/>{[0,60,120,180,240,300].map((a,i)=>{const r=(a*Math.PI)/180;return <circle key={i} cx={20+14*Math.cos(r)} cy={20+14*Math.sin(r)} r="1" fill={gold} stroke="none"/>;})}</Ic>;
-    case "elements":
-      return <Ic><circle cx="20" cy="10" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="26" cy="30" r="3"/><circle cx="14" cy="30" r="3"/><circle cx="10" cy="18" r="3"/></Ic>;
-    case "oracle":
-    case "qian":
-      return <Ic><line x1="20" y1="9" x2="20" y2="27"/><line x1="17" y1="11" x2="17" y2="25" opacity=".4"/><line x1="23" y1="11" x2="23" y2="25" opacity=".4"/><ellipse cx="20" cy="31" rx="7" ry="2"/></Ic>;
     case "fortune":
       return <Ic><circle cx="20" cy="20" r="11" opacity=".2"/><path d="M20 9L20 13"/><path d="M20 27L20 31"/><path d="M9 20L13 20"/><path d="M27 20L31 20"/><circle cx="20" cy="20" r="2" fill={gold} stroke="none"/></Ic>;
     default:
@@ -128,12 +119,8 @@ export default function Home() {
 
   const libraryCards = [
     { id: "master", tKey: "Master", route: "/master", featured: true },
-    { id: "tarot", tKey: "Tarot", route: "/tarot" },
     { id: "meihua", tKey: "Meihua", route: "/meihua" },
     { id: "bazi", tKey: "Bazi", route: "/bazi" },
-    { id: "zodiac", tKey: "Zodiac", route: "/zodiac" },
-    { id: "elements", tKey: "Elements", route: "/elements" },
-    { id: "qian", tKey: "Qian", route: "/qian" },
     { id: "fortune", tKey: "Fortune", route: "/fortune" },
   ];
 
