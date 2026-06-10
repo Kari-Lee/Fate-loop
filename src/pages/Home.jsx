@@ -4,17 +4,17 @@ import { useTranslation } from "react-i18next";
 import { getDailyQuote } from "../data/quotes";
 import { track } from "../lib/analytics";
 
-const gold = "#D4B07A";
-const goldLight = "#E8C99A";
-const goldBright = "#F5E5C0";
-const ivory = "#F5F1E8";
-const ivorySoft = "rgba(245,241,232,0.7)";
-const ivoryMute = "rgba(245,241,232,0.5)";
-const ivoryDim = "rgba(245,241,232,0.3)";
+const gold = "#E0A99E";
+const goldLight = "#F0CCC2";
+const goldBright = "#F7DDD5";
+const ivory = "#F2E9F0";
+const ivorySoft = "rgba(242, 233, 240,0.7)";
+const ivoryMute = "rgba(242, 233, 240,0.5)";
+const ivoryDim = "rgba(242, 233, 240,0.3)";
 
 const Ic = ({ children, size = 28 }) => (
   <svg width={size} height={size} viewBox="0 0 40 40" fill="none"
-    stroke="rgba(212,176,122,0.85)" strokeWidth="0.7"
+    stroke="rgba(224, 169, 158,0.85)" strokeWidth="0.7"
     strokeLinecap="round" strokeLinejoin="round">
     {children}
   </svg>
@@ -41,23 +41,23 @@ function MandalaOrb({ size = 280 }) {
     <div style={{ position: "relative", width: size, height: size, margin: "0 auto" }}>
       <div style={{
         position: "absolute", inset: -40, borderRadius: "50%",
-        background: `radial-gradient(circle, rgba(212,176,122,0.18) 0%, rgba(120,90,180,0.1) 40%, transparent 70%)`,
+        background: `radial-gradient(circle, rgba(224, 169, 158,0.18) 0%, rgba(120,90,180,0.1) 40%, transparent 70%)`,
         filter: "blur(25px)",
       }}/>
       <svg width={size} height={size} viewBox="0 0 280 280" fill="none" style={{ position: "absolute", inset: 0, animation: "orb_spinSlow 80s linear infinite" }}>
         <defs>
           <radialGradient id="orbHomeGrad">
-            <stop offset="0%" stopColor="rgba(212,176,122,0.25)"/>
+            <stop offset="0%" stopColor="rgba(224, 169, 158,0.25)"/>
             <stop offset="60%" stopColor="rgba(120,90,180,0.15)"/>
             <stop offset="100%" stopColor="rgba(60,80,140,0.05)"/>
           </radialGradient>
         </defs>
         <circle cx="140" cy="140" r="100" fill="url(#orbHomeGrad)" opacity="0.6"/>
-        <circle cx="140" cy="140" r="120" stroke="rgba(212,176,122,0.5)" strokeWidth="0.5" fill="none"/>
-        <circle cx="140" cy="140" r="105" stroke="rgba(245,241,232,0.2)" strokeWidth="0.3" fill="none"/>
-        <circle cx="140" cy="140" r="80" stroke="rgba(212,176,122,0.4)" strokeWidth="0.5" fill="none" strokeDasharray="2 4"/>
-        <circle cx="140" cy="140" r="55" stroke="rgba(245,241,232,0.25)" strokeWidth="0.3" fill="none"/>
-        <g stroke="rgba(212,176,122,0.6)" strokeWidth="0.5">
+        <circle cx="140" cy="140" r="120" stroke="rgba(224, 169, 158,0.5)" strokeWidth="0.5" fill="none"/>
+        <circle cx="140" cy="140" r="105" stroke="rgba(242, 233, 240,0.2)" strokeWidth="0.3" fill="none"/>
+        <circle cx="140" cy="140" r="80" stroke="rgba(224, 169, 158,0.4)" strokeWidth="0.5" fill="none" strokeDasharray="2 4"/>
+        <circle cx="140" cy="140" r="55" stroke="rgba(242, 233, 240,0.25)" strokeWidth="0.3" fill="none"/>
+        <g stroke="rgba(224, 169, 158,0.6)" strokeWidth="0.5">
           {[0,30,60,90,120,150,180,210,240,270,300,330].map((a,i)=>{
             const rad = (a-90)*Math.PI/180;
             const x1 = 140 + 115 * Math.cos(rad);
@@ -67,15 +67,15 @@ function MandalaOrb({ size = 280 }) {
             return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}/>;
           })}
         </g>
-        <circle cx="140" cy="60" r="2" fill="rgba(212,176,122,0.9)"/>
-        <circle cx="220" cy="140" r="2" fill="rgba(212,176,122,0.7)"/>
-        <circle cx="140" cy="220" r="2" fill="rgba(212,176,122,0.7)"/>
-        <circle cx="60" cy="140" r="2" fill="rgba(212,176,122,0.9)"/>
-        <circle cx="100" cy="80" r="1.5" fill="rgba(245,241,232,0.6)"/>
-        <circle cx="180" cy="80" r="1.5" fill="rgba(245,241,232,0.6)"/>
-        <circle cx="180" cy="200" r="1.5" fill="rgba(245,241,232,0.6)"/>
-        <circle cx="100" cy="200" r="1.5" fill="rgba(245,241,232,0.6)"/>
-        <g stroke="rgba(212,176,122,0.25)" strokeWidth="0.4">
+        <circle cx="140" cy="60" r="2" fill="rgba(224, 169, 158,0.9)"/>
+        <circle cx="220" cy="140" r="2" fill="rgba(224, 169, 158,0.7)"/>
+        <circle cx="140" cy="220" r="2" fill="rgba(224, 169, 158,0.7)"/>
+        <circle cx="60" cy="140" r="2" fill="rgba(224, 169, 158,0.9)"/>
+        <circle cx="100" cy="80" r="1.5" fill="rgba(242, 233, 240,0.6)"/>
+        <circle cx="180" cy="80" r="1.5" fill="rgba(242, 233, 240,0.6)"/>
+        <circle cx="180" cy="200" r="1.5" fill="rgba(242, 233, 240,0.6)"/>
+        <circle cx="100" cy="200" r="1.5" fill="rgba(242, 233, 240,0.6)"/>
+        <g stroke="rgba(224, 169, 158,0.25)" strokeWidth="0.4">
           <line x1="140" y1="60" x2="100" y2="80"/>
           <line x1="100" y1="80" x2="60" y2="140"/>
           <line x1="60" y1="140" x2="100" y2="200"/>
@@ -85,8 +85,8 @@ function MandalaOrb({ size = 280 }) {
           <line x1="220" y1="140" x2="180" y2="80"/>
           <line x1="180" y1="80" x2="140" y2="60"/>
         </g>
-        <circle cx="140" cy="140" r="22" fill="rgba(245,241,232,0.04)" stroke="rgba(212,176,122,0.5)" strokeWidth="0.5"/>
-        <circle cx="140" cy="140" r="3" fill="rgba(212,176,122,0.95)"/>
+        <circle cx="140" cy="140" r="22" fill="rgba(242, 233, 240,0.04)" stroke="rgba(224, 169, 158,0.5)" strokeWidth="0.5"/>
+        <circle cx="140" cy="140" r="3" fill="rgba(224, 169, 158,0.95)"/>
       </svg>
     </div>
   );
@@ -140,7 +140,7 @@ export default function Home() {
         @media (min-width: 640px) { .v4-library-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; } }
         @media (min-width: 1024px) { .v4-library-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
         .v4-card-hover { transition: all .5s cubic-bezier(.16,1,.3,1); cursor: pointer; }
-        .v4-card-hover:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.07) !important; border-color: rgba(212, 176, 122, 0.35) !important; }
+        .v4-card-hover:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.07) !important; border-color: rgba(224, 169, 158, 0.35) !important; }
       `}</style>
 
       <section style={{ padding: "60px 0 40px", textAlign: "center", position: "relative", ...fadeUp(0) }}>
@@ -156,7 +156,7 @@ export default function Home() {
           {t("home.heroLine1")}<br/>
           <em style={{
             fontWeight: 300, fontStyle: "italic",
-            background: `linear-gradient(135deg, ${goldLight}, ${gold} 60%, #856A39)`,
+            background: `linear-gradient(135deg, ${goldLight}, ${gold} 60%, #9C6B62)`,
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
           }}>
             {t("home.heroLine2")}
@@ -173,26 +173,26 @@ export default function Home() {
           style={{
             padding: "15px 42px", color: ivory, fontSize: 11, letterSpacing: 3,
             textTransform: "uppercase", fontWeight: 500, cursor: "pointer",
-            border: "0.5px solid rgba(212,176,122,0.4)", background: "rgba(212,176,122,0.1)",
+            border: "0.5px solid rgba(224, 169, 158,0.4)", background: "rgba(224, 169, 158,0.1)",
             transition: "all .4s cubic-bezier(.16,1,.3,1)",
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(212,176,122,0.18)"; e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(212,176,122,0.1)"; e.currentTarget.style.transform = "none"; }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(224, 169, 158,0.18)"; e.currentTarget.style.transform = "translateY(-2px) scale(1.02)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(224, 169, 158,0.1)"; e.currentTarget.style.transform = "none"; }}
         >
           {t("home.cta")}
         </button>
 
         <div style={{ marginTop: 28, display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
-          <div style={{ width: 24, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
+          <div style={{ width: 24, height: "0.5px", background: "rgba(224, 169, 158,0.4)" }}/>
           <span style={{ fontSize: 10, color: ivoryDim, letterSpacing: 2 }}>{t("home.freeHint")}</span>
-          <div style={{ width: 24, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
+          <div style={{ width: 24, height: "0.5px", background: "rgba(224, 169, 158,0.4)" }}/>
         </div>
       </section>
 
       <section style={{ marginBottom: 48, ...fadeUp(0.15) }}>
         <div className="fl-glass" style={{ padding: "32px 28px", textAlign: "center", maxWidth: 540, margin: "0 auto" }}>
           <div className="fl-label" style={{ marginBottom: 16 }}>☾ {t("nav.dailyWisdom")}</div>
-          <p className="fl-serif" style={{ fontSize: 18, fontStyle: "italic", color: "rgba(245,241,232,0.85)", lineHeight: 1.8, letterSpacing: 0.3, margin: 0 }}>
+          <p className="fl-serif" style={{ fontSize: 18, fontStyle: "italic", color: "rgba(242, 233, 240,0.85)", lineHeight: 1.8, letterSpacing: 0.3, margin: 0 }}>
             "{daily}"
           </p>
         </div>
@@ -201,9 +201,9 @@ export default function Home() {
       <section style={{ marginBottom: 48, ...fadeUp(0.25) }}>
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
-            <div style={{ width: 30, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
+            <div style={{ width: 30, height: "0.5px", background: "rgba(224, 169, 158,0.4)" }}/>
             <span className="fl-label">{t("nav.library")}</span>
-            <div style={{ width: 30, height: "0.5px", background: "rgba(212,176,122,0.4)" }}/>
+            <div style={{ width: 30, height: "0.5px", background: "rgba(224, 169, 158,0.4)" }}/>
           </div>
         </div>
 
@@ -214,7 +214,7 @@ export default function Home() {
               className={`fl-glass v4-card-hover ${item.featured ? "fl-glass-strong" : ""}`}
               style={{
                 padding: "22px 16px", textAlign: "center", position: "relative",
-                ...(item.featured ? { background: "rgba(212,176,122,0.08)", border: "0.5px solid rgba(212,176,122,0.3)" } : {})
+                ...(item.featured ? { background: "rgba(224, 169, 158,0.08)", border: "0.5px solid rgba(224, 169, 158,0.3)" } : {})
               }}>
               {item.featured && (
                 <div style={{ position: "absolute", top: 10, right: 10, fontSize: 7, letterSpacing: 2, textTransform: "uppercase", color: gold, opacity: 0.85 }}>
@@ -224,7 +224,7 @@ export default function Home() {
               <div style={{ marginBottom: 14, display: "flex", justifyContent: "center" }}>
                 <CardIcon id={item.id}/>
               </div>
-              <div className="fl-serif" style={{ fontSize: 16, color: "rgba(245,241,232,0.95)", marginBottom: 4, letterSpacing: 0.3 }}>
+              <div className="fl-serif" style={{ fontSize: 16, color: "rgba(242, 233, 240,0.95)", marginBottom: 4, letterSpacing: 0.3 }}>
                 {t("home.card" + item.tKey + "Title")}
               </div>
               <div className="fl-label">{t("home.card" + item.tKey + "Desc")}</div>

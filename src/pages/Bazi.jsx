@@ -18,15 +18,23 @@ export default function Bazi() {
 
   const ready = d1.y && d1.m && d1.d && d2.y && d2.m && d2.d;
 
-  const DateInput = ({ item }) => (
-    <div className="p-5 rounded-[20px] mb-3" style={{ background: C.card, boxShadow: "0 2px 20px rgba(26,31,54,.04)", border: `1px solid ${C.line}` }}>
-      <div className="text-[14px] font-bold mb-3" style={{ color: C.ink }}>{item.label}</div>
-      <div className="flex gap-2">
-        {[{ k: "y", ph: t("bazi.year"), flex: 2 }, { k: "m", ph: t("bazi.month"), flex: 1 }, { k: "d", ph: t("bazi.day"), flex: 1 }].map((f) => (
-          <input key={f.k} type="tel" inputMode="numeric" pattern="[0-9]*" placeholder={f.ph}
-            value={item.date[f.k]} onChange={(e) => item.setDate({ ...item.date, [f.k]: e.target.value })}
-            className="min-w-0 p-3 rounded-xl text-center text-[15px]"
-            style={{ flex: f.flex, border: `1px solid ${C.line}`, color: C.ink, background: C.warm }} />
+  const dateBlock = (num, label, date, setDate) => (
+    <div style={{ marginBottom: 28 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+        <span className="fl-serif" style={{ fontSize: 17, color: C.gold }}>{num}</span>
+        <span style={{ fontSize: 13, fontWeight: 600, color: C.ink }}>{label}</span>
+      </div>
+      <div style={{ display: "flex", gap: 18, alignItems: "flex-end" }}>
+        {[{ k: "y", ph: t("bazi.year"), flex: 1.6 }, { k: "m", ph: t("bazi.month"), flex: 1 }, { k: "d", ph: t("bazi.day"), flex: 1 }].map((f) => (
+          <div key={f.k} style={{ flex: f.flex }}>
+            <input type="tel" inputMode="numeric" pattern="[0-9]*"
+              value={date[f.k]} onChange={(e) => setDate({ ...date, [f.k]: e.target.value })}
+              className="fl-serif"
+              style={{ width: "100%", background: "transparent", border: "none", borderBottom: `1px solid ${C.gold}66`, padding: "6px 0 9px", textAlign: "center", fontSize: 23, color: C.ink, transition: "border-color .3s" }}
+              onFocus={(e) => { e.target.style.borderBottomColor = C.gold; }}
+              onBlur={(e) => { e.target.style.borderBottomColor = `${C.gold}66`; }} />
+            <div style={{ fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: C.sub, textAlign: "center", marginTop: 7 }}>{f.ph}</div>
+          </div>
         ))}
       </div>
     </div>
@@ -35,7 +43,7 @@ export default function Bazi() {
   if (result) return (
     <div className="animate-fu">
       <div className="rounded-3xl py-9 px-6 text-center relative overflow-hidden mb-4" style={{ background: "linear-gradient(135deg,rgba(45,52,54,.85),rgba(45,52,54,.75))", color: C.ink }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 30%,rgba(184,151,106,.12),transparent 60%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 30%,rgba(200, 142, 130,.12),transparent 60%)" }} />
         <div className="text-[12px] tracking-[3px] mb-3 relative" style={{ color: C.gold }}>{t("bazi.score")}</div>
         <div className="font-serif text-[56px] font-black relative" style={{ color: C.ink }}>{result.score}<span className="text-[20px]">%</span></div>
         <div className="font-serif text-[22px] font-bold mt-2 relative" style={{ color: C.gold }}>{result.info.type}</div>
@@ -57,22 +65,34 @@ export default function Bazi() {
 
   return (
     <div className="animate-fu">
-      <div className="text-center mb-5">
-        <div className="text-[48px] mb-3" style={{ lineHeight: 1.4 }}>💫</div>
-        <div className="font-serif text-[24px] font-bold mb-1.5" style={{ color: C.ink }}>{t("bazi.title")}</div>
-        <div className="text-[13px] mb-4" style={{ color: C.sub }}>{t("bazi.desc")}</div>
-        <div className="inline-flex rounded-xl overflow-hidden" style={{ border: `1px solid ${C.line}` }}>
+      <div className="text-center" style={{ marginBottom: 26 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
+          <svg width="46" height="46" viewBox="0 0 80 80" fill="none">
+            <circle cx="31" cy="40" r="20" stroke={C.gold} strokeWidth="1.1" opacity="0.9" />
+            <circle cx="49" cy="40" r="20" stroke="#C8968C" strokeWidth="1.1" opacity="0.65" />
+            <circle cx="40" cy="40" r="2.2" fill={C.gold} />
+            <circle cx="40" cy="16" r="1.3" fill={C.gold} />
+            <circle cx="40" cy="64" r="1.3" fill={C.gold} />
+          </svg>
+        </div>
+        <div className="font-serif text-[26px] font-bold mb-1.5" style={{ color: C.ink }}>{t("bazi.title")}</div>
+        <div className="text-[13px]" style={{ color: C.sub, marginBottom: 22 }}>{t("bazi.desc")}</div>
+        <div style={{ display: "inline-flex", gap: 26 }}>
           {["solar", "lunar"].map((ct) => (
-            <button key={ct} onClick={() => setCalType(ct)} className="px-5 py-2 text-[13px] font-semibold border-none cursor-pointer"
-              style={{ background: calType === ct ? C.wine : "#fff", color: calType === ct ? "#fff" : C.sub }}>{t(`bazi.${ct}`)}</button>
+            <button key={ct} onClick={() => setCalType(ct)}
+              style={{ background: "transparent", border: "none", padding: "0 0 7px", fontSize: 12, letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
+                color: calType === ct ? C.gold : C.sub,
+                borderBottom: calType === ct ? `1.5px solid ${C.gold}` : "1.5px solid transparent" }}>
+              {t(`bazi.${ct}`)}
+            </button>
           ))}
         </div>
       </div>
-      <DateInput item={{ label: t("bazi.yourBday"), date: d1, setDate: setD1 }} />
-      <DateInput item={{ label: t("bazi.theirBday"), date: d2, setDate: setD2 }} />
+      {dateBlock("01", t("bazi.yourBday"), d1, setD1)}
+      {dateBlock("02", t("bazi.theirBday"), d2, setD2)}
       <button onClick={doBazi} disabled={!ready} className="w-full mt-2 py-4 rounded-[18px] text-[16px] font-bold border-none cursor-pointer"
-        style={{ color: C.ink, background: ready ? C.wine : "#ddd", boxShadow: ready ? "0 8px 28px rgba(44,62,107,.15)" : "none" }}>
-        {t("bazi.submit")}
+        style={{ color: ready ? "#130A16" : C.sub, background: ready ? `linear-gradient(135deg, ${C.gold}, #C8968C)` : "rgba(255,255,255,.05)", border: ready ? "none" : `1px solid ${C.line}`, boxShadow: ready ? "0 10px 30px rgba(224,169,158,.25)" : "none", letterSpacing: 1 }}>
+        {t("bazi.submit")} {ready ? "→" : ""}
       </button>
     </div>
   );

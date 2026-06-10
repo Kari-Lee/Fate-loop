@@ -16,7 +16,7 @@ export default function Fortune() {
   if (result) return (
     <div className="animate-fu">
       <div className="rounded-3xl py-9 px-6 text-center relative overflow-hidden mb-4" style={{ background: "linear-gradient(135deg,rgba(45,52,54,.85),rgba(45,52,54,.75))", color: C.ink }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 30%,rgba(184,151,106,.1),transparent 60%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 30%,rgba(200, 142, 130,.1),transparent 60%)" }} />
         <div className="text-[12px] tracking-[3px] mb-3 relative" style={{ color: C.gold }}>{t("fortune.heading")}</div>
         <div className="text-[32px] relative" style={{ letterSpacing: 6 }}>
           {Array(result.stars).fill(null).map((_, i) => <span key={i}>⭐</span>)}
@@ -53,7 +53,7 @@ export default function Fortune() {
       <div className="inline-flex rounded-xl overflow-hidden mb-5" style={{ border: `1px solid ${C.line}` }}>
         {["solar", "lunar"].map((ct) => (
           <button key={ct} onClick={() => setCalType(ct)} className="px-5 py-2 text-[13px] font-semibold border-none cursor-pointer"
-            style={{ background: calType === ct ? C.wine : "#fff", color: calType === ct ? "#fff" : C.sub }}>{t(`fortune.${ct}`)}</button>
+            style={{ background: calType === ct ? C.gold : "transparent", color: calType === ct ? "#130A16" : C.sub }}>{t(`fortune.${ct}`)}</button>
         ))}
       </div>
       <div className="flex gap-2.5 max-w-[300px] mx-auto mb-5">
@@ -63,7 +63,7 @@ export default function Fortune() {
       </div>
       <button onClick={() => setResult(calcFortune(parseInt(fMonth), parseInt(fDay)))} disabled={!ready}
         className="w-full py-4 rounded-[18px] border-none text-[16px] font-bold cursor-pointer"
-        style={{ color: C.ink, background: ready ? C.wine : "#ddd", boxShadow: ready ? "0 8px 28px rgba(44,62,107,.15)" : "none" }}>
+        style={{ color: ready ? "#130A16" : C.sub, background: ready ? C.gold : "rgba(255,255,255,.05)", border: ready ? "none" : `1px solid ${C.line}`, boxShadow: ready ? "0 8px 28px rgba(224,169,158,.2)" : "none" }}>
         {t("fortune.submit")}
       </button>
     </div>

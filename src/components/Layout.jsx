@@ -18,21 +18,21 @@ export default function Layout() {
       minHeight: "100vh",
       position: "relative",
       overflow: "hidden",
-      color: "#F5F1E8",
+      color: "#F2E9F0",
       fontFamily: "-apple-system, 'SF Pro Display', system-ui, sans-serif",
       background: `
         radial-gradient(ellipse 80% 60% at 20% 20%, rgba(120, 90, 180, 0.32) 0%, transparent 50%),
         radial-gradient(ellipse 70% 50% at 80% 30%, rgba(180, 120, 90, 0.22) 0%, transparent 55%),
         radial-gradient(ellipse 90% 70% at 50% 90%, rgba(60, 80, 140, 0.35) 0%, transparent 60%),
         radial-gradient(ellipse 60% 40% at 70% 75%, rgba(200, 160, 100, 0.15) 0%, transparent 55%),
-        linear-gradient(180deg, #0A0612 0%, #050A18 50%, #07050F 100%)
+        linear-gradient(180deg, #130A16 0%, #100A1C 50%, #0C0710 100%)
       `,
       backgroundAttachment: "fixed",
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
 
-        body { background: #050A18; margin: 0; }
+        body { background: #100A1C; margin: 0; }
 
         /* Container responsive */
         .fl-container {
@@ -81,9 +81,9 @@ export default function Layout() {
         }
         .fl-label {
           font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
-          color: rgba(245, 241, 232, 0.5); font-weight: 500;
+          color: rgba(242, 233, 240, 0.5); font-weight: 500;
         }
-        .fl-label-gold { color: rgba(212, 176, 122, 0.85); }
+        .fl-label-gold { color: rgba(224, 169, 158, 0.85); }
         .fl-serif { font-family: 'Cormorant Garamond', 'Georgia', serif; }
       `}</style>
 
@@ -132,10 +132,10 @@ export default function Layout() {
             display: "flex", alignItems: "center", gap: 8, cursor: "pointer",
           }}>
             <svg width="11" height="11" viewBox="0 0 100 100">
-              <path d="M50 0 C52 38 62 48 100 50 C62 52 52 62 50 100 C48 62 38 52 0 50 C38 48 48 38 50 0Z" fill="rgba(245,241,232,0.95)"/>
+              <path d="M50 0 C52 38 62 48 100 50 C62 52 52 62 50 100 C48 62 38 52 0 50 C38 48 48 38 50 0Z" fill="rgba(242, 233, 240,0.95)"/>
             </svg>
             <span className="fl-serif" style={{
-              fontSize: 14, letterSpacing: 2.5, color: "rgba(245,241,232,0.95)",
+              fontSize: 14, letterSpacing: 2.5, color: "rgba(242, 233, 240,0.95)",
             }}>FateLoop</span>
           </div>
           <div style={{ width: "0.5px", height: 12, background: "rgba(255,255,255,0.15)" }}/>
@@ -160,11 +160,11 @@ export default function Layout() {
         textAlign: "center", padding: "32px 0 40px",
       }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 16 }}>
-          <div style={{ width: 30, height: "0.5px", background: "rgba(212,176,122,0.35)" }}/>
+          <div style={{ width: 30, height: "0.5px", background: "rgba(224, 169, 158,0.35)" }}/>
           <span className="fl-label" onClick={() => navigate("/privacy")} style={{ cursor: "pointer" }}>
             {i18n.language==="zh"?"顺天而作 · 隐私":"Made in alignment · Privacy"}
           </span>
-          <div style={{ width: 30, height: "0.5px", background: "rgba(212,176,122,0.35)" }}/>
+          <div style={{ width: 30, height: "0.5px", background: "rgba(224, 169, 158,0.35)" }}/>
         </div>
       </footer>
     </div>

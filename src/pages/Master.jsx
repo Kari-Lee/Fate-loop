@@ -55,8 +55,8 @@ Hmm... Yang Wood, rooted in winter... cold, stubborn... the question sounds prac
 
 WRITE ONLY THE MONOLOGUE. Nothing else.`;
 
-const gold = "#D4B07A";
-const ivory = "#F5F1E8";
+const gold = "#E0A99E";
+const ivory = "#F2E9F0";
 
 // Typewriter: 流式渲染一段文本到 setter,字间隔 delay 毫秒。
 // shouldStop() 每帧检查,返回 true 立即收尾(用户点了停止)。
@@ -232,17 +232,17 @@ export default function Master() {
         @keyframes mst_dot { 0%,80%,100%{opacity:.25} 40%{opacity:1} }
         @keyframes mst_caret { 0%,49%{opacity:1} 50%,100%{opacity:0} }
         .mst-msg { animation: mst_fade .6s ease both; }
-        .mst-caret::after { content: "▌"; margin-left: 2px; animation: mst_caret 1s infinite; color: rgba(212,176,122,0.7); font-style: normal; }
-        .mst-input::placeholder { color: rgba(245,241,232,0.35); font-style: normal; }
-        .mst-input:focus { border-color: rgba(212,176,122,0.45) !important; }
+        .mst-caret::after { content: "▌"; margin-left: 2px; animation: mst_caret 1s infinite; color: rgba(224, 169, 158,0.7); font-style: normal; }
+        .mst-input::placeholder { color: rgba(242, 233, 240,0.35); font-style: normal; }
+        .mst-input:focus { border-color: rgba(224, 169, 158,0.45) !important; }
       `}</style>
 
       <div style={{ textAlign: "center", padding: "20px 0 28px" }}>
         <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>{t("master.speaks")}</div>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 14 }}>
-          <div style={{ width: 34, height: "0.5px", background: "rgba(212,176,122,0.4)" }} />
+          <div style={{ width: 34, height: "0.5px", background: "rgba(224, 169, 158,0.4)" }} />
           <div className="fl-serif" style={{ fontSize: 26, color: ivory, fontWeight: 400, letterSpacing: 1 }}>{t("master.title")}</div>
-          <div style={{ width: 34, height: "0.5px", background: "rgba(212,176,122,0.4)" }} />
+          <div style={{ width: 34, height: "0.5px", background: "rgba(224, 169, 158,0.4)" }} />
         </div>
       </div>
 
@@ -250,9 +250,9 @@ export default function Master() {
         {messages.map((msg, i) => {
           if (msg.role === "thinking") {
             return (
-              <div key={i} className="mst-msg" style={{ marginBottom: 22, paddingLeft: 20, borderLeft: "1px dashed rgba(212,176,122,0.32)" }}>
-                <div className="fl-label" style={{ marginBottom: 8, color: "rgba(212,176,122,0.55)", letterSpacing: "4px" }}>{t("master.thinkingLabel")}</div>
-                <div className="fl-serif" style={{ fontSize: 14, lineHeight: 1.85, color: "rgba(245,241,232,0.55)", whiteSpace: "pre-wrap", letterSpacing: 0.2 }}>
+              <div key={i} className="mst-msg" style={{ marginBottom: 22, paddingLeft: 20, borderLeft: "1px dashed rgba(224, 169, 158,0.32)" }}>
+                <div className="fl-label" style={{ marginBottom: 8, color: "rgba(224, 169, 158,0.55)", letterSpacing: "4px" }}>{t("master.thinkingLabel")}</div>
+                <div className="fl-serif" style={{ fontSize: 14, lineHeight: 1.85, color: "rgba(242, 233, 240,0.55)", whiteSpace: "pre-wrap", letterSpacing: 0.2 }}>
                   {msg.content}
                 </div>
               </div>
@@ -260,18 +260,18 @@ export default function Master() {
           }
           if (msg.role === "assistant") {
             return (
-              <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(212,176,122,0.4)" }}>
+              <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(224, 169, 158,0.4)" }}>
                 <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>{t("master.roleMaster")}</div>
-                <div className="fl-serif" style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(245,241,232,0.92)", fontWeight: 500, whiteSpace: "pre-wrap", letterSpacing: 0.3 }}>
+                <div className="fl-serif" style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(242, 233, 240,0.92)", fontWeight: 500, whiteSpace: "pre-wrap", letterSpacing: 0.3 }}>
                   {msg.content}
                 </div>
               </div>
             );
           }
           return (
-            <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingRight: 20, borderRight: "1px solid rgba(245,241,232,0.22)", textAlign: "right" }}>
+            <div key={i} className="mst-msg" style={{ marginBottom: 28, paddingRight: 20, borderRight: "1px solid rgba(242, 233, 240,0.22)", textAlign: "right" }}>
               <div className="fl-label" style={{ marginBottom: 10 }}>{t("master.roleYou")}</div>
-              <div style={{ fontSize: 15, lineHeight: 1.7, color: "rgba(245,241,232,0.82)", whiteSpace: "pre-wrap" }}>
+              <div style={{ fontSize: 15, lineHeight: 1.7, color: "rgba(242, 233, 240,0.82)", whiteSpace: "pre-wrap" }}>
                 {msg.content}
               </div>
             </div>
@@ -280,15 +280,15 @@ export default function Master() {
 
         {/* 流式思考独白(打字机输出中) */}
         {phase === "thinking" && (
-          <div className="mst-msg" style={{ marginBottom: 22, paddingLeft: 20, borderLeft: "1px dashed rgba(212,176,122,0.32)" }}>
-            <div className="fl-label" style={{ marginBottom: 8, color: "rgba(212,176,122,0.55)", letterSpacing: "4px" }}>{t("master.thinkingLabel")}</div>
+          <div className="mst-msg" style={{ marginBottom: 22, paddingLeft: 20, borderLeft: "1px dashed rgba(224, 169, 158,0.32)" }}>
+            <div className="fl-label" style={{ marginBottom: 8, color: "rgba(224, 169, 158,0.55)", letterSpacing: "4px" }}>{t("master.thinkingLabel")}</div>
             {thinkingStream ? (
-              <div className="fl-serif mst-caret" style={{ fontSize: 14, lineHeight: 1.85, color: "rgba(245,241,232,0.55)", whiteSpace: "pre-wrap", letterSpacing: 0.2 }}>
+              <div className="fl-serif mst-caret" style={{ fontSize: 14, lineHeight: 1.85, color: "rgba(242, 233, 240,0.55)", whiteSpace: "pre-wrap", letterSpacing: 0.2 }}>
                 {thinkingStream}
               </div>
             ) : (
               <div style={{ display: "flex", gap: 6, alignItems: "center", height: 22 }}>
-                {[0, 1, 2].map((j) => <div key={j} style={{ width: 4, height: 4, borderRadius: "50%", background: "rgba(212,176,122,0.55)", animation: `mst_dot 1.4s ease ${j * 0.2}s infinite` }} />)}
+                {[0, 1, 2].map((j) => <div key={j} style={{ width: 4, height: 4, borderRadius: "50%", background: "rgba(224, 169, 158,0.55)", animation: `mst_dot 1.4s ease ${j * 0.2}s infinite` }} />)}
               </div>
             )}
           </div>
@@ -298,17 +298,17 @@ export default function Master() {
         {phase === "answering" && (
           <>
             {thinkingStream && (
-              <div className="mst-msg" style={{ marginBottom: 22, paddingLeft: 20, borderLeft: "1px dashed rgba(212,176,122,0.32)" }}>
-                <div className="fl-label" style={{ marginBottom: 8, color: "rgba(212,176,122,0.55)", letterSpacing: "4px" }}>{t("master.thinkingLabel")}</div>
-                <div className="fl-serif" style={{ fontSize: 14, lineHeight: 1.85, color: "rgba(245,241,232,0.55)", whiteSpace: "pre-wrap", letterSpacing: 0.2 }}>
+              <div className="mst-msg" style={{ marginBottom: 22, paddingLeft: 20, borderLeft: "1px dashed rgba(224, 169, 158,0.32)" }}>
+                <div className="fl-label" style={{ marginBottom: 8, color: "rgba(224, 169, 158,0.55)", letterSpacing: "4px" }}>{t("master.thinkingLabel")}</div>
+                <div className="fl-serif" style={{ fontSize: 14, lineHeight: 1.85, color: "rgba(242, 233, 240,0.55)", whiteSpace: "pre-wrap", letterSpacing: 0.2 }}>
                   {thinkingStream}
                 </div>
               </div>
             )}
-            <div className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(212,176,122,0.4)" }}>
+            <div className="mst-msg" style={{ marginBottom: 28, paddingLeft: 20, borderLeft: "1px solid rgba(224, 169, 158,0.4)" }}>
               <div className="fl-label fl-label-gold" style={{ marginBottom: 10 }}>{t("master.roleMaster")}</div>
               {answerStream ? (
-                <div className="fl-serif mst-caret" style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(245,241,232,0.92)", fontWeight: 500, whiteSpace: "pre-wrap", letterSpacing: 0.3 }}>
+                <div className="fl-serif mst-caret" style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(242, 233, 240,0.92)", fontWeight: 500, whiteSpace: "pre-wrap", letterSpacing: 0.3 }}>
                   {answerStream}
                 </div>
               ) : (
@@ -323,7 +323,7 @@ export default function Master() {
         <div ref={bottomRef} />
       </div>
 
-      <div style={{ paddingTop: 18, marginTop: 8, borderTop: "0.5px solid rgba(212,176,122,0.25)" }}>
+      <div style={{ paddingTop: 18, marginTop: 8, borderTop: "0.5px solid rgba(224, 169, 158,0.25)" }}>
         <div style={{ display: "flex", gap: 12, alignItems: "flex-end" }}>
           <textarea ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
@@ -338,7 +338,7 @@ export default function Master() {
             </button>
           ) : (
             <button onClick={send} disabled={!input.trim()}
-              style={{ width: 46, height: 46, borderRadius: "50%", border: "0.5px solid rgba(212,176,122,0.4)", cursor: input.trim() ? "pointer" : "default", background: input.trim() ? "rgba(212,176,122,0.16)" : "rgba(255,255,255,0.04)", color: input.trim() ? gold : "rgba(245,241,232,0.3)", fontSize: 17, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all .3s", backdropFilter: "blur(40px)" }}>
+              style={{ width: 46, height: 46, borderRadius: "50%", border: "0.5px solid rgba(224, 169, 158,0.4)", cursor: input.trim() ? "pointer" : "default", background: input.trim() ? "rgba(224, 169, 158,0.16)" : "rgba(255,255,255,0.04)", color: input.trim() ? gold : "rgba(242, 233, 240,0.3)", fontSize: 17, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all .3s", backdropFilter: "blur(40px)" }}>
               ↑
             </button>
           )}

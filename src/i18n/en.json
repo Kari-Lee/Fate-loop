@@ -68,6 +68,8 @@
   "bazi": {
     "title": "Bazi Compatibility",
     "desc": "See how two charts align",
+    "solar": "Solar",
+    "lunar": "Lunar",
     "you": "You",
     "them": "Them",
     "yourBday": "Your birthday",
@@ -93,6 +95,8 @@
   "fortune": {
     "title": "Today's Fortune",
     "desc": "Your daily energy reading",
+    "solar": "Solar",
+    "lunar": "Lunar",
     "heading": "Today's Energy",
     "luckyColor": "Lucky Color",
     "submit": "Reveal Today",

@@ -68,6 +68,8 @@
   "bazi": {
     "title": "八字合盘",
     "desc": "看两人的命理契合度",
+    "solar": "阳历",
+    "lunar": "阴历",
     "you": "你",
     "them": "对方",
     "yourBday": "你的生日",
@@ -93,6 +95,8 @@
   "fortune": {
     "title": "今日运势",
     "desc": "每日能量解读",
+    "solar": "阳历",
+    "lunar": "阴历",
     "heading": "今日的能量",
     "luckyColor": "幸运色",
     "submit": "查看运势",

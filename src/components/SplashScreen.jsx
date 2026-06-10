@@ -26,7 +26,7 @@ export default function SplashScreen({ onDone }) {
   const isMobile = w < 640;
   const orbSize = isMobile ? Math.min(w * 0.75, 300) : 360;
 
-  const bgStyle = "radial-gradient(ellipse 80% 60% at 20% 20%, rgba(120, 90, 180, 0.35) 0%, transparent 50%), radial-gradient(ellipse 70% 50% at 80% 30%, rgba(180, 120, 90, 0.25) 0%, transparent 55%), radial-gradient(ellipse 90% 70% at 50% 90%, rgba(60, 80, 140, 0.4) 0%, transparent 60%), linear-gradient(180deg, #0A0612 0%, #050A18 50%, #07050F 100%)";
+  const bgStyle = "radial-gradient(ellipse 80% 60% at 20% 20%, rgba(150, 95, 175, 0.34) 0%, transparent 50%), radial-gradient(ellipse 70% 50% at 80% 30%, rgba(210, 145, 135, 0.24) 0%, transparent 55%), radial-gradient(ellipse 90% 70% at 50% 90%, rgba(110, 70, 150, 0.36) 0%, transparent 60%), linear-gradient(180deg, #160B1A 0%, #11081A 50%, #0C0710 100%)";
 
   const dotAnim = (i) => "splash_dot 1.4s ease-in-out " + (i * 0.2) + "s infinite";
 
@@ -56,7 +56,7 @@ export default function SplashScreen({ onDone }) {
         width: orbSize * 1.8, height: orbSize * 1.8,
         marginLeft: -(orbSize * 0.9), marginTop: -(orbSize * 0.9),
         borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(212,176,122,0.18) 0%, rgba(120,90,180,0.1) 40%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(224, 169, 158,0.18) 0%, rgba(120,90,180,0.1) 40%, transparent 70%)",
         filter: "blur(30px)",
         animation: "splash_pulse 3s ease-in-out infinite",
       }}/>
@@ -72,16 +72,16 @@ export default function SplashScreen({ onDone }) {
           <svg viewBox="0 0 280 280" width={orbSize} height={orbSize} fill="none">
             <defs>
               <radialGradient id="orbGradS">
-                <stop offset="0%" stopColor="rgba(212,176,122,0.25)"/>
-                <stop offset="60%" stopColor="rgba(120,90,180,0.15)"/>
-                <stop offset="100%" stopColor="rgba(60,80,140,0.05)"/>
+                <stop offset="0%" stopColor="rgba(224, 169, 158,0.25)"/>
+                <stop offset="60%" stopColor="rgba(150,95,175,0.15)"/>
+                <stop offset="100%" stopColor="rgba(110,70,150,0.05)"/>
               </radialGradient>
             </defs>
             <circle cx="140" cy="140" r="100" fill="url(#orbGradS)" opacity="0.6"/>
-            <circle cx="140" cy="140" r="120" stroke="rgba(212,176,122,0.55)" strokeWidth="0.6" fill="none"/>
-            <circle cx="140" cy="140" r="105" stroke="rgba(245,241,232,0.25)" strokeWidth="0.4" fill="none"/>
-            <circle cx="140" cy="140" r="80" stroke="rgba(212,176,122,0.45)" strokeWidth="0.6" fill="none" strokeDasharray="2 4"/>
-            <g stroke="rgba(212,176,122,0.7)" strokeWidth="0.6">
+            <circle cx="140" cy="140" r="120" stroke="rgba(224, 169, 158,0.55)" strokeWidth="0.6" fill="none"/>
+            <circle cx="140" cy="140" r="105" stroke="rgba(242, 233, 240,0.25)" strokeWidth="0.4" fill="none"/>
+            <circle cx="140" cy="140" r="80" stroke="rgba(224, 169, 158,0.45)" strokeWidth="0.6" fill="none" strokeDasharray="2 4"/>
+            <g stroke="rgba(224, 169, 158,0.7)" strokeWidth="0.6">
               {[0,30,60,90,120,150,180,210,240,270,300,330].map((a,i) => {
                 const rad = (a-90) * Math.PI/180;
                 return <line key={i} x1={140 + 115 * Math.cos(rad)} y1={140 + 115 * Math.sin(rad)} x2={140 + 125 * Math.cos(rad)} y2={140 + 125 * Math.sin(rad)}/>;
@@ -95,11 +95,11 @@ export default function SplashScreen({ onDone }) {
           animation: "splash_spinReverse 8s linear infinite",
         }}>
           <svg viewBox="0 0 280 280" width={orbSize * 0.76} height={orbSize * 0.76} fill="none">
-            <circle cx="140" cy="140" r="100" stroke="rgba(245,241,232,0.2)" strokeWidth="0.3" fill="none"/>
-            <circle cx="140" cy="140" r="80" stroke="rgba(212,176,122,0.3)" strokeWidth="0.4" fill="none"/>
+            <circle cx="140" cy="140" r="100" stroke="rgba(242, 233, 240,0.2)" strokeWidth="0.3" fill="none"/>
+            <circle cx="140" cy="140" r="80" stroke="rgba(224, 169, 158,0.3)" strokeWidth="0.4" fill="none"/>
             {[0,45,90,135,180,225,270,315].map((a,i) => {
               const rad = (a-90) * Math.PI/180;
-              return <circle key={i} cx={140 + 90 * Math.cos(rad)} cy={140 + 90 * Math.sin(rad)} r="2" fill="rgba(212,176,122,0.8)"/>;
+              return <circle key={i} cx={140 + 90 * Math.cos(rad)} cy={140 + 90 * Math.sin(rad)} r="2" fill="rgba(224, 169, 158,0.8)"/>;
             })}
           </svg>
         </div>
@@ -109,10 +109,10 @@ export default function SplashScreen({ onDone }) {
           animation: "splash_spinSlow 12s linear infinite",
         }}>
           <svg viewBox="0 0 280 280" width={orbSize * 0.5} height={orbSize * 0.5} fill="none">
-            <circle cx="140" cy="140" r="60" stroke="rgba(212,176,122,0.4)" strokeWidth="0.5" fill="none"/>
+            <circle cx="140" cy="140" r="60" stroke="rgba(224, 169, 158,0.4)" strokeWidth="0.5" fill="none"/>
             {[0,60,120,180,240,300].map((a,i) => {
               const rad = (a-90) * Math.PI/180;
-              return <circle key={i} cx={140 + 60 * Math.cos(rad)} cy={140 + 60 * Math.sin(rad)} r="1.5" fill="rgba(245,241,232,0.7)"/>;
+              return <circle key={i} cx={140 + 60 * Math.cos(rad)} cy={140 + 60 * Math.sin(rad)} r="1.5" fill="rgba(242, 233, 240,0.7)"/>;
             })}
           </svg>
         </div>
@@ -125,17 +125,17 @@ export default function SplashScreen({ onDone }) {
         }}>
           <div style={{
             position: "absolute", inset: -20,
-            background: "radial-gradient(circle, rgba(212,176,122,0.4) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(224, 169, 158,0.4) 0%, transparent 70%)",
             filter: "blur(15px)",
           }}/>
           <div style={{ position: "relative" }}>
             <svg width="12" height="12" viewBox="0 0 100 100" style={{ display: "block", margin: "0 auto" }}>
-              <path d="M50 0 C52 38 62 48 100 50 C62 52 52 62 50 100 C48 62 38 52 0 50 C38 48 48 38 50 0Z" fill="rgba(245,241,232,0.95)"/>
+              <path d="M50 0 C52 38 62 48 100 50 C62 52 52 62 50 100 C48 62 38 52 0 50 C38 48 48 38 50 0Z" fill="rgba(242, 233, 240,0.95)"/>
             </svg>
             <div style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: isMobile ? 28 : 34, fontWeight: 400, letterSpacing: 2.5, marginTop: 8,
-              background: "linear-gradient(120deg, #E8C99A 0%, #F5E5C0 25%, #D4B07A 50%, #F5E5C0 75%, #E8C99A 100%)",
+              background: "linear-gradient(120deg, #F0CCC2 0%, #F7DDD5 25%, #E0A99E 50%, #F7DDD5 75%, #F0CCC2 100%)",
               backgroundSize: "200% auto",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -155,7 +155,7 @@ export default function SplashScreen({ onDone }) {
         padding: "0 24px",
       }}>
         <div style={{
-          fontSize: 9, color: "rgba(212,176,122,0.7)",
+          fontSize: 9, color: "rgba(224, 169, 158,0.7)",
           letterSpacing: isMobile ? 6 : 10,
           textTransform: "uppercase", fontWeight: 500,
         }}>
@@ -165,7 +165,7 @@ export default function SplashScreen({ onDone }) {
           {[0, 1, 2].map((i) => (
             <div key={i} style={{
               width: 3, height: 3, borderRadius: "50%",
-              background: "#D4B07A",
+              background: "#E0A99E",
               animation: dotAnim(i),
             }}/>
           ))}
@@ -176,7 +176,7 @@ export default function SplashScreen({ onDone }) {
         position: "absolute",
         bottom: isMobile ? 24 : 32,
         right: isMobile ? 24 : 32,
-        fontSize: 10, color: "rgba(245,241,232,0.4)", letterSpacing: 3,
+        fontSize: 10, color: "rgba(242, 233, 240,0.4)", letterSpacing: 3,
         cursor: "pointer", textTransform: "uppercase",
         opacity: step >= 1 ? 1 : 0,
         transition: "opacity .6s ease",

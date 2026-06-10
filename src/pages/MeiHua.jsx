@@ -4,13 +4,13 @@ import { TRIGRAMS, castMeiHua, castByTime } from "../data/meihua";
 import { callAI } from "../lib/api";
 
 const C = {
-  gold: "#B8964A",
-  goldGrad: "linear-gradient(135deg, #B8964A, #D4B07A)",
+  gold: "#C8968C",
+  goldGrad: "linear-gradient(135deg, #C8968C, #E0A99E)",
   card: "rgba(255,255,255,.02)",
   line: "rgba(255,255,255,.06)",
-  ink: "#F5F1E8",
-  sub: "rgba(245,241,232,0.6)",
-  muted: "rgba(245,241,232,0.35)",
+  ink: "#F2E9F0",
+  sub: "rgba(242, 233, 240,0.6)",
+  muted: "rgba(242, 233, 240,0.35)",
   sage: "#6B9B7A",
   warm: "rgba(255,255,255,.03)",
 };
@@ -152,7 +152,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
       <div style={{ fontSize: 13, margin: "0 auto 32px", color: C.sub, lineHeight: 2, maxWidth: 320 }}>
         {t("meihua.intro")}
       </div>
-      <button onClick={() => setStep(1)} style={{ background: C.goldGrad, color: "#0A0A0A", border: "none", padding: "16px 48px", borderRadius: 16, fontSize: 14, fontWeight: 700, cursor: "pointer", letterSpacing: 2 }}>
+      <button onClick={() => setStep(1)} style={{ background: C.goldGrad, color: "#1B0F20", border: "none", padding: "16px 48px", borderRadius: 16, fontSize: 14, fontWeight: 700, cursor: "pointer", letterSpacing: 2 }}>
         {t("meihua.begin")}
       </button>
     </div>
@@ -201,7 +201,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
       </div>
       <div className="flex gap-3" style={{ marginTop: 16 }}>
         <button onClick={() => setStep(1)} style={{ flex: 1, padding: 14, borderRadius: 14, background: C.card, color: C.sub, border: `1px solid ${C.line}`, fontSize: 14, cursor: "pointer" }}>{t("meihua.back")}</button>
-        <button onClick={() => setStep(3)} style={{ flex: 2, padding: 14, borderRadius: 14, background: C.goldGrad, color: "#0A0A0A", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+        <button onClick={() => setStep(3)} style={{ flex: 2, padding: 14, borderRadius: 14, background: C.goldGrad, color: "#1B0F20", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
           {detail.trim() ? t("meihua.continue") : t("meihua.skip")}
         </button>
       </div>
@@ -232,7 +232,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
           ))}
         </div>
         <button onClick={castWithNumbers} disabled={!nums.a || !nums.b || !nums.c}
-          style={{ width: "100%", padding: 14, borderRadius: 14, border: "none", fontSize: 14, fontWeight: 700, cursor: nums.a && nums.b && nums.c ? "pointer" : "default", background: nums.a && nums.b && nums.c ? C.goldGrad : "rgba(255,255,255,.04)", color: nums.a && nums.b && nums.c ? "#0A0A0A" : C.muted }}>
+          style={{ width: "100%", padding: 14, borderRadius: 14, border: "none", fontSize: 14, fontWeight: 700, cursor: nums.a && nums.b && nums.c ? "pointer" : "default", background: nums.a && nums.b && nums.c ? C.goldGrad : "rgba(255,255,255,.04)", color: nums.a && nums.b && nums.c ? "#1B0F20" : C.muted }}>
           {t("meihua.castNumbers")}
         </button>
       </div>

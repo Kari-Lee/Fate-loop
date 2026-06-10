@@ -46,13 +46,13 @@ export default function Landing() {
     border: "0.5px solid rgba(255,255,255,.6)",
     boxShadow: "inset 0 1px 0 rgba(255,255,255,.7), 0 6px 24px rgba(42,37,32,.08)",
   };
-  const ink = "#2A2520";
+  const ink = "#241A28";
   const rust = "#9A2D22";
 
   return (
     <div style={{
       position: "fixed", inset: 0, overflow: "hidden",
-      background: "linear-gradient(180deg, #FCFBF8 0%, #F4F0E8 100%)",
+      background: "linear-gradient(180deg, #FBF6FA 0%, #F2E9F0 100%)",
       fontFamily: "-apple-system, 'SF Pro Display', sans-serif",
     }}>
       <style>{`
@@ -81,7 +81,7 @@ export default function Landing() {
           <circle cx="160" cy="160" r="126" fill="none" stroke="rgba(42,37,32,.18)" strokeWidth="0.5"/>
           <circle cx="160" cy="160" r="98" fill="none" stroke="rgba(42,37,32,.15)" strokeWidth="0.5" strokeDasharray="1 6"/>
           <circle cx="160" cy="160" r="68" fill="none" stroke="rgba(154,45,34,.28)" strokeWidth="0.5"/>
-          <g fill="#2A2520" opacity="0.4" fontSize="15" textAnchor="middle" fontFamily="'Songti SC',serif">
+          <g fill="#241A28" opacity="0.4" fontSize="15" textAnchor="middle" fontFamily="'Songti SC',serif">
             <text x="160" y="48">☰</text><text x="244" y="80">☴</text><text x="278" y="165">☵</text>
             <text x="244" y="250">☶</text><text x="160" y="282">☷</text><text x="76" y="250">☳</text>
             <text x="42" y="165">☲</text><text x="76" y="80">☱</text>
@@ -112,7 +112,7 @@ export default function Landing() {
       </div>
 
       {/* bottom fade */}
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "34%", background: "linear-gradient(0deg, #F4F0E8 28%, transparent)", pointerEvents: "none", zIndex: 4 }}/>
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "34%", background: "linear-gradient(0deg, #F2E9F0 28%, transparent)", pointerEvents: "none", zIndex: 4 }}/>
 
       {/* title + glass cta */}
       <div style={{ position: "absolute", bottom: "6%", left: 0, right: 0, zIndex: 8, padding: "0 32px" }}>

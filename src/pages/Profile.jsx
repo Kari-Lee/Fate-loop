@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getProfile, saveProfile, clearProfile, deriveChart } from "../lib/profile";
 
-const gold = "#D4B07A";
-const ink = "#F5F1E8";
-const sub = "rgba(245,241,232,0.6)";
-const muted = "rgba(245,241,232,0.35)";
+const gold = "#E0A99E";
+const ink = "#F2E9F0";
+const sub = "rgba(242, 233, 240,0.6)";
+const muted = "rgba(242, 233, 240,0.35)";
 const line = "rgba(255,255,255,.08)";
 
 export default function Profile() {
   if (typeof document !== "undefined" && !document.getElementById("profile-ph-style")) {
     const s = document.createElement("style"); s.id = "profile-ph-style";
-    s.textContent = "input::placeholder{color:rgba(245,241,232,0.4)!important;opacity:1}";
+    s.textContent = "input::placeholder{color:rgba(242, 233, 240,0.4)!important;opacity:1}";
     document.head.appendChild(s);
   }
   const { t, i18n } = useTranslation();
@@ -93,8 +93,8 @@ export default function Profile() {
           {[["female", L("女", "Female")], ["male", L("男", "Male")], ["other", L("其他", "Other")]].map(([v, lbl]) => (
             <div key={v} onClick={() => setP({ ...p, gender: v })}
               style={{ flex: 1, textAlign: "center", padding: "11px 0", borderRadius: 10, cursor: "pointer",
-                background: p.gender === v ? "rgba(212,176,122,.15)" : "rgba(255,255,255,.03)",
-                border: `0.5px solid ${p.gender === v ? "rgba(212,176,122,.4)" : line}`,
+                background: p.gender === v ? "rgba(224, 169, 158,.15)" : "rgba(255,255,255,.03)",
+                border: `0.5px solid ${p.gender === v ? "rgba(224, 169, 158,.4)" : line}`,
                 color: p.gender === v ? gold : sub, fontSize: 13 }}>
               {lbl}
             </div>
@@ -115,8 +115,8 @@ export default function Profile() {
 
         <button onClick={onSave} disabled={!p.year || !p.month || !p.day}
           className="fl-glass-strong"
-          style={{ width: "100%", padding: "15px", borderRadius: 14, border: `0.5px solid rgba(212,176,122,.4)`,
-            background: p.year && p.month && p.day ? "rgba(212,176,122,.14)" : "rgba(255,255,255,.04)",
+          style={{ width: "100%", padding: "15px", borderRadius: 14, border: `0.5px solid rgba(224, 169, 158,.4)`,
+            background: p.year && p.month && p.day ? "rgba(224, 169, 158,.14)" : "rgba(255,255,255,.04)",
             color: p.year && p.month && p.day ? ink : muted, fontSize: 12, letterSpacing: 3,
             textTransform: "uppercase", fontWeight: 500, cursor: p.year && p.month && p.day ? "pointer" : "default" }}>
           {saved ? L("更新命盘", "Update Chart") : L("建立命盘", "Create Chart")}
