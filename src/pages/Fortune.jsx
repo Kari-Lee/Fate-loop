@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { C } from "../data/colors";
 import { calcFortune } from "../data/fortune";
+import ShareCardButton from "../components/ShareCard";
 
 export default function Fortune() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "zh" ? "zh" : "en";
   const [calType, setCalType] = useState("solar");
   const [fYear, setFYear] = useState("");
   const [fMonth, setFMonth] = useState("");
@@ -41,7 +43,15 @@ export default function Fortune() {
       <div className="p-5 rounded-[18px] mb-4" style={{ background: "rgba(224,169,158,.1)", border: "1px solid rgba(224,169,158,.25)" }}>
         <div className="text-[15px] font-medium" style={{ color: C.ink, lineHeight: 2 }}>💬 {result.msg}</div>
       </div>
-      <button onClick={() => setResult(null)} className="w-full py-4 rounded-2xl text-[14px] font-semibold cursor-pointer" style={{ background: C.card, color: C.sub, border: `1px solid ${C.line}` }}>{t("fortune.retry")}</button>
+      <ShareCardButton lang={lang} buildOpts={() => ({
+        lang,
+        feature: lang === "zh" ? "今日运势" : "TODAY",
+        stars: result.stars,
+        verdict: t("fortune.heading"),
+        subMain: result.kw.join("  ·  "),
+        quote: ((result.msg.split(/[.。]/)[0] || result.msg).trim()) + ".",
+      })} />
+      <button onClick={() => setResult(null)} className="w-full mt-3 py-4 rounded-2xl text-[14px] font-semibold cursor-pointer" style={{ background: C.card, color: C.sub, border: `1px solid ${C.line}` }}>{t("fortune.retry")}</button>
     </div>
   );
 

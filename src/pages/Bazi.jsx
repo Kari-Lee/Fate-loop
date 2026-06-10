@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { C, sec } from "../data/colors";
 import { calcBazi, baziCompat } from "../data/bazi";
+import ShareCardButton from "../components/ShareCard";
 
 export default function Bazi() {
   const { t, i18n } = useTranslation();
@@ -74,7 +75,18 @@ export default function Bazi() {
           <span style={{ color: C.gold, marginLeft: 6, fontWeight: 600 }}>→</span>
         </div>
       </div>
-      <button onClick={() => setResult(null)} className="w-full mt-4 py-4 rounded-2xl text-[14px] font-semibold cursor-pointer" style={{ background: C.card, color: C.sub, border: `1px solid ${C.line}` }}>{t("bazi.retry")}</button>
+      <ShareCardButton lang={lang} buildOpts={() => ({
+        lang,
+        feature: lang === "zh" ? "八字合盘" : "BAZI",
+        big: result.score + "%",
+        verdict: result.type[lang],
+        subMain: `${result.gz1[lang]} ♥ ${result.gz2[lang]}`,
+        subSmall: lang === "zh"
+          ? `${result.w1.zh}·属${result.sx1.zh}    ${result.w2.zh}·属${result.sx2.zh}`
+          : `${result.w1.en}·${result.sx1.en}   ${result.w2.en}·${result.sx2.en}`,
+        quote: result.quote[lang],
+      })} />
+      <button onClick={() => setResult(null)} className="w-full mt-3 py-4 rounded-2xl text-[14px] font-semibold cursor-pointer" style={{ background: C.card, color: C.sub, border: `1px solid ${C.line}` }}>{t("bazi.retry")}</button>
     </div>
   );
 

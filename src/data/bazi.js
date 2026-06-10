@@ -70,6 +70,14 @@ export var BAZI_MATCH = [
   } },
 ];
 
+var CARD_QUOTE = {
+  "Celestial Bond": { zh: "命中注定，不过如此。", en: "Simply meant to be." },
+  "Harmonious Match": { zh: "刚刚好，是你。", en: "You fit — just right." },
+  "Compatible Pair": { zh: "好的关系，是慢慢建出来的。", en: "Good love is built, slowly." },
+  "Challenging Union": { zh: "越磨，越懂彼此。", en: "Worn smooth into understanding." },
+  "Opposing Forces": { zh: "爱，本就是一场修行。", en: "Love was always a practice." },
+};
+
 var SHENG = { Wood: "Fire", Fire: "Earth", Earth: "Metal", Metal: "Water", Water: "Wood" };
 var KE = { Wood: "Earth", Earth: "Water", Water: "Fire", Fire: "Metal", Metal: "Wood" };
 
@@ -154,6 +162,7 @@ export function baziCompat(b1, b2) {
     score: s,
     type: tier.type,
     analysis: analysis,
+    quote: CARD_QUOTE[tier.type.en],
     gz1: { zh: b1.gzZh, en: b1.gz }, gz2: { zh: b2.gzZh, en: b2.gz },
     w1: ELEM[b1.wuxing], w2: ELEM[b2.wuxing],
     sx1: SX_MAP[b1.sx], sx2: SX_MAP[b2.sx],

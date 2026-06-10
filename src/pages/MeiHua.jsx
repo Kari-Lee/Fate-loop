@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { TRIGRAMS, castMeiHua, castByTime } from "../data/meihua";
 import { callAI } from "../lib/api";
+import ShareCardButton from "../components/ShareCard";
 
 const C = {
   gold: "#C8968C",
@@ -40,7 +41,8 @@ FORMAT YOUR RESPONSE AS JSON:
 }`;
 
 export default function MeiHua() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "zh" ? "zh" : "en";
   const [step, setStep] = useState(0);
   const [topic, setTopic] = useState(null);
   const [detail, setDetail] = useState("");
@@ -341,7 +343,15 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
         )}
       </div>
 
-      <div className="text-center" style={{ marginBottom: 16 }}>
+      <ShareCardButton lang={lang} buildOpts={() => ({
+        lang,
+        feature: lang === "zh" ? "梅花易数" : "MEIHUA",
+        big: `${hex.upper.symbol} ${hex.lower.symbol}`,
+        verdict: lang === "zh" ? `${hex.upper.name} · ${hex.lower.name}` : `${hex.upper.en} · ${hex.lower.en}`,
+        subSmall: lang === "zh" ? `本卦 · ${hex.upper.element} / ${hex.lower.element}` : `${hex.upper.en} over ${hex.lower.en}`,
+        quote: reading.chinese_wisdom || reading.core,
+      })} />
+      <div className="text-center" style={{ marginTop: 14, marginBottom: 16 }}>
         <div style={{ fontSize: 11, color: C.muted }}>{t("meihua.shareHint")}</div>
       </div>
       <button onClick={reset} style={{ width: "100%", padding: 16, borderRadius: 16, background: C.card, color: C.sub, border: `1px solid ${C.line}`, fontSize: 14, cursor: "pointer" }}>
