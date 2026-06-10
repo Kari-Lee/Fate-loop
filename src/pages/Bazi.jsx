@@ -42,7 +42,7 @@ export default function Bazi() {
 
   if (result) return (
     <div className="animate-fu">
-      <div className="rounded-3xl py-9 px-6 text-center relative overflow-hidden mb-4" style={{ background: "linear-gradient(135deg,rgba(45,52,54,.85),rgba(45,52,54,.75))", color: C.ink }}>
+      <div className="rounded-3xl py-9 px-6 text-center relative overflow-hidden mb-4" style={{ background: "linear-gradient(135deg,rgba(40,24,48,.92),rgba(24,14,30,.88))", border: "1px solid rgba(224,169,158,.18)", color: C.ink }}>
         <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 30%,rgba(200, 142, 130,.12),transparent 60%)" }} />
         <div className="text-[12px] tracking-[3px] mb-3 relative" style={{ color: C.gold }}>{t("bazi.score")}</div>
         <div className="font-serif text-[56px] font-black relative" style={{ color: C.ink }}>{result.score}<span className="text-[20px]">%</span></div>

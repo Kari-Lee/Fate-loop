@@ -15,7 +15,7 @@ export default function Fortune() {
 
   if (result) return (
     <div className="animate-fu">
-      <div className="rounded-3xl py-9 px-6 text-center relative overflow-hidden mb-4" style={{ background: "linear-gradient(135deg,rgba(45,52,54,.85),rgba(45,52,54,.75))", color: C.ink }}>
+      <div className="rounded-3xl py-9 px-6 text-center relative overflow-hidden mb-4" style={{ background: "linear-gradient(135deg,rgba(40,24,48,.92),rgba(24,14,30,.88))", border: "1px solid rgba(224,169,158,.18)", color: C.ink }}>
         <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 30%,rgba(200, 142, 130,.1),transparent 60%)" }} />
         <div className="text-[12px] tracking-[3px] mb-3 relative" style={{ color: C.gold }}>{t("fortune.heading")}</div>
         <div className="text-[32px] relative" style={{ letterSpacing: 6 }}>
@@ -38,7 +38,7 @@ export default function Fortune() {
         <div className="text-[11px] font-bold mb-1.5" style={{ color: C.gold }}>{t("fortune.luckyColor")}</div>
         <div className="text-[14px]" style={{ color: C.ink + "DD", lineHeight: 1.7 }}>{result.color}</div>
       </div>
-      <div className="p-5 rounded-[18px] mb-4" style={{ background: `linear-gradient(135deg,${C.warm},#F0E6F6)` }}>
+      <div className="p-5 rounded-[18px] mb-4" style={{ background: "rgba(224,169,158,.1)", border: "1px solid rgba(224,169,158,.25)" }}>
         <div className="text-[15px] font-medium" style={{ color: C.ink, lineHeight: 2 }}>💬 {result.msg}</div>
       </div>
       <button onClick={() => setResult(null)} className="w-full py-4 rounded-2xl text-[14px] font-semibold cursor-pointer" style={{ background: C.card, color: C.sub, border: `1px solid ${C.line}` }}>{t("fortune.retry")}</button>
@@ -47,13 +47,23 @@ export default function Fortune() {
 
   return (
     <div className="animate-fu text-center">
-      <div className="text-[48px] mb-5 pt-2.5">🌙</div>
-      <div className="font-serif text-[24px] font-bold mb-1.5" style={{ color: C.ink }}>{t("fortune.title")}</div>
-      <div className="text-[13px] mb-4" style={{ color: C.sub }}>{t("fortune.desc")}</div>
-      <div className="inline-flex rounded-xl overflow-hidden mb-5" style={{ border: `1px solid ${C.line}` }}>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 16, paddingTop: 8 }}>
+        <svg width="44" height="44" viewBox="0 0 80 80" fill="none">
+          <path d="M48 16a25 25 0 1 0 0 48 20 20 0 0 1 0-48Z" stroke={C.gold} strokeWidth="1.1" fill="none" opacity="0.9" />
+          <circle cx="40" cy="12" r="1.3" fill={C.gold} />
+          <circle cx="64" cy="34" r="1.1" fill={C.gold} opacity="0.7" />
+        </svg>
+      </div>
+      <div className="font-serif text-[26px] font-bold mb-1.5" style={{ color: C.ink }}>{t("fortune.title")}</div>
+      <div className="text-[13px]" style={{ color: C.sub, marginBottom: 22 }}>{t("fortune.desc")}</div>
+      <div style={{ display: "inline-flex", gap: 26, marginBottom: 22 }}>
         {["solar", "lunar"].map((ct) => (
-          <button key={ct} onClick={() => setCalType(ct)} className="px-5 py-2 text-[13px] font-semibold border-none cursor-pointer"
-            style={{ background: calType === ct ? C.gold : "transparent", color: calType === ct ? "#130A16" : C.sub }}>{t(`fortune.${ct}`)}</button>
+          <button key={ct} onClick={() => setCalType(ct)}
+            style={{ background: "transparent", border: "none", padding: "0 0 7px", fontSize: 12, letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
+              color: calType === ct ? C.gold : C.sub,
+              borderBottom: calType === ct ? `1.5px solid ${C.gold}` : "1.5px solid transparent" }}>
+            {t(`fortune.${ct}`)}
+          </button>
         ))}
       </div>
       <div className="flex gap-2.5 max-w-[300px] mx-auto mb-5">
