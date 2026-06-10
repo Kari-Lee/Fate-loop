@@ -10,7 +10,8 @@ const CSERIF = "'Noto Serif SC', 'Songti SC', 'STSong', 'PingFang SC', serif";
 const DEFAULT_URL = "https://fate-loop.vercel.app";
 
 export async function generateShareCard(opts) {
-  const { lang = "en", feature = "FateLoop", big, stars, verdict, subMain, subSmall, quote, url = DEFAULT_URL } = opts;
+  const { lang = "en", feature = "FateLoop", big, stars, verdict, subMain, subSmall, quote, campaign = "share", url } = opts;
+  const qrUrl = url || `${DEFAULT_URL}/?utm_source=sharecard&utm_medium=qr&utm_campaign=${campaign}`;
   try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) {}
 
   const S = 3, BW = 360, BH = 450;
@@ -107,7 +108,7 @@ export async function generateShareCard(opts) {
 
   // footer: real QR + caption
   const fy = BH - 42, qs = 36;
-  const qr = qrcode(0, "M"); qr.addData(url); qr.make();
+  const qr = qrcode(0, "M"); qr.addData(qrUrl); qr.make();
   const mc = qr.getModuleCount(), cell = qs / mc;
   const cap1 = "FateLoop", cap2 = zh ? "扫码测你们的" : "Scan to try yours";
   x.font = `500 15px ${SERIF}`; const capW = Math.max(x.measureText(cap1).width, 96);

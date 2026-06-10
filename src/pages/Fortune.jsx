@@ -45,6 +45,7 @@ export default function Fortune() {
       </div>
       <ShareCardButton lang={lang} buildOpts={() => ({
         lang,
+        campaign: "fortune",
         feature: lang === "zh" ? "今日运势" : "TODAY",
         stars: result.stars,
         verdict: t("fortune.heading"),

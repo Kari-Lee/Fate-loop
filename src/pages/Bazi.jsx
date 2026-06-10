@@ -77,6 +77,7 @@ export default function Bazi() {
       </div>
       <ShareCardButton lang={lang} buildOpts={() => ({
         lang,
+        campaign: "bazi",
         feature: lang === "zh" ? "八字合盘" : "BAZI",
         big: result.score + "%",
         verdict: result.type[lang],

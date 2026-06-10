@@ -345,6 +345,7 @@ Give a deeply personal reading. Reference the specific trigram meanings. Make it
 
       <ShareCardButton lang={lang} buildOpts={() => ({
         lang,
+        campaign: "meihua",
         feature: lang === "zh" ? "梅花易数" : "MEIHUA",
         big: `${hex.upper.symbol} ${hex.lower.symbol}`,
         verdict: lang === "zh" ? `${hex.upper.name} · ${hex.lower.name}` : `${hex.upper.en} · ${hex.lower.en}`,
