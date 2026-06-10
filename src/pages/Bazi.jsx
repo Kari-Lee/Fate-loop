@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { C, sec } from "../data/colors";
 import { calcBazi, baziCompat } from "../data/bazi";
 
 export default function Bazi() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const lang = i18n.language === "zh" ? "zh" : "en";
   const [calType, setCalType] = useState("solar");
   const [d1, setD1] = useState({ y: "", m: "", d: "" });
   const [d2, setD2] = useState({ y: "", m: "", d: "" });
@@ -46,19 +49,31 @@ export default function Bazi() {
         <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 30%,rgba(200, 142, 130,.12),transparent 60%)" }} />
         <div className="text-[12px] tracking-[3px] mb-3 relative" style={{ color: C.gold }}>{t("bazi.score")}</div>
         <div className="font-serif text-[56px] font-black relative" style={{ color: C.ink }}>{result.score}<span className="text-[20px]">%</span></div>
-        <div className="font-serif text-[22px] font-bold mt-2 relative" style={{ color: C.gold }}>{result.info.type}</div>
+        <div className="font-serif text-[22px] font-bold mt-2 relative" style={{ color: C.gold }}>{result.type[lang]}</div>
       </div>
       <div className="flex gap-3 mb-4">
         {[{ label: t("bazi.you"), gz: result.gz1, w: result.w1, sx: result.sx1 }, { label: t("bazi.them"), gz: result.gz2, w: result.w2, sx: result.sx2 }].map((p, i) => (
           <div key={i} className="flex-1 text-center" style={{ ...sec, marginTop: 0 }}>
             <div className="text-[11px] mb-1.5" style={{ color: C.muted }}>{p.label}</div>
-            <div className="font-serif text-[20px] font-bold" style={{ color: C.ink }}>{p.gz}</div>
-            <div className="text-[12px] mt-1" style={{ color: C.sub }}>{p.w} element · Year of {p.sx}</div>
+            <div className="font-serif text-[20px] font-bold" style={{ color: C.ink }}>{p.gz[lang]}</div>
+            <div className="text-[12px] mt-1" style={{ color: C.sub }}>{lang === "zh" ? `${p.w.zh}命 · 属${p.sx.zh}` : `${p.w.en} element · Year of ${p.sx.en}`}</div>
           </div>
         ))}
         <div className="flex items-center"><span className="text-[24px]" style={{ color: C.gold }}>❤️</span></div>
       </div>
-      <div style={sec}><div className="text-[15px]" style={{ lineHeight: 2, color: C.ink + "DD" }}>{result.info.desc}</div></div>
+      <div style={sec}>
+        <div className="fl-label" style={{ color: C.gold, marginBottom: 14 }}>{lang === "zh" ? "命理详解" : "The Reading"}</div>
+        <div className="text-[15px]" style={{ lineHeight: 2, color: C.ink + "DD", whiteSpace: "pre-line" }}>{result.analysis[lang]}</div>
+      </div>
+      <div onClick={() => navigate("/master")} className="cursor-pointer" style={{ marginTop: 16, padding: "20px 18px", borderRadius: 18, background: "rgba(224,169,158,.1)", border: "1px solid rgba(224,169,158,.3)", transition: "all .3s" }}
+        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(224,169,158,.16)"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(224,169,158,.1)"; }}>
+        <div className="fl-label" style={{ color: C.gold, marginBottom: 8 }}>{lang === "zh" ? "想问得更多?" : "Want to go deeper?"}</div>
+        <div style={{ fontSize: 14, color: C.ink, lineHeight: 1.7 }}>
+          {lang === "zh" ? "把你们的故事讲给「大师」听，得到一份只属于你们俩的深度解读" : "Tell the Master your story for a reading made only for the two of you"}
+          <span style={{ color: C.gold, marginLeft: 6, fontWeight: 600 }}>→</span>
+        </div>
+      </div>
       <button onClick={() => setResult(null)} className="w-full mt-4 py-4 rounded-2xl text-[14px] font-semibold cursor-pointer" style={{ background: C.card, color: C.sub, border: `1px solid ${C.line}` }}>{t("bazi.retry")}</button>
     </div>
   );
