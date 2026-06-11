@@ -10,7 +10,7 @@ const QUOTES = [
   { en: "The ancient Chinese figured out your relationship problems 3,000 years ago. You just weren't listening.", zh: "你的感情问题，古人三千年前就参透了。只是你没在听。" },
   { en: "Fate doesn't repeat itself. It loops.", zh: "命运不会重演。它循环。" },
   { en: "If they ghost you during Mercury retrograde, that's astrology. If they ghost you during a Metal year, that's destiny.", zh: "水逆时被已读不回，那是星座。金年里被已读不回，那是命。" },
-  { en: "Your attachment style is just your element wearing a psychology costume.", zh: "你的依恋类型，不过是你的五行，套了件心理学的外衣。" },
+  { en: "Your patterns aren't psychology. It's your birth chart, on repeat.", zh: "你那些反复，不是什么心理问题。是你的命盘，在重演。" },
   { en: "Stop reading their texts. Start reading their birth chart.", zh: "别再翻他们的聊天记录了。去看他们的命盘吧。" },
   { en: "The universe paired you two for a reason. That reason might be suffering.", zh: "天意让你俩相遇，自有缘由。那缘由，或许就是受苦。" },
   { en: "Water doesn't fight Fire. It just... wins. Quietly.", zh: "水不与火相争。它只是……静静地，赢了。" },
