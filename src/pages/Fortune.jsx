@@ -25,11 +25,11 @@ export default function Fortune() {
           {Array(5 - result.stars).fill(null).map((_, i) => <span key={i} className="opacity-20">⭐</span>)}
         </div>
         <div className="flex gap-2 justify-center flex-wrap mt-3.5 relative">
-          {result.kw.map((k, i) => <span key={i} className="px-3.5 py-1 rounded-full text-[13px]" style={{ background: "rgba(255,255,255,.1)", color: C.ink + "CC" }}>#{k}</span>)}
+          {result.kw[lang].map((k, i) => <span key={i} className="px-3.5 py-1 rounded-full text-[13px]" style={{ background: "rgba(255,255,255,.1)", color: C.ink + "CC" }}>#{k}</span>)}
         </div>
       </div>
       <div className="flex gap-3 mb-4">
-        {[{ label: t("qian.yi"), color: C.sage, content: result.yi }, { label: t("qian.ji"), color: C.rose, content: result.ji }].map((item, i) => (
+        {[{ label: t("qian.yi"), color: C.sage, content: result.yi[lang] }, { label: t("qian.ji"), color: C.rose, content: result.ji[lang] }].map((item, i) => (
           <div key={i} className="flex-1 p-4 rounded-[18px]" style={{ background: C.card, border: `1px solid ${C.line}` }}>
             <div className="text-[11px] font-bold mb-1.5" style={{ color: item.color }}>{item.label}</div>
             <div className="text-[13px]" style={{ color: C.ink + "CC", lineHeight: 1.7 }}>{item.content}</div>
@@ -38,10 +38,10 @@ export default function Fortune() {
       </div>
       <div className="p-4 rounded-[18px] mb-3" style={{ background: C.card, border: `1px solid ${C.line}` }}>
         <div className="text-[11px] font-bold mb-1.5" style={{ color: C.gold }}>{t("fortune.luckyColor")}</div>
-        <div className="text-[14px]" style={{ color: C.ink + "DD", lineHeight: 1.7 }}>{result.color}</div>
+        <div className="text-[14px]" style={{ color: C.ink + "DD", lineHeight: 1.7 }}>{result.color[lang]}</div>
       </div>
       <div className="p-5 rounded-[18px] mb-4" style={{ background: "rgba(224,169,158,.1)", border: "1px solid rgba(224,169,158,.25)" }}>
-        <div className="text-[15px] font-medium" style={{ color: C.ink, lineHeight: 2 }}>💬 {result.msg}</div>
+        <div className="text-[15px] font-medium" style={{ color: C.ink, lineHeight: 2 }}>💬 {result.msg[lang]}</div>
       </div>
       <ShareCardButton lang={lang} buildOpts={() => ({
         lang,
@@ -49,8 +49,8 @@ export default function Fortune() {
         feature: lang === "zh" ? "今日运势" : "TODAY",
         stars: result.stars,
         verdict: t("fortune.heading"),
-        subMain: result.kw.join("  ·  "),
-        quote: ((result.msg.split(/[.。]/)[0] || result.msg).trim()) + ".",
+        subMain: result.kw[lang].join("  ·  "),
+        quote: ((result.msg[lang].split(/[.。]/)[0] || result.msg[lang]).trim()) + (lang === "zh" ? "。" : "."),
       })} />
       <button onClick={() => setResult(null)} className="w-full mt-3 py-4 rounded-2xl text-[14px] font-semibold cursor-pointer" style={{ background: C.card, color: C.sub, border: `1px solid ${C.line}` }}>{t("fortune.retry")}</button>
     </div>
